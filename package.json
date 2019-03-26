@@ -1,0 +1,48 @@
+{
+  "name": "AppBkav",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "immutable": "^4.0.0-rc.12",
+    "react": "16.8.3",
+    "react-native": "0.58.5",
+    "react-native-debugger": "^1.1.0",
+    "react-native-gesture-handler": "^1.0.15",
+    "react-navigation": "^3.3.0",
+    "react-navigation-redux-helpers": "^3.0.0",
+    "react-redux": "^5.0.7",
+    "reduce-reducers": "^0.1.2",
+    "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.5",
+    "redux-immutable": "^4.0.0",
+    "redux-saga": "^0.16.2",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^3.0.1",
+    "rn-fetch-blob": "^0.10.13"
+  },
+  "devDependencies": {
+    "@babel/core": "7.3.4",
+    "@babel/runtime": "7.3.4",
+    "babel-jest": "24.5.0",
+    "immutable-devtools": "^0.1.4",
+    "jest": "24.5.0",
+    "metro-react-native-babel-preset": "0.53.0",
+    "react-native-debugger-open": "^0.3.17",
+    "react-test-renderer": "16.8.3",
+    "remote-redux-devtools": "^0.5.13",
+    "remotedev-server": "^0.3.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
