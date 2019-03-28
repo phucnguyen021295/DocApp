@@ -14,10 +14,39 @@
 
 'use strict';
 
-import {all, call} from 'redux-saga/effects';
+import {all, call, take} from 'redux-saga/effects';
+import {callApi} from '../base/apis/callApi';
+import {OBJECT_UI, objectApi, OBJECT_TYPE} from '../base/apis/actionApi';
+import {fetchEntity} from '../base/apis/fetchEntity';
+
+
+const apiFn = fetchEntity.bind(null, objectApi.get, callApi);
+
+const watchGetObject = function* watchGetObject() {
+    while (true) { // eslint-disable-line
+        const {payload}  = yield take(OBJECT_UI.GET);
+        const {options} = payload;
+        debugger;
+        yield call(apiFn, options);
+        // yield put(ActionTypes.action(ActionTypes.LOAD_PAGES));
+        // yield put(ActionTypes.action(ActionTypes.DESELECT_PAGES));
+    }
+};
+
+const watchGetObjectSuccess = function* watchGetObjectSuccess() {
+    while (true) { // eslint-disable-line
+        const payload = yield take(OBJECT_TYPE.GET.SUCCESS);
+        debugger;
+        // yield put(ActionTypes.action(ActionTypes.LOAD_PAGES));
+        // yield put(ActionTypes.action(ActionTypes.DESELECT_PAGES));
+    }
+};
+
 
 const getRouterSaga = function* getRouterSaga() {
     yield all([
+        call(watchGetObject),
+        call(watchGetObjectSuccess),
     ]);
 };
 

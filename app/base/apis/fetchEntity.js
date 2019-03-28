@@ -6,27 +6,21 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 20/03/19.
+ * @author phucnhb@bkav.com on 28/03/19.
  *
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
-
 'use strict';
 
-import {INCREASE, DECREASE} from '../actions';
+import {put, call} from 'redux-saga/effects';
 
-const initialState = 0;
-
-export default function (state = initialState, action) {
-    switch (action.type) {
-        case INCREASE:
-            return state + 1;
-
-        case DECREASE:
-            return state - 1;
-
-        default:
-            return state;
+export const fetchEntity = function* fetchEntity(entity, apiFn, original, ...args) {
+    yield put(entity.request(original));
+    const { response, error } = yield call(apiFn, original);
+    if (response) {
+        yield put(entity.success(response));
+    } else {
+        yield put(entity.failure(error));
     }
-}
+};

@@ -21,57 +21,63 @@ import {
     Image,
     TouchableHighlight,
     TouchableOpacity,
+    Platform
 } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Components
 import {MediumText} from '../../../base/components/Text';
 
+// Styles
 import styles from './styles/index.css';
 
 class HeaderNavigation extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     onChangeNavigation = () => {
-        this.props.navigation.openDrawer()
+        this.props.navigation.toggleDrawer()
     };
 
     onGoBack = () => {
+        debugger;
         this.props.navigation.goBack();
         return true;
     };
 
-    renderBtnBack() {
-        const {title} = this.props;
-        return (
-            <TouchableOpacity
-                style={{paddingLeft: 30}}
-                onPress={this.onGoBack}
-            >
-                <MediumText text={title} style={{color: '#ffffff'}} />
-            </TouchableOpacity>
-        )
-    }
-
-    renderTitle() {
-        const {title} = this.props;
-        return (
-            <MediumText text={title} style={{color: '#ffffff', paddingLeft: 30}} />
-        )
-    }
-
     render() {
-        const {isBtnBack} = this.props;
+        const {isBtnBack, title} = this.props;
         return (
             <View style={styles.container}>
-                <TouchableOpacity
-                    style={{ paddingHorizontal: 15, paddingVertical: 10, width: 40 }}
-                    onPress={this.onChangeNavigation}>
-                    <Image
-                        style={{ width: 20, height: 20 }}
-                        source={require('../../../main/images/menu-button.png')}
-                    />
-                </TouchableOpacity>
                 {
-                    isBtnBack ? this.renderBtnBack() : this.renderTitle()
+                    isBtnBack ?
+                        (
+                            <TouchableOpacity
+                                style={styles.btn}
+                                onPress={this.onGoBack}
+                            >
+                                <Ionicons
+                                    name={Platform.OS === 'ios' ? "ios-arrow-back" : "md-arrow-back"}
+                                    size={25}
+                                    color={"#ffffff"}
+                                />
+                            </TouchableOpacity>
+                        ) :
+                        (
+                            <TouchableOpacity
+                                style={styles.btn}
+                                onPress={this.onChangeNavigation}
+                            >
+                                <Ionicons
+                                    name={Platform.OS === 'ios' ? "ios-menu" : "md-menu"}
+                                    size={25}
+                                    color={"#ffffff"}
+                                />
+                            </TouchableOpacity>
+                        )
                 }
+                <MediumText text={title} style={styles.title} />
             </View>
         );
     }

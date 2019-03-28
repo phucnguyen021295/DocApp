@@ -25,7 +25,7 @@ class DocumentList extends Component {
         return (
             <VirtualizedList
                 data={documentIds}
-                style={{backgroundColor: 'white', flex: 1, paddingHorizontal: 15}}
+                style={{flex: 1, paddingHorizontal: 15}}
                 getItemCount={this.getItemCount}
                 getItem={this.getItem}
                 keyExtractor={this.keyExtractor}

@@ -18,11 +18,9 @@ import { combineReducers } from 'redux-immutable';
 
 import hasDocumentReducer from '../document/reducers/hasDocument';
 import documentReducer from '../document/reducers/document';
-import counterReducer from './tesr';
 import ui from './ui';
 
 const rootReducer = combineReducers({
-    'counter': counterReducer,
     'ui': ui,
     'HasDocument': hasDocumentReducer,
     'Document': documentReducer

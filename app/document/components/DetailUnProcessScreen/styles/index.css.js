@@ -6,6 +6,14 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         backgroundColor: '#4267b2'
     },
+    content: {
+        flex: 1,
+        backgroundColor: '#ffffff',
+    },
+    contentContainer: {
+        flex: 1,
+        paddingHorizontal: 15
+    }
 });
 
 export default styles;

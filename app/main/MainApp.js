@@ -14,12 +14,14 @@
 
 'use strict';
 
+import React from 'react';
 import { AppRegistry, Dimensions } from 'react-native';
 import {
     createDrawerNavigator,
     createAppContainer,
     createSwitchNavigator,
     createStackNavigator,
+    DrawerItems,
 } from 'react-navigation';
 
 // SignIn
@@ -32,14 +34,13 @@ import DetailUnProcessScreen from '../document/components/DetailUnProcessScreen'
 import WithdrawalComponent from './draw/WithdrawalComponent';
 import PaymentCodeComponent from './draw/PaymentCodeComponent';
 import ScanCodeComponent from './draw/ScanCodeComponent';
+import AboutExpireScreen from '../document/components/AboutExpireScreen';
 
-var {height, width} = Dimensions.get('window');
-
+const {height, width} = Dimensions.get('window');
 
 const AuthStack = createStackNavigator({
     SignIn: SignInScreen
 });
-
 
 const routeConfigs = {
     UnProcessScreen: {
@@ -47,6 +48,9 @@ const routeConfigs = {
     },
     DetailUnProcessScreen: {
         screen: DetailUnProcessScreen
+    },
+    AboutExpireScreen: {
+        screen: AboutExpireScreen
     },
     ScanCode: {
         screen: ScanCodeComponent,
@@ -68,7 +72,8 @@ const drawerNavigatorConfig = {
     drawerIcon: {
         tintColor: 'red',
     },
-    order: ["UnProcessScreen", "DetailUnProcessScreen", "ScanCode", "Withdrawal", "PaymentCode"],
+    contentComponent: (props) => <DrawerItems {...props} />
+    // order: ["UnProcessScreen", "ScanCode", "Withdrawal", "PaymentCode"],
 };
 export const AppStack = createDrawerNavigator(routeConfigs, drawerNavigatorConfig);
 

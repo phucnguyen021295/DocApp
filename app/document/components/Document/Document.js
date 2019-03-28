@@ -18,6 +18,17 @@ class Document extends Component {
     }
 
     onChangeNavigation = () => {
+        // const options = {
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': "application/json",
+        //         'Company-Id': '71124658431777',
+        //         'Authorization': 'eyJ0eXBlIjoiand0IiwiYWxnIjoiUlM1MTIiLCJraWQiOiIwIn0.eyJzdWIiOiIyMTEyNDM2NzE0OTY1OTkiLCJhdWQiOiIxMjM0LTU2NzgtOTEwIiwibmJmIjoxNTUzNzU2NzQ4LCJpc3MiOiJzc28uc253LmNvbSIsImFsaWFzIjoiMjExMjQzNjcxNDk2NTk5LTE0ZWYtMTAyLWYwMSIsImlkIjoiMjExMjQzNjcxNDk2NTk5IiwiZXhwIjoxNTU0MzYxNTQ4LCJpYXQiOjE1NTM3NTY3NDgsImVtYWlsIjoicGh1Y25oYkBia2F2LmNvbSJ9.NWBvrU9gfAnAUPdyd6I_mAarDkL-BIVxvNqEsenX9Ba-FIq9SpYIt_-IWKTcXieu7B-iUbq-zatfWcjMoC8md48jQ5Aa7pZZeLIEQLbVO3_N0tWAfbT_4vuXOJ6voOOUi_tdWeaNSg_WERHbYyTWW1vVMdkUY2fDrjJgmr0vfP9EgS9emOOBW1GSxsGLeQvNBG1cbbrio3quizZ9ifjpUCRBwIZzKi6ykO1mBz_y2wia2nusY3AyRQlb1Fii6zD3fblFgg843u2FsbHoVEY1QDtB9AWUl_LpLrWtA10AK90hW28DZe8hRUGUh6nbqQK46kyIvrI1jsEjDyjCiIF-Ig',
+        //     },
+        //     url: 'https://messengervala.bkav.com/211243671496599/threads?limit=7&maxscore=1553652668415',
+        // };
+        // this.props.getDoc(options);
+        debugger;
         this.props.navigation.navigate("DetailUnProcessScreen");
     };
 
@@ -40,6 +51,7 @@ class Document extends Component {
 Document.propTypes = {
     document: PropTypes.object,
     navigation: PropTypes.object,
+    getDoc: PropTypes.func
 };
 
 export default withNavigation(Document);

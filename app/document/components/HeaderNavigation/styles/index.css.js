@@ -9,6 +9,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#124e80'
     },
+    btn: {
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        width: 55,
+    },
+    title: {
+        color: '#ffffff',
+        paddingLeft: 30,
+    }
 });
 
 export default styles;

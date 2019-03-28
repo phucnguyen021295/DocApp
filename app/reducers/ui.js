@@ -1,7 +1,7 @@
 'use strict';
 
 import {fromJS, remove } from 'immutable';
-import createReducer from '../shares/reducers/createReducer';
+import createReducer from '../base/reducers/createReducer';
 
 // import * as uiAction from '../actions/ui';
 import uiStateDefault from './data.default';
