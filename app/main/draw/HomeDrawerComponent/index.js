@@ -22,7 +22,7 @@ import {
     TouchableHighlight,
     SafeAreaView,
 } from 'react-native';
-import HeaderComponent from '../../../document/components/HeaderNavigation';
+import HeaderComponent from '../../components/HeaderNavigation';
 
 const backgroundColor = '#0067a7';
 export default class HomeComponent extends Component {

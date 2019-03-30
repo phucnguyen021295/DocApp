@@ -17,16 +17,16 @@ import React, { Component } from 'react';
 import {
     View,
     SafeAreaView,
+    ScrollView,
 } from 'react-native';
 
 import HeaderNavigation from '../../../main/components/HeaderNavigation';
-import DocumentSearch from '../DocumentSearch';
-import DocumentListContainer from '../DocumentList/DocumentListContainer';
+import Text from '../../../base/components/Text';
 
 import styles from './styles/index.css';
 
-const  drawerLabel = 'Văn bản sắp hết hạn xử lý';
-class AboutExpireScreen extends Component {
+const  drawerLabel = 'Lịch họp';
+class UnProcessScreen extends Component {
     static navigationOptions = ({ navigation }) => {
         // let drawerIcon = () => (
         //     <Image
@@ -41,14 +41,14 @@ class AboutExpireScreen extends Component {
 
         return (
             <SafeAreaView style={styles.container}>
-                <HeaderNavigation {...this.props} title={drawerLabel} />
-                <View style={{flex: 1, backgroundColor: 'white',}}>
-                    <DocumentSearch />
-                    <DocumentListContainer />
+                <HeaderNavigation {...this.props} title={drawerLabel} isBtnBack={true} />
+                <View style={styles.content}>
+                    <ScrollView contentContainerStyle={styles.contentContainer}>
+                    </ScrollView>
                 </View>
             </SafeAreaView>
         );
     }
 }
 
-export default AboutExpireScreen;
+export default UnProcessScreen;

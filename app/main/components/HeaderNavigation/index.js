@@ -26,7 +26,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Components
-import {MediumText} from '../../../base/components/Text';
+import {MediumText} from '../../../base/components/Text/index';
 
 // Styles
 import styles from './styles/index.css';
@@ -41,7 +41,6 @@ class HeaderNavigation extends Component {
     };
 
     onGoBack = () => {
-        debugger;
         this.props.navigation.goBack();
         return true;
     };

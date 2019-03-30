@@ -21,26 +21,91 @@ import {
     StatusBar,
     View,
     SafeAreaView,
+    Image,
+    KeyboardAvoidingView,
+    TouchableOpacity,
+    TextInput,
 } from 'react-native';
+import Text from '../../../base/components/Text';
+
 import styles from './styles/index.css';
 
 class SignInScreen extends React.Component {
-    static navigationOptions = {
-        title: 'Please sign in',
-    };
-
-    render() {
-        return (
-            <SafeAreaView style={styles.container}>
-                <Button title="Sign in!" onPress={this._signInAsync} />
-            </SafeAreaView>
-        );
+    constructor(props) {
+        super(props);
+        this.state = {
+            showPass: true
+        }
     }
 
-    _signInAsync = async () => {
+    onSignIn = async () => {
         await AsyncStorage.setItem('userToken', 'abc');
         this.props.navigation.navigate('App');
     };
+
+    showPass = () => {
+        const {showPass} = this.state;
+        this.setState({showPass: showPass ? false : true});
+    };
+
+    render() {
+        const {showPass} = this.state;
+        return (
+            <SafeAreaView style={styles.container}>
+                <StatusBar barStyle="light-content" />
+                    <View style={styles.containerLogo}>
+                        <Image source={require('./styles/images/logo.png')} style={styles.image} />
+                        <Text style={styles.text}>REACT NATIVE</Text>
+                    </View>
+                    <View style={styles.containerForm}>
+                        <View style={styles.inputWrapper}>
+                            <Image
+                                style={styles.inlineImg}
+                                source={require('./styles/images/username.png')}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Tên đăng nhập"
+                                autoCorrect={false}
+                                autoCapitalize={false}
+                                returnKeyType='done'
+                                placeholderTextColor="white"
+                                underlineColorAndroid="transparent"
+                            />
+                        </View>
+                        <View style={styles.inputWrapper}>
+                            <Image
+                                style={styles.inlineImg}
+                                source={require('./styles/images/password.png')}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Mật khẩu"
+                                autoCorrect={false}
+                                autoCapitalize={false}
+                                returnKeyType='done'
+                                secureTextEntry={showPass}
+                                placeholderTextColor="white"
+                                underlineColorAndroid="transparent"
+                            />
+                            <TouchableOpacity
+                                activeOpacity={0.7}
+                                style={styles.btnEye}
+                                onPress={this.showPass}>
+                                <Image source={require('./styles/images/eye_black.png')} style={styles.iconEye} />
+                            </TouchableOpacity>
+                        </View>
+                        <TouchableOpacity
+                            activeOpacity={0.7}
+                            style={styles.btnSignIn}
+                            onPress={this.onSignIn}
+                        >
+                            <Text text={"Đăng nhập"} style={{color: "white"}} />
+                        </TouchableOpacity>
+                    </View>
+            </SafeAreaView>
+        );
+    }
 }
 
 export default SignInScreen;

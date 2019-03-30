@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingVertical: 5,
         paddingHorizontal: 10,
-        borderRadius: 15
+        borderRadius: 12
     },
     btnSearch: {
         position: 'absolute',
@@ -40,9 +40,10 @@ const styles = StyleSheet.create({
         height: 30,
         backgroundColor: 'red',
         alignItems: 'center',
-        borderBottomRightRadius: 15,
-        borderTopRightRadius: 15,
-        lineHeight: 25
+        borderBottomRightRadius: 12,
+        borderTopRightRadius: 12,
+        lineHeight: 25,
+        paddingTop: 3
     }
 });
 

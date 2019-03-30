@@ -18,7 +18,7 @@ import React, { Component } from 'react';
 import {
     Text, View, Image, TouchableHighlight,
 } from 'react-native';
-import HeaderComponent from '../../../document/components/HeaderNavigation';
+import HeaderComponent from '../../components/HeaderNavigation';
 import {TabNavigator} from './TabNavigator'; // đưa tab vào page Home, nên chỉ có trang Home mới xuất hiện tab
 
 const backgroundColor = '#0067a7';

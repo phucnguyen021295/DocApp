@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         // borderBottom: 1,
         borderBottomColor: '#dedede',
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+        minHeight: 74
     },
 
     text: {

@@ -19,7 +19,7 @@ import React, { Component } from 'react';
 import {
     Text, View, Image, TouchableHighlight
 } from 'react-native';
-import HeaderComponent from '../../../document/components/HeaderNavigation';
+import HeaderComponent from '../../components/HeaderNavigation';
 
 export default class WithdrawalComponent extends Component {
     static navigationOptions = ({ navigation }) => {

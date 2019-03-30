@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 import DocumentEvent from '../DocumentEvent';
-import HeaderNavigation from '../HeaderNavigation';
+import HeaderNavigation from '../../../main/components/HeaderNavigation';
 import Text from '../../../base/components/Text';
 
 import styles from './styles/index.css';

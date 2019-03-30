@@ -24,6 +24,8 @@ import {
     DrawerItems,
 } from 'react-navigation';
 
+import DrawerContent from './components/DrawerContent';
+
 // SignIn
 import AuthLoadingScreen from './components/AuthLoadingScreen';
 import SignInScreen from './components/SignInScreen';
@@ -31,49 +33,54 @@ import SignInScreen from './components/SignInScreen';
 // Main
 import UnProcessScreen from '../document/components/UnProcessScreen';
 import DetailUnProcessScreen from '../document/components/DetailUnProcessScreen';
-import WithdrawalComponent from './draw/WithdrawalComponent';
-import PaymentCodeComponent from './draw/PaymentCodeComponent';
-import ScanCodeComponent from './draw/ScanCodeComponent';
 import AboutExpireScreen from '../document/components/AboutExpireScreen';
+import ReceiveScreen from '../document/components/ReceiveScreen';
+import ProcessScreen from '../document/components/ProcessScreen';
+import InternalScreen from '../document/components/InternalScreen';
+import NoteScreen from '../document/components/NoteScreen';
+import MeetingScreen from '../calendar/components/MeetingScreen';
 
 const {height, width} = Dimensions.get('window');
 
 const AuthStack = createStackNavigator({
     SignIn: SignInScreen
+}, {
+    headerMode: 'none'
 });
 
 const routeConfigs = {
-    UnProcessScreen: {
-        screen: UnProcessScreen,
-    },
-    DetailUnProcessScreen: {
-        screen: DetailUnProcessScreen
-    },
-    AboutExpireScreen: {
-        screen: AboutExpireScreen
-    },
-    ScanCode: {
-        screen: ScanCodeComponent,
-    },
-    Withdrawal: {
-        screen: WithdrawalComponent,
-    },
-    PaymentCode: {
-        screen: PaymentCodeComponent,
-    },
+    UnProcessScreen: UnProcessScreen,
+    DetailUnProcessScreen: DetailUnProcessScreen,
+    AboutExpireScreen: AboutExpireScreen,
+    ReceiveScreen: ReceiveScreen,
+    ProcessScreen: ProcessScreen,
+    InternalScreen: InternalScreen,
+    NoteScreen: NoteScreen,
+    MeetingScreen: MeetingScreen,
+
 };
 const drawerNavigatorConfig = {
     initialRouteName: 'UnProcessScreen',
     drawerWidth: width / 1.2,
     drawerPosition: 'left',
+    useNativeAnimations: true,
+    drawerType: 'back',
     contentOptions: {
-        activeTintColor: 'red',
+        activeTintColor: '#e91e63',
+        itemsContainerStyle: {
+            marginVertical: 0,
+        },
+        iconContainerStyle: {
+            opacity: 1
+        },
+        labelStyle: {
+            color: 'gray',
+        }
     },
     drawerIcon: {
         tintColor: 'red',
     },
-    contentComponent: (props) => <DrawerItems {...props} />
-    // order: ["UnProcessScreen", "ScanCode", "Withdrawal", "PaymentCode"],
+    contentComponent: (props) => <DrawerContent {...props} />
 };
 export const AppStack = createDrawerNavigator(routeConfigs, drawerNavigatorConfig);
 
