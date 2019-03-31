@@ -14,6 +14,7 @@
 'use strict';
 
 import {StyleSheet} from 'react-native';
+import {colorBlue} from '../../../../shares/styles/color';
 
 const styles = StyleSheet.create({
     container: {
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     },
     headerContainer: {
         height: 40,
-        backgroundColor: '#124e80',
+        backgroundColor: colorBlue,
         alignItems: 'center',
         flexDirection: 'row'
     },

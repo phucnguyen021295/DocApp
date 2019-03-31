@@ -3,6 +3,7 @@ import {
     View,
     SafeAreaView,
 } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import HeaderNavigation from '../../../main/components/HeaderNavigation';
 import DocumentSearch from '../DocumentSearch';
@@ -13,13 +14,14 @@ import styles from './styles/index.css';
 const  drawerLabel = 'Văn bản chưa xử lý';
 class UnProcessScreen extends Component {
     static navigationOptions = ({ navigation }) => {
-        // let drawerIcon = () => (
-        //     <Image
-        //         source={require('./../../images/home-icon.png')}
-        //         style={{ width: 26, height: 26, tintColor: backgroundColor }}
-        //     />
-        // );
-        return {drawerLabel};
+        let drawerIcon = () => (
+            <Ionicons
+                name={"ios-arrow-forward"}
+                size={20}
+                color={"#bbbbbb"}
+            />
+        );
+        return {drawerLabel, drawerIcon};
     };
 
     render() {

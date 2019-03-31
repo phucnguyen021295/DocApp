@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {colorBlue} from '../../../../shares/styles/color'
 
 const styles = StyleSheet.create({
     container: {
@@ -7,7 +8,7 @@ const styles = StyleSheet.create({
         // justifyContent: 'flex-start',
         // alignItems: 'center',
         alignItems: 'center',
-        backgroundColor: '#124e80'
+        backgroundColor: colorBlue
     },
     btn: {
         paddingHorizontal: 15,

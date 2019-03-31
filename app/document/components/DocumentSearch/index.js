@@ -62,7 +62,7 @@ class DocumentSearch extends Component {
                     <Ionicons
                         name={Platform.OS === 'ios' ? "ios-search" : "md-search"}
                         size={24}
-                        color={"#ffffff"}
+                        color={"#bbbbbb"}
                     />
                 </TouchableOpacity>
             </View>

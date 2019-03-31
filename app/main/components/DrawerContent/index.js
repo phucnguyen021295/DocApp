@@ -15,10 +15,10 @@
 
 import React, { Component } from 'react';
 import {DrawerItems} from 'react-navigation';
-import { View, TouchableOpacity, Platform, AsyncStorage } from 'react-native'
+import { View, TouchableOpacity, Platform, AsyncStorage, ScrollView } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import Text from '../../../base/components/Text';
+import Text, {MediumText} from '../../../base/components/Text';
 
 import styles from './styles/index.css';
 
@@ -31,35 +31,38 @@ class DrawerContent extends Component {
 
     logout = () => {
         AsyncStorage.clear();
+        this.props.navigation.navigate("Auth");
     };
 
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.headerContainer}>
-                    <TouchableOpacity
-                        style={styles.btnBack}
-                        onPress={this.onGoBack}
-                    >
-                        <Ionicons
-                            name={Platform.OS === 'ios' ? "ios-arrow-back" : "md-arrow-back"}
-                            size={25}
-                            color={"#ffffff"}
-                        />
-                    </TouchableOpacity>
-                    <Text text={'Nguyễn Hồng Phúc'} style={{color: '#ffffff'}} />
-                </View>
-                <View style={styles.screenContainer}>
-                    <DrawerItems {...this.props} />
-                </View>
-                <View>
-                    <TouchableOpacity
-                        style={styles.btnBack}
-                        onPress={this.logout}
-                    >
-                        <Text text={"Thoát"} style={{color: 'gray'}} />
-                    </TouchableOpacity>
-                </View>
+                <ScrollView>
+                    <View style={styles.headerContainer}>
+                        <TouchableOpacity
+                            style={styles.btnBack}
+                            onPress={this.onGoBack}
+                        >
+                            <Ionicons
+                                name={Platform.OS === 'ios' ? "ios-arrow-back" : "md-arrow-back"}
+                                size={25}
+                                color={"#ffffff"}
+                            />
+                        </TouchableOpacity>
+                        <Text text={'Nguyễn Hồng Phúc'} style={{color: '#ffffff'}} />
+                    </View>
+                    <View style={styles.screenContainer}>
+                        <DrawerItems {...this.props} />
+                    </View>
+                    <View>
+                        <TouchableOpacity
+                            style={styles.btnBack}
+                            onPress={this.logout}
+                        >
+                            <MediumText text={"Thoát"} style={{color: 'gray'}} />
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
             </View>
 
         )

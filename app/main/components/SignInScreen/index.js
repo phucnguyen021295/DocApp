@@ -34,7 +34,9 @@ class SignInScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showPass: true
+            showPass: true,
+            userName: '',
+            password: '',
         }
     }
 
@@ -48,6 +50,14 @@ class SignInScreen extends React.Component {
         this.setState({showPass: showPass ? false : true});
     };
 
+    onChangeUserName = (userName) => {
+        this.setState({userName});
+    };
+
+    onChangePassWord = (password) => {
+        this.setState({password});
+    };
+
     render() {
         const {showPass} = this.state;
         return (
@@ -55,7 +65,7 @@ class SignInScreen extends React.Component {
                 <StatusBar barStyle="light-content" />
                     <View style={styles.containerLogo}>
                         <Image source={require('./styles/images/logo.png')} style={styles.image} />
-                        <Text style={styles.text}>REACT NATIVE</Text>
+                        <Text text={"REACT NATIVE"} style={styles.text} />
                     </View>
                     <View style={styles.containerForm}>
                         <View style={styles.inputWrapper}>
@@ -71,6 +81,7 @@ class SignInScreen extends React.Component {
                                 returnKeyType='done'
                                 placeholderTextColor="white"
                                 underlineColorAndroid="transparent"
+                                onChangeText={this.onChangeUserName}
                             />
                         </View>
                         <View style={styles.inputWrapper}>
@@ -87,6 +98,7 @@ class SignInScreen extends React.Component {
                                 secureTextEntry={showPass}
                                 placeholderTextColor="white"
                                 underlineColorAndroid="transparent"
+                                onChangeText={this.onChangePassWord}
                             />
                             <TouchableOpacity
                                 activeOpacity={0.7}

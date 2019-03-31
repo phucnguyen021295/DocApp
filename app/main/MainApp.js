@@ -39,6 +39,7 @@ import ProcessScreen from '../document/components/ProcessScreen';
 import InternalScreen from '../document/components/InternalScreen';
 import NoteScreen from '../document/components/NoteScreen';
 import MeetingScreen from '../calendar/components/MeetingScreen';
+import WorkingScheduleScreen from '../calendar/components/WorkingScheduleScreen';
 
 const {height, width} = Dimensions.get('window');
 
@@ -57,6 +58,7 @@ const routeConfigs = {
     InternalScreen: InternalScreen,
     NoteScreen: NoteScreen,
     MeetingScreen: MeetingScreen,
+    WorkingScheduleScreen: WorkingScheduleScreen
 
 };
 const drawerNavigatorConfig = {
@@ -75,6 +77,11 @@ const drawerNavigatorConfig = {
         },
         labelStyle: {
             color: 'gray',
+            // marginLeft: 0
+        },
+        itemStyle: {
+            flexDirection: 'row-reverse',
+            justifyContent: 'space-between'
         }
     },
     drawerIcon: {

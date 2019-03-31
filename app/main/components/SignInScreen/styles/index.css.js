@@ -17,13 +17,14 @@ const styles = StyleSheet.create({
     containerLogo: {
         alignItems: 'center',
         justifyContent: 'center',
+        paddingVertical: 10
     },
     image: {
         width: 80,
         height: 80,
     },
     text: {
-        color: 'white',
+        color: '#000000',
         fontWeight: 'bold',
         backgroundColor: 'transparent',
         marginTop: 20,
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         backgroundColor: '#4267b2',
-        paddingTop: '20%'
+        paddingTop: '30%'
         // justifyContent: "center"
     },
     btnEye: {

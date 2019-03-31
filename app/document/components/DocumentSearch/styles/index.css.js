@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     },
     textInput: {
         height: 30,
-        borderColor: 'gray',
+        borderColor: '#bbbbbb',
         borderWidth: 1,
         width: '100%',
         paddingVertical: 5,
@@ -38,12 +38,18 @@ const styles = StyleSheet.create({
         bottom: 5,
         width: 40,
         height: 30,
-        backgroundColor: 'red',
+        backgroundColor: '#ffffff',
         alignItems: 'center',
         borderBottomRightRadius: 12,
         borderTopRightRadius: 12,
         lineHeight: 25,
-        paddingTop: 3
+        paddingTop: 3,
+        borderBottomWidth: 1,
+        borderBottomColor: '#bbbbbb',
+        borderTopColor: '#bbbbbb',
+        borderTopWidth: 1,
+        borderRightColor: '#bbbbbb',
+        borderRightWidth: 1
     }
 });
 

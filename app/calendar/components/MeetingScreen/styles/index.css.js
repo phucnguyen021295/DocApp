@@ -14,6 +14,7 @@
 'use strict';
 
 import {StyleSheet} from 'react-native';
+import {colorBlue} from '../../../../shares/styles/color';
 
 const styles = StyleSheet.create({
     container: {
@@ -25,8 +26,20 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff'
     },
     contentContainer: {
-        flex: 1,
-        flexDirection: "column"
+        // flex: 1,
+        // flexDirection: "column"
+    },
+    head: { height: 40, backgroundColor: '#f1f8ff' },
+    text: { textAlign: 'center', fontWeight: '100' },
+    header: { height: 40, backgroundColor: colorBlue, color: '#ffffff' },
+    dataWrapper: { marginTop: -1 },
+    row: { height: 'auto', backgroundColor: '#E7E6E1' },
+    textBtn: {
+        color: "gray",
+        fontSize: 14,
+    },
+    space: {
+        paddingHorizontal: 6
     }
 });
 

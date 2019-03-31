@@ -18,46 +18,112 @@ import {
     View,
     SafeAreaView,
     ScrollView,
+    Platform,
+    TouchableOpacity
 } from 'react-native';
+import { Table, Row, Rows } from 'react-native-table-component';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import HeaderNavigation from '../../../main/components/HeaderNavigation';
-import Text from '../../../base/components/Text';
+import Text, {MediumText} from '../../../base/components/Text';
 
 import styles from './styles/index.css';
 
 const  drawerLabel = 'Lịch họp';
-class UnProcessScreen extends Component {
+class MeetingScreen extends Component {
     static navigationOptions = ({ navigation }) => {
-        // let drawerIcon = () => (
-        //     <Image
-        //         source={require('./../../images/home-icon.png')}
-        //         style={{ width: 26, height: 26, tintColor: backgroundColor }}
-        //     />
-        // );
-        return {drawerLabel};
+        let drawerIcon = () => (
+            <Ionicons
+                name={"ios-arrow-forward"}
+                size={20}
+                color={"#bbbbbb"}
+            />
+        );
+        return {drawerLabel, drawerIcon};
+    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            tableHead: ['Ngày', 'Nội dung họp', 'Địa điểm', 'Thời gian', 'Thành phần tham dự'],
+            tableData: [
+                ['Thứ 2\n25/03/2019', '2', '3', '4', '5'],
+                ['Thứ 3\n26/03/2019', 'b', 'c', 'd', 'e'],
+                ['Thứ 4\n27/03/2019', '2', '3', '456\n789\n43545', '5'],
+                ['Thứ 5\n28/03/2019', 'b', 'c', 'd', '6'],
+                ['Thứ 6\n29/03/2019', 'b', 'c', 'd', '6'],
+                ['Thứ 7\n30/03/2019', 'b', 'c', 'd', '6'],
+                ['Chủ nhật\n31/03/2019', 'b', 'c', 'd', '6']
+            ],
+            widthArr: [100, 150, 100, 100, 180]
+        }
+    }
+
+    onChangeWeekBefore = () => {
+
+    };
+
+    onChangeWeekPresent = () => {
+
+    };
+
+    onChangeWeekAfter = () => {
+
     };
 
     render() {
 
         return (
             <SafeAreaView style={styles.container}>
-                <HeaderNavigation {...this.props} title={drawerLabel} isBtnBack={true} />
+                <HeaderNavigation {...this.props} title={drawerLabel} />
                 <View style={styles.content}>
                     <ScrollView contentContainerStyle={styles.contentContainer}>
-                        <View style={{justifyContent: "center"}}>
-                            <Text text={"Lịch họp cơ quan áp dụng từ ngày 25/03/2019 đến ngày 31/03/2019"} style={{color: 'black'}}/>
+                        <View style={{justifyContent: "center", paddingTop: 60, paddingBottom: 5}}>
+                            <MediumText
+                                text={"Lịch họp cơ quan áp dụng từ ngày 25/03/2019 đến ngày 31/03/2019"}
+                                style={{color: 'black', textAlign: 'center', fontSize: 14}}
+                            />
                         </View>
-                        <View style={{flexDirection: 'row', flex: 1}}>
-                            <View style={{flex: 2, flexDirection: "column"}}>
-                                <View style={{width: 40}}/>
+                        <ScrollView horizontal={true}>
+                            <View>
+                                <Table borderStyle={{borderColor: '#C1C0B9'}}>
+                                    <Row data={this.state.tableHead} widthArr={this.state.widthArr} style={styles.header} textStyle={[styles.text, {color: "#ffffff"}]}/>
+                                </Table>
+                                <Table borderStyle={{borderColor: '#C1C0B9'}}>
+                                    {
+                                        this.state.tableData.map((rowData, index) => (
+                                            <Row
+                                                key={index}
+                                                data={rowData}
+                                                widthArr={this.state.widthArr}
+                                                style={[styles.row, index%2 && {backgroundColor: '#F7F6E7'}]}
+                                                textStyle={styles.text}
+                                            />
+                                        ))
+                                    }
+                                </Table>
                             </View>
-                            <ScrollView style={{flex: 8, flexDirection: "column"}}  horizontal={true}>
-                                <Text text={"abdgggggggggggggggggc"}/>
-                                <Text text={"abcdfgdfgdf"}/>
-                                <Text text={"abcdfg"}/>
-                                <Text text={"abcdfgdfgdf"}/><Text text={"abc"}/>
-
-                            </ScrollView>
+                        </ScrollView>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text text={"Vuốt bảng sang ngang"} style={{paddingLeft: 15, paddingRight: 5}} />
+                            <Ionicons
+                                name={Platform.OS === 'ios' ? "ios-code" : "md-code"}
+                                size={20}
+                                color={"#bbbbbb"}
+                            />
+                        </View>
+                        <View style={{flexDirection: "row", justifyContent: "center", paddingTop: 10}}>
+                            <TouchableOpacity onPress={this.onChangeWeekBefore}>
+                                <MediumText text={"Tuần trước"} style={styles.textBtn}/>
+                            </TouchableOpacity>
+                            <Text text={"||"} style={styles.space} />
+                            <TouchableOpacity onPress={this.onChangeWeekPresent}>
+                                <MediumText text={"Tuần hiện tại"} style={styles.textBtn}/>
+                            </TouchableOpacity>
+                            <Text text={"||"} style={styles.space} />
+                            <TouchableOpacity onPress={this.onChangeWeekAfter}>
+                                <MediumText text={"Tuần sau"} style={styles.textBtn}/>
+                            </TouchableOpacity>
                         </View>
                     </ScrollView>
                 </View>
@@ -66,4 +132,4 @@ class UnProcessScreen extends Component {
     }
 }
 
-export default UnProcessScreen;
+export default MeetingScreen;
