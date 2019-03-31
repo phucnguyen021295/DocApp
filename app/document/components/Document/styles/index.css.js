@@ -13,6 +13,14 @@ const styles = StyleSheet.create({
 
     text: {
         color: 'gray',
+    },
+    textTitle: {
+        color: '#000000',
+        maxWidth: 298
+    },
+    textDate: {
+        color: '#000000'
+
     }
 });
 

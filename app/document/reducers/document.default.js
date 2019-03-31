@@ -1,7 +1,7 @@
 const document = {
     doc1: {
         id: 'doc1',
-        title: 'Trụ trì chùa Ba Vàng từng nhiều lần bị nhắc nhở',
+        title: 'Trụ trì chùa Ba Vàng từng nhiều lần bị nhắc nhở abc',
         summary: 'Giáo hội Phật giáo tỉnh Quảng Ninh nhắc nhở trụ trì chùa Ba Vàng thực hiện đúng giới luật và pháp luật, nhưng không tiến triển.',
         description: 'Ngày 22/3, Giáo hội Phật giáo tỉnh Quảng Ninh có văn bản gửi lãnh đạo tỉnh khẳng định, trụ trì chùa Ba Vàng phải chịu trách nhiệm về những hoạt động thuyết giảng "trục vong, bắt ma" của bà Phạm Thị Yến (Chủ nhiệm câu lạc bộ Cúc vàng tập tu lục hòa chùa Ba Vàng). \n' +
         '\n' +
@@ -16,7 +16,8 @@ const document = {
         'Ông còn bị phản ánh tổ chức tu học không đúng với Phật pháp như mỗi ngày ăn một bữa; nửa tháng tắm một lần; mặc pháp y mọi lúc; chư tăng vào rừng tu, học, ngủ, nghỉ trong 49 ngày đêm bất kể mưa nắng; nằm ngủ dưới đất; tịch thu y pháp của các tỳ khiêu ni (tu nữ). 40 tăng ni chùa không chấp nhận những quy định mới này đã bỏ đi.\n' +
         '\n' +
         'Đại đức Thích Đạo Hiển, Phó ban trị sự, Chánh thư ký Giáo hội tỉnh Quảng Ninh cho biết thêm, năm 2018 trụ trì chùa Ba Vàng từng bị đề nghị kỷ luật khi có phát ngôn gây chia rẽ giữa các tôn giáo. Ông Minh có những bài thuyết giảng xúc phạm thánh mẫu Liễu Hạnh khiến cộng đồng theo đạo Mẫu lên án.',
-        date: '24/3/2019'
+        date: '24/3/2019',
+        status: true
     },
     doc2: {
         id: 'doc2',
@@ -35,7 +36,8 @@ const document = {
         'Ông còn bị phản ánh tổ chức tu học không đúng với Phật pháp như mỗi ngày ăn một bữa; nửa tháng tắm một lần; mặc pháp y mọi lúc; chư tăng vào rừng tu, học, ngủ, nghỉ trong 49 ngày đêm bất kể mưa nắng; nằm ngủ dưới đất; tịch thu y pháp của các tỳ khiêu ni (tu nữ). 40 tăng ni chùa không chấp nhận những quy định mới này đã bỏ đi.\n' +
         '\n' +
         'Đại đức Thích Đạo Hiển, Phó ban trị sự, Chánh thư ký Giáo hội tỉnh Quảng Ninh cho biết thêm, năm 2018 trụ trì chùa Ba Vàng từng bị đề nghị kỷ luật khi có phát ngôn gây chia rẽ giữa các tôn giáo. Ông Minh có những bài thuyết giảng xúc phạm thánh mẫu Liễu Hạnh khiến cộng đồng theo đạo Mẫu lên án.',
-        date: '24/3/2019'
+        date: '24/3/2019',
+        status: false
     },
     doc3: {
         id: 'doc3',
@@ -54,7 +56,8 @@ const document = {
         'Ông còn bị phản ánh tổ chức tu học không đúng với Phật pháp như mỗi ngày ăn một bữa; nửa tháng tắm một lần; mặc pháp y mọi lúc; chư tăng vào rừng tu, học, ngủ, nghỉ trong 49 ngày đêm bất kể mưa nắng; nằm ngủ dưới đất; tịch thu y pháp của các tỳ khiêu ni (tu nữ). 40 tăng ni chùa không chấp nhận những quy định mới này đã bỏ đi.\n' +
         '\n' +
         'Đại đức Thích Đạo Hiển, Phó ban trị sự, Chánh thư ký Giáo hội tỉnh Quảng Ninh cho biết thêm, năm 2018 trụ trì chùa Ba Vàng từng bị đề nghị kỷ luật khi có phát ngôn gây chia rẽ giữa các tôn giáo. Ông Minh có những bài thuyết giảng xúc phạm thánh mẫu Liễu Hạnh khiến cộng đồng theo đạo Mẫu lên án.',
-        date: '24/3/2019'
+        date: '24/3/2019',
+        status: true
     },
     doc4: {
         id: 'doc4',
@@ -73,7 +76,8 @@ const document = {
         'Ông còn bị phản ánh tổ chức tu học không đúng với Phật pháp như mỗi ngày ăn một bữa; nửa tháng tắm một lần; mặc pháp y mọi lúc; chư tăng vào rừng tu, học, ngủ, nghỉ trong 49 ngày đêm bất kể mưa nắng; nằm ngủ dưới đất; tịch thu y pháp của các tỳ khiêu ni (tu nữ). 40 tăng ni chùa không chấp nhận những quy định mới này đã bỏ đi.\n' +
         '\n' +
         'Đại đức Thích Đạo Hiển, Phó ban trị sự, Chánh thư ký Giáo hội tỉnh Quảng Ninh cho biết thêm, năm 2018 trụ trì chùa Ba Vàng từng bị đề nghị kỷ luật khi có phát ngôn gây chia rẽ giữa các tôn giáo. Ông Minh có những bài thuyết giảng xúc phạm thánh mẫu Liễu Hạnh khiến cộng đồng theo đạo Mẫu lên án.',
-        date: '24/3/2019'
+        date: '24/3/2019',
+        status: true
     },
     doc5: {
         id: 'doc5',
@@ -92,7 +96,8 @@ const document = {
         'Ông còn bị phản ánh tổ chức tu học không đúng với Phật pháp như mỗi ngày ăn một bữa; nửa tháng tắm một lần; mặc pháp y mọi lúc; chư tăng vào rừng tu, học, ngủ, nghỉ trong 49 ngày đêm bất kể mưa nắng; nằm ngủ dưới đất; tịch thu y pháp của các tỳ khiêu ni (tu nữ). 40 tăng ni chùa không chấp nhận những quy định mới này đã bỏ đi.\n' +
         '\n' +
         'Đại đức Thích Đạo Hiển, Phó ban trị sự, Chánh thư ký Giáo hội tỉnh Quảng Ninh cho biết thêm, năm 2018 trụ trì chùa Ba Vàng từng bị đề nghị kỷ luật khi có phát ngôn gây chia rẽ giữa các tôn giáo. Ông Minh có những bài thuyết giảng xúc phạm thánh mẫu Liễu Hạnh khiến cộng đồng theo đạo Mẫu lên án.',
-        date: '24/3/2019'
+        date: '24/3/2019',
+        status: true
     },
     doc6: {
         id: 'doc6',
@@ -111,7 +116,8 @@ const document = {
         'Ông còn bị phản ánh tổ chức tu học không đúng với Phật pháp như mỗi ngày ăn một bữa; nửa tháng tắm một lần; mặc pháp y mọi lúc; chư tăng vào rừng tu, học, ngủ, nghỉ trong 49 ngày đêm bất kể mưa nắng; nằm ngủ dưới đất; tịch thu y pháp của các tỳ khiêu ni (tu nữ). 40 tăng ni chùa không chấp nhận những quy định mới này đã bỏ đi.\n' +
         '\n' +
         'Đại đức Thích Đạo Hiển, Phó ban trị sự, Chánh thư ký Giáo hội tỉnh Quảng Ninh cho biết thêm, năm 2018 trụ trì chùa Ba Vàng từng bị đề nghị kỷ luật khi có phát ngôn gây chia rẽ giữa các tôn giáo. Ông Minh có những bài thuyết giảng xúc phạm thánh mẫu Liễu Hạnh khiến cộng đồng theo đạo Mẫu lên án.',
-        date: '24/3/2019'
+        date: '24/3/2019',
+        status: false
     },
     doc7: {
         id: 'doc7',
@@ -130,7 +136,8 @@ const document = {
         'Ông còn bị phản ánh tổ chức tu học không đúng với Phật pháp như mỗi ngày ăn một bữa; nửa tháng tắm một lần; mặc pháp y mọi lúc; chư tăng vào rừng tu, học, ngủ, nghỉ trong 49 ngày đêm bất kể mưa nắng; nằm ngủ dưới đất; tịch thu y pháp của các tỳ khiêu ni (tu nữ). 40 tăng ni chùa không chấp nhận những quy định mới này đã bỏ đi.\n' +
         '\n' +
         'Đại đức Thích Đạo Hiển, Phó ban trị sự, Chánh thư ký Giáo hội tỉnh Quảng Ninh cho biết thêm, năm 2018 trụ trì chùa Ba Vàng từng bị đề nghị kỷ luật khi có phát ngôn gây chia rẽ giữa các tôn giáo. Ông Minh có những bài thuyết giảng xúc phạm thánh mẫu Liễu Hạnh khiến cộng đồng theo đạo Mẫu lên án.',
-        date: '24/3/2019'
+        date: '24/3/2019',
+        status: true
     },
     doc8: {
         id: 'doc8',
@@ -149,7 +156,8 @@ const document = {
         'Ông còn bị phản ánh tổ chức tu học không đúng với Phật pháp như mỗi ngày ăn một bữa; nửa tháng tắm một lần; mặc pháp y mọi lúc; chư tăng vào rừng tu, học, ngủ, nghỉ trong 49 ngày đêm bất kể mưa nắng; nằm ngủ dưới đất; tịch thu y pháp của các tỳ khiêu ni (tu nữ). 40 tăng ni chùa không chấp nhận những quy định mới này đã bỏ đi.\n' +
         '\n' +
         'Đại đức Thích Đạo Hiển, Phó ban trị sự, Chánh thư ký Giáo hội tỉnh Quảng Ninh cho biết thêm, năm 2018 trụ trì chùa Ba Vàng từng bị đề nghị kỷ luật khi có phát ngôn gây chia rẽ giữa các tôn giáo. Ông Minh có những bài thuyết giảng xúc phạm thánh mẫu Liễu Hạnh khiến cộng đồng theo đạo Mẫu lên án.',
-        date: '24/3/2019'
+        date: '24/3/2019',
+        status: true
     },
     doc9: {
         id: 'doc9',
@@ -168,7 +176,8 @@ const document = {
         'Ông còn bị phản ánh tổ chức tu học không đúng với Phật pháp như mỗi ngày ăn một bữa; nửa tháng tắm một lần; mặc pháp y mọi lúc; chư tăng vào rừng tu, học, ngủ, nghỉ trong 49 ngày đêm bất kể mưa nắng; nằm ngủ dưới đất; tịch thu y pháp của các tỳ khiêu ni (tu nữ). 40 tăng ni chùa không chấp nhận những quy định mới này đã bỏ đi.\n' +
         '\n' +
         'Đại đức Thích Đạo Hiển, Phó ban trị sự, Chánh thư ký Giáo hội tỉnh Quảng Ninh cho biết thêm, năm 2018 trụ trì chùa Ba Vàng từng bị đề nghị kỷ luật khi có phát ngôn gây chia rẽ giữa các tôn giáo. Ông Minh có những bài thuyết giảng xúc phạm thánh mẫu Liễu Hạnh khiến cộng đồng theo đạo Mẫu lên án.',
-        date: '24/3/2019'
+        date: '24/3/2019',
+        status: true
     },
     doc10: {
         id: 'doc10',
@@ -187,7 +196,8 @@ const document = {
         'Ông còn bị phản ánh tổ chức tu học không đúng với Phật pháp như mỗi ngày ăn một bữa; nửa tháng tắm một lần; mặc pháp y mọi lúc; chư tăng vào rừng tu, học, ngủ, nghỉ trong 49 ngày đêm bất kể mưa nắng; nằm ngủ dưới đất; tịch thu y pháp của các tỳ khiêu ni (tu nữ). 40 tăng ni chùa không chấp nhận những quy định mới này đã bỏ đi.\n' +
         '\n' +
         'Đại đức Thích Đạo Hiển, Phó ban trị sự, Chánh thư ký Giáo hội tỉnh Quảng Ninh cho biết thêm, năm 2018 trụ trì chùa Ba Vàng từng bị đề nghị kỷ luật khi có phát ngôn gây chia rẽ giữa các tôn giáo. Ông Minh có những bài thuyết giảng xúc phạm thánh mẫu Liễu Hạnh khiến cộng đồng theo đạo Mẫu lên án.',
-        date: '24/3/2019'
+        date: '24/3/2019',
+        status: false
     },
     doc11: {
         id: 'doc11',
@@ -206,7 +216,8 @@ const document = {
         'Ông còn bị phản ánh tổ chức tu học không đúng với Phật pháp như mỗi ngày ăn một bữa; nửa tháng tắm một lần; mặc pháp y mọi lúc; chư tăng vào rừng tu, học, ngủ, nghỉ trong 49 ngày đêm bất kể mưa nắng; nằm ngủ dưới đất; tịch thu y pháp của các tỳ khiêu ni (tu nữ). 40 tăng ni chùa không chấp nhận những quy định mới này đã bỏ đi.\n' +
         '\n' +
         'Đại đức Thích Đạo Hiển, Phó ban trị sự, Chánh thư ký Giáo hội tỉnh Quảng Ninh cho biết thêm, năm 2018 trụ trì chùa Ba Vàng từng bị đề nghị kỷ luật khi có phát ngôn gây chia rẽ giữa các tôn giáo. Ông Minh có những bài thuyết giảng xúc phạm thánh mẫu Liễu Hạnh khiến cộng đồng theo đạo Mẫu lên án.',
-        date: '24/3/2019'
+        date: '24/3/2019',
+        status: true
     },
 };
 

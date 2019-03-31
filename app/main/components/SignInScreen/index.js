@@ -30,6 +30,20 @@ import Text from '../../../base/components/Text';
 
 import styles from './styles/index.css';
 
+const user = {
+  User: {
+      '123456789': {
+          data: {
+              id: '123456789',
+              firstName: 'Phúc',
+              fullName: 'Nguyễn Hồng Phúc',
+              date: '02/12/1995',
+              phone: '0984557391',
+          }
+      }
+  }
+};
+
 class SignInScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -37,12 +51,18 @@ class SignInScreen extends React.Component {
             showPass: true,
             userName: '',
             password: '',
+            isInvalid: false,
         }
     }
 
     onSignIn = async () => {
-        await AsyncStorage.setItem('userToken', 'abc');
-        this.props.navigation.navigate('App');
+        const {userName, password} = this.state;
+        if(userName === 'admin' && password === 'admin') {
+            await AsyncStorage.setItem('userToken', 'abc');
+            this.props.navigation.navigate('App');
+        } else {
+            this.setState({isInvalid: true})
+        }
     };
 
     showPass = () => {
@@ -59,7 +79,7 @@ class SignInScreen extends React.Component {
     };
 
     render() {
-        const {showPass} = this.state;
+        const {showPass, isInvalid} = this.state;
         return (
             <SafeAreaView style={styles.container}>
                 <StatusBar barStyle="light-content" />
@@ -107,6 +127,9 @@ class SignInScreen extends React.Component {
                                 <Image source={require('./styles/images/eye_black.png')} style={styles.iconEye} />
                             </TouchableOpacity>
                         </View>
+                        {
+                            isInvalid && <Text text={"Sai tài khoản hoặc mật khẩu"} style={{paddingBottom: 5, color: 'red' }}/>
+                        }
                         <TouchableOpacity
                             activeOpacity={0.7}
                             style={styles.btnSignIn}

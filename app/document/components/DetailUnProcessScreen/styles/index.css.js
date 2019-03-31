@@ -12,6 +12,11 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         flex: 1,
+    },
+    title: {
+        color: '#000000',
+        backgroundColor: '#bbbbbb',
+        paddingVertical: 5,
         paddingHorizontal: 15
     }
 });

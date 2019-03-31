@@ -37,8 +37,8 @@ class Document extends Component {
         return (
             <TouchableOpacity onPress={this.onChangeNavigation} style={styles.btn}>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                    <MediumText text={document.get('title')} style={styles.text} />
-                    <MediumText text={document.get('date')} style={styles.text} />
+                    <Text text={document.get('title')} style={[styles.textTitle, !document.get('status') && {color: '#980910', fontWeight: '600'}]} numberOfLines={1} />
+                    <Text text={document.get('date')} style={styles.textDate} />
                 </View>
                 <View style={{flexDirection: 'column'}}>
                     <Text text={document.get('summary')} style={styles.text} numberOfLines={2} />
