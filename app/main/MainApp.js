@@ -24,6 +24,8 @@ import {
     DrawerItems,
 } from 'react-navigation';
 
+import decorateMainAppStart from '../main/decorateMainAppStart';
+
 import DrawerContent from './components/DrawerContent';
 
 // SignIn
@@ -32,35 +34,41 @@ import SignInScreen from './components/SignInScreen';
 
 // Main
 import UnProcessScreen from '../document/components/UnProcessScreen';
-import DetailUnProcessScreen from '../document/components/DetailUnProcessScreen';
+import DetailUnProcessScreen from '../document/components/DetailDocumentScreen';
 import AboutExpireScreen from '../document/components/AboutExpireScreen';
 import ReceiveScreen from '../document/components/ReceiveScreen';
 import ProcessScreen from '../document/components/ProcessScreen';
 import InternalScreen from '../document/components/InternalScreen';
-import NoteScreen from '../document/components/NoteScreen';
+// import NoteScreen from '../document/components/NoteScreen';
 import MeetingScreen from '../calendar/components/MeetingScreen';
 import WorkingScheduleScreen from '../calendar/components/WorkingScheduleScreen';
+import PhieuTrinhScreen from '../phieutrinh/components/PhieuTrinhScreen';
+import DetailPhieuTrinhScreen from '../phieutrinh/components/DetailPhieuTrinhScreen';
 
 const {height, width} = Dimensions.get('window');
 
 const AuthStack = createStackNavigator({
-    SignIn: SignInScreen
+    SignIn: SignInScreen,
+    AuthLoadingScreen: AuthLoadingScreen,
 }, {
-    headerMode: 'none'
+    headerMode: 'none',
+    initialRouteName: 'SignIn',
 });
 
 const routeConfigs = {
     UnProcessScreen: UnProcessScreen,
-    DetailUnProcessScreen: DetailUnProcessScreen,
+    // DetailUnProcessScreen: DetailUnProcessScreen,
     AboutExpireScreen: AboutExpireScreen,
     ReceiveScreen: ReceiveScreen,
     ProcessScreen: ProcessScreen,
     InternalScreen: InternalScreen,
-    NoteScreen: NoteScreen,
+    PhieuTrinhScreen: PhieuTrinhScreen,
+    // DetailPhieuTrinhScreen: DetailPhieuTrinhScreen,
     MeetingScreen: MeetingScreen,
     WorkingScheduleScreen: WorkingScheduleScreen
 
 };
+
 const drawerNavigatorConfig = {
     initialRouteName: 'UnProcessScreen',
     drawerWidth: width / 1.2,
@@ -91,14 +99,26 @@ const drawerNavigatorConfig = {
 };
 export const AppStack = createDrawerNavigator(routeConfigs, drawerNavigatorConfig);
 
+const AppMainStack = createStackNavigator({
+    AppStack: {
+        screen: AppStack
+    },
+    DetailUnProcessScreen: {
+        screen: DetailUnProcessScreen
+    },
+}, {
+    initialRouteName: 'AppStack',
+    headerMode: 'none',
+    mode: 'modal',
+});
+
 const AppMain = createAppContainer(createSwitchNavigator(
     {
-        AuthLoadingScreen: AuthLoadingScreen,
-        App: AppStack,
+        App: decorateMainAppStart(AppMainStack),
         Auth: AuthStack,
     },
     {
-        initialRouteName: 'AuthLoadingScreen',
+        initialRouteName: 'App',
     }
 ));
 

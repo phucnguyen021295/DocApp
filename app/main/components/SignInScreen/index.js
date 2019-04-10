@@ -15,6 +15,8 @@
 'use strict';
 
 import React from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import {
     AsyncStorage,
     Button,
@@ -25,43 +27,54 @@ import {
     KeyboardAvoidingView,
     TouchableOpacity,
     TextInput,
+    ActivityIndicator
 } from 'react-native';
 import Text from '../../../base/components/Text';
 
-import styles from './styles/index.css';
+// Actions
+import {objectUI} from '../../../modules/auth/actions';
 
-const user = {
-  User: {
-      '123456789': {
-          data: {
-              id: '123456789',
-              firstName: 'Phúc',
-              fullName: 'Nguyễn Hồng Phúc',
-              date: '02/12/1995',
-              phone: '0984557391',
-          }
-      }
-  }
-};
+// Selectors
+import {getStatusApp} from '../../../ui/selectors/currentSelectors';
+
+import styles from './styles/index.css';
 
 class SignInScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             showPass: true,
-            userName: '',
+            username: '',
             password: '',
             isInvalid: false,
+            isLoadLogin: false
         }
     }
 
+    componentDidUpdate(prevProps) {
+        debugger;
+        if(prevProps.statusApp !== this.props.statusApp) {
+            if(this.props.statusApp === 'isLoginSuccess') {
+                this.goApp();
+            }
+            if(this.props.statusApp === 'isLoginFalse') {
+                this.setState({isInvalid: true, isLoadLogin: false});
+            }
+        }
+    }
+
+    goApp = () => {
+        this.props.navigation.navigate('App');
+    };
+
+
     onSignIn = async () => {
-        const {userName, password} = this.state;
-        if(userName === 'admin' && password === 'admin') {
-            await AsyncStorage.setItem('userToken', 'abc');
-            this.props.navigation.navigate('App');
+        const {username, password} = this.state;
+        if(username !== '' && password !== '') {
+            this.setState({isLoadLogin: true});
+            this.props.onLogin(username, password);
         } else {
-            this.setState({isInvalid: true})
+            this.setState({isInvalid: true, })
         }
     };
 
@@ -70,8 +83,8 @@ class SignInScreen extends React.Component {
         this.setState({showPass: showPass ? false : true});
     };
 
-    onChangeUserName = (userName) => {
-        this.setState({userName});
+    onChangeUserName = (username) => {
+        this.setState({username});
     };
 
     onChangePassWord = (password) => {
@@ -79,7 +92,7 @@ class SignInScreen extends React.Component {
     };
 
     render() {
-        const {showPass, isInvalid} = this.state;
+        const {showPass, isInvalid, isLoadLogin} = this.state;
         return (
             <SafeAreaView style={styles.container}>
                 <StatusBar barStyle="light-content" />
@@ -131,11 +144,16 @@ class SignInScreen extends React.Component {
                             isInvalid && <Text text={"Sai tài khoản hoặc mật khẩu"} style={{paddingBottom: 5, color: 'red' }}/>
                         }
                         <TouchableOpacity
+                            disabled={isLoadLogin}
                             activeOpacity={0.7}
                             style={styles.btnSignIn}
                             onPress={this.onSignIn}
                         >
-                            <Text text={"Đăng nhập"} style={{color: "white"}} />
+                            {
+                                isLoadLogin ?
+                                    <ActivityIndicator size="small" color="#00ff00" /> :
+                                    <Text text={"Đăng nhập"} style={{color: "white"}} />
+                            }
                         </TouchableOpacity>
                     </View>
             </SafeAreaView>
@@ -143,4 +161,23 @@ class SignInScreen extends React.Component {
     }
 }
 
-export default SignInScreen;
+SignInScreen.propTypes = {
+    onLogin: PropTypes.func,
+    statusApp: PropTypes.string
+};
+
+function mapStateToProps(state) {
+    const statusApp = getStatusApp(state);
+    debugger;
+    return {
+        statusApp: statusApp,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        onLogin: (username, password) => dispatch(objectUI.loginUi(username, password)),
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);

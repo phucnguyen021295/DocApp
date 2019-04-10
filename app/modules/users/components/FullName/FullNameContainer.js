@@ -18,9 +18,6 @@ import {connect} from 'react-redux';
 // Components
 import FullName from './FullName';
 
-// Selectors
-import {getItemIds} from '../../selectors/hasDocumentSelectors';
-
 function mapStateToProps(state) {
     const meId = '123456';
     return {

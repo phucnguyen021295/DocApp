@@ -15,12 +15,12 @@
 
 import {put, call} from 'redux-saga/effects';
 
-export const fetchEntity = function* fetchEntity(entity, apiFn, original, ...args) {
+export const fetchEntity = function* fetchEntity(entity, apiFn, url, original, ...args) {
     yield put(entity.request(original));
-    const { response, error } = yield call(apiFn, original);
+    const { response, error } = yield call(apiFn, url);
     if (response) {
-        yield put(entity.success(response));
+        yield put(entity.success(original, response));
     } else {
-        yield put(entity.failure(error));
+        yield put(entity.failure(original, error));
     }
 };

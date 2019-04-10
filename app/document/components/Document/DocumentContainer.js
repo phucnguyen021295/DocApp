@@ -4,7 +4,8 @@ import {connect} from 'react-redux';
 import Document from './Document';
 
 // Actions
-import {objectUI} from '../../../base/apis/actionApi';
+import {get} from '../../actions/document';
+import * as actionHandlingDoc from '../../actions/handlingDocument';
 
 // Selectors
 import {getDocument} from '../../selectors/documentSelectors';
@@ -18,7 +19,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getDoc: (options) => dispatch(objectUI.getUi({options})),
+        getDocument: (documentId, url) => dispatch(get(documentId, url)),
+        getHandlingDoc: (documentId, url) => dispatch(actionHandlingDoc.get(documentId, url))
     };
 }
 

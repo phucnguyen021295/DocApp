@@ -16,7 +16,21 @@
 import {fromJS, remove } from 'immutable';
 import createReducer from '../../../base/reducers/createReducer';
 
+import {USER} from '../actions/user';
+
+const add = (state, action) => {
+    const {data} = action.payload;
+    debugger;
+    return state.withMutations((stateNew) => {
+        data.get('list').map(item => {
+            const id = item.get('id');
+            stateNew.mergeDeep(Map([[id, item]]));
+        })
+    });
+};
+
 const userReducer = createReducer(fromJS({}), {
+    [USER.ADD]: add,
 });
 
 export default userReducer;

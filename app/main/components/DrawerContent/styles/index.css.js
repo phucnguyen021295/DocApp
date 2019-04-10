@@ -45,6 +45,16 @@ const styles = StyleSheet.create({
         height: 40,
         justifyContent: 'center',
         paddingHorizontal: 15
+    },
+    btnDraw: {
+        height: 40,
+        justifyContent: 'space-between',
+        paddingHorizontal: 15,
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    text: {
+        color: 'gray'
     }
 
 });

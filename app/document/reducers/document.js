@@ -1,9 +1,22 @@
-import {fromJS, remove } from 'immutable';
+import {fromJS, remove, Map } from 'immutable';
 import createReducer from '../../base/reducers/createReducer';
 
-import documentDefault from './document.default';
+import {DOCUMENT} from '../actions/document';
 
-const documentReducer = createReducer(fromJS(documentDefault), {
+// import documentDefault from './document.default';
+
+const add = (state, action) => {
+    const {data} = action.payload;
+    return state.withMutations((stateNew) => {
+        data.get('list').map(item => {
+            const id = item.get('id');
+            stateNew.mergeDeep(Map([[id, item]]));
+        })
+    });
+};
+
+const documentReducer = createReducer(fromJS({}), {
+    [DOCUMENT.ADD]: add,
 });
 
 export default documentReducer;

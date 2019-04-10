@@ -22,7 +22,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import HeaderNavigation from '../../../main/components/HeaderNavigation';
 import DocumentSearch from '../DocumentSearch';
-import DocumentListContainer from '../DocumentList/DocumentListContainer';
+import DocumentListContainer from './DocumentListContainer';
 
 import styles from './styles/index.css';
 

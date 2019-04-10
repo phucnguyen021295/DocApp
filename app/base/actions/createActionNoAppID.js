@@ -22,6 +22,5 @@
  * @param {*} condition
  */
 export default function createActionNoAppID(type, payload = {}, original = {}, condition = {}) {
-    // TODO by CuongNT: Can convert toan bo payload thanh immutablejs tai day neu dau vao chua la immutalblejs ?? Hoac khong phai immutalbejs thi nem exception ??
     return {type, payload, original, condition, timestamp: Date.now()};
 }

@@ -22,6 +22,17 @@ import Text, {MediumText} from '../../../base/components/Text';
 
 import styles from './styles/index.css';
 
+const drawItems = [
+    {text: 'Văn bản chưa xử lý', navigation: 'UnProcessScreen'},
+    {text: 'Văn bản sắp hết hạn xử lý', navigation: 'AboutExpireScreen'},
+    {text: 'Văn bản nhận để biết', navigation: 'ReceiveScreen'},
+    {text: 'Văn bản đã xử lý', navigation: 'ProcessScreen'},
+    {text: 'Văn bản nội bộ', navigation: 'InternalScreen'},
+    {text: 'Phiếu trình', navigation: 'PhieuTrinhScreen'},
+    {text: 'Lịch công tác lãnh đạo', navigation: 'WorkingScheduleScreen'},
+    {text: 'Lịch họp', navigation: 'MeetingScreen'},
+];
+
 class DrawerContent extends Component {
 
     onGoBack = () => {
@@ -52,9 +63,21 @@ class DrawerContent extends Component {
                         <Text text={'Nguyễn Hồng Phúc'} style={{color: '#ffffff'}} />
                     </View>
                     <View style={styles.screenContainer}>
-                        <DrawerItems {...this.props} />
-                    </View>
-                    <View>
+                        {
+                            drawItems.map(item => {
+                                return (
+                                    <TouchableOpacity style={styles.btnDraw} onPress={() => this.props.navigation.navigate(item.navigation)}>
+                                        <MediumText text={item.text} style={styles.text}/>
+                                        <Ionicons
+                                            name={"ios-arrow-forward"}
+                                            size={20}
+                                            color={"#bbbbbb"}
+                                        />
+                                    </TouchableOpacity>
+                                )
+                            })
+                        }
+                        {/*<DrawerItems {...this.props} />*/}
                         <TouchableOpacity
                             style={styles.btnBack}
                             onPress={this.logout}

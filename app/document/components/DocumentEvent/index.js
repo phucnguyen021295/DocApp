@@ -14,6 +14,7 @@
 'use strict';
 
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {
     View,
@@ -26,6 +27,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Components
 import Text from '../../../base/components/Text';
+
+// Actions
+import * as departmentUserAction from '../../../modules/department/actions/departmentUser';
 
 // Styles
 import styles from './styles/index.css';
@@ -40,6 +44,7 @@ class DocumentEvent extends Component {
     };
 
     onChangeDoc = () => {
+        this.props.getUserForDepart();
         alert("Chuc nang dang phat trien");
     };
 
@@ -79,6 +84,13 @@ class DocumentEvent extends Component {
 DocumentEvent.propTypes = {
     title: PropTypes.string,
     isBtnBack: PropTypes.bool,
+    getUserForDepart: PropTypes.func,
 };
 
-export default DocumentEvent;
+function mapDispatchToProps(dispatch) {
+    return {
+        getUserForDepart: (userId, url) => dispatch(departmentUserAction.get(userId, url))
+    };
+}
+
+export default connect(null, mapDispatchToProps)(DocumentEvent);

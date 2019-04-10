@@ -16,14 +16,43 @@
 
 import { combineReducers } from 'redux-immutable';
 
+import {storeConfig} from '../storeConfig';
+
+// Auth
+import authReducer from '../modules/auth/reducers/auth';
+
 import hasDocumentReducer from '../document/reducers/hasDocument';
 import documentReducer from '../document/reducers/document';
-import ui from './ui';
+import hasDetailDocumentReducer from '../document/reducers/hasDetailDocument';
+import detailDocumentReducer from '../document/reducers/detailDocument';
+import hasHandlingDCMReducer from '../document/reducers/hasHandlingDocument';
+import handlingDCMReducer from '../document/reducers/handlingDocument';
+
+import meReducer from '../modules/users/reducers/me';
+import userReducer from '../modules/users/reducers/user';
+
+import submissionReducer from '../phieutrinh/reducers/submission';
+import hasSubmissionReducer from '../phieutrinh/reducers/hasSubmission';
+
+import currentReducer from '../ui/reducers/current';
 
 const rootReducer = combineReducers({
-    'ui': ui,
-    'HasDocument': hasDocumentReducer,
-    'Document': documentReducer
+    [storeConfig.auth]: authReducer,
+
+    [storeConfig.HasDocument]: hasDocumentReducer,
+    [storeConfig.Document]: documentReducer,
+    [storeConfig.HasDetailDocument]: hasDetailDocumentReducer,
+    [storeConfig.DetailDocument]: detailDocumentReducer,
+    [storeConfig.HasHandlingDCM]: hasHandlingDCMReducer,
+    [storeConfig.HandlingDCM]: handlingDCMReducer,
+
+    [storeConfig.HasSubmission]: hasSubmissionReducer,
+    [storeConfig.Submission]: submissionReducer,
+
+    [storeConfig.Me]: meReducer,
+    [storeConfig.User]: userReducer,
+
+    [storeConfig.current]: currentReducer,
 });
 
 export default rootReducer;

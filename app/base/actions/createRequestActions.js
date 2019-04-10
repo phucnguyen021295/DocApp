@@ -14,11 +14,12 @@
 'use strict';
 
 import createActionNoAppID from './createActionNoAppID';
+import {fromJS} from 'immutable';
 
 export default function createRequestActions(base) {
     return {
-        request: () => createActionNoAppID(`${base}_REQUEST`),
-        success: (data, response) => createActionNoAppID(`${base}_SUCCESS`, { data, response }),
-        failure: (data, error) => createActionNoAppID(`${base}_FAILURE`, { data, error }),
+        request: (original) => createActionNoAppID(`${base}_REQUEST`, original),
+        success: (original, response) => createActionNoAppID(`${base}_SUCCESS`, fromJS(response), original),
+        failure: (original, error) => createActionNoAppID(`${base}_FAILURE`, error, original),
     };
 }

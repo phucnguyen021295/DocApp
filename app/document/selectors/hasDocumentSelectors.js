@@ -1,3 +1,5 @@
-export const statePath = ['HasDocument'];
+import {storeConfig} from '../../storeConfig';
 
-export const getItemIds = (state, meId) => state.getIn([...statePath, meId, "itemIds"]);
+export const statePath = [storeConfig.HasDocument];
+
+export const getItemIds = (state, stateKeychild, page) => state.getIn([...statePath, stateKeychild, page, "itemIds"]);

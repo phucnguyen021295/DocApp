@@ -21,7 +21,8 @@ import {
     Image,
     TouchableHighlight,
     TouchableOpacity,
-    Platform
+    Platform,
+    BackHandler
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -35,6 +36,14 @@ class HeaderNavigation extends Component {
     constructor(props) {
         super(props);
     }
+
+    // componentDidMount() {
+    //     BackHandler.addEventListener("hardwareBackPress", this.onGoBack);
+    // }
+    //
+    // componentWillUnmount() {
+    //     BackHandler.removeEventListener("hardwareBackPress", this.onGoBack);
+    // }
 
     onChangeNavigation = () => {
         this.props.navigation.toggleDrawer()

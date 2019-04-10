@@ -12,3 +12,28 @@
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
 'use strict';
+
+import {createActionNoAppID} from '../../../base/actions';
+import {objectUI} from '../../../base/apis/actionApi';
+import userApi from '../apis/userApi';
+import userSelectors from '../selectors/userSelectors';
+
+export const USER = {
+    ADD: 'ADD_USER'
+};
+
+export const add = (data, stateKeyChild) => createActionNoAppID(DOCUMENT.ADD, {data, stateKeyChild});
+
+export const get = (userId, url) => {
+    return objectUI.getUi(
+        null,
+        {
+            userId,
+            url: url,
+            selector: userSelectors,
+            api: userApi,
+            actionKey: 'docUi.get',
+            // stateKeyChild: stateKeyChild
+        }
+    );
+};

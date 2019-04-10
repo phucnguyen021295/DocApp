@@ -14,10 +14,58 @@
 'use strict';
 
 import axios from 'axios';
+import getAsyncs from '../../shares/bootstrapAsync';
+import qs from 'qs';
+
+// const Code2xx = [204, 205];
+/**
+ * Parses the JSON returned by a network request
+ *
+ * @param  {object} response A response from a network request
+ *
+ * @return {object}          The parsed JSON from the request
+ */
+function parseJSON(response) {
+    const {status} = response;
+    // 204 No Content: The server successfully processed the request and is not returning any content.[14]
+    // 205 Reset Content: The server successfully processed the request, but is not returning any content. Unlike a 204 response, this response requires that the requester reset the document view.[15]
+    if (status === 204 || status === 205) { // HieuNVb: Response with "No Content"
+        return {status}; // Added DamBV 26/12/201&: fix de tao thread 1-1
+    }
+    return response.data.data;
+}
+
+/**
+ * Checks if a network request came back fine, and throws an error if not
+ *
+ * @param  {object} response   A response from a network request
+ *
+ * @return {object|undefined} Returns either the response, or throws an error
+ */
+function checkStatus(response) {
+    if (response.status >= 200 && response.status < 300) {
+        return Promise.resolve(response);
+    }
+    const error = new Error(response.statusText);
+    error.response = response;
+    return Promise.reject(error);
+}
 
 export const callApi = (options) => {
-    return axios(options).then(
-        (response) => ({response}),
-        (error) => ({error})
-    );
+    return getAsyncs('token').then((data) => {
+        const token = data.token;
+        const headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Bearer ' + token,
+        };
+        options.headers = headers;
+        return axios(options)
+            .then(checkStatus)
+            .then(parseJSON)
+            .then(
+                (response) => ({response}),
+                (error) => ({error}
+            )
+        );
+    });
 };

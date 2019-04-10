@@ -36,7 +36,7 @@ export const OBJECT_TYPE = {
 };
 
 export const OBJECT_UI = {
-    GET: 'OBJECT_GET_UI',
+    GET_UI: 'OBJECT_GET_UI',
     GET_LIST_UI: 'OBJECT_GET_LIST_UI',
     POST_UI: 'OBJECT_POST_UI',
     PUT_UI: 'OBJECT_PUT_UI',
@@ -45,7 +45,7 @@ export const OBJECT_UI = {
 };
 
 const getUi = (payload, condition) => {
-    return createActionNoAppID(OBJECT_UI.GET, payload, null, condition);
+    return createActionNoAppID(OBJECT_UI.GET_UI, payload, null, condition);
 };
 
 const get = createRequestActions(OBJECT_API.GET);

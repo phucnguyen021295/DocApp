@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {OrderedSet} from 'immutable';
 import {
+    View,
     VirtualizedList
 } from 'react-native';
 import DocumentContainer from '../Document/DocumentContainer';
-
-import styles from './styles/index.css';
 
 class DocumentList extends Component {
     constructor(props) {
@@ -23,20 +23,28 @@ class DocumentList extends Component {
     render() {
         const {documentIds} = this.props;
         return (
-            <VirtualizedList
-                data={documentIds}
-                style={{flex: 1, paddingHorizontal: 15}}
-                getItemCount={this.getItemCount}
-                getItem={this.getItem}
-                keyExtractor={this.keyExtractor}
-                renderItem={this.renderItem}
-            />
+            <View style={{flex: 1}} >
+                <VirtualizedList
+                    data={documentIds.toList()}
+                    style={{flex: 1, paddingHorizontal: 15}}
+                    getItemCount={this.getItemCount}
+                    getItem={this.getItem}
+                    keyExtractor={this.keyExtractor}
+                    renderItem={this.renderItem}
+                />
+            </View>
         );
     }
 }
 
 DocumentList.propTypes = {
     documentIds: PropTypes.array,
+    getDoc: PropTypes.func
 };
+
+DocumentList.defaultProps = {
+    documentIds: OrderedSet(),
+};
+
 
 export default DocumentList;
