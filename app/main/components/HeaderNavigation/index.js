@@ -37,13 +37,13 @@ class HeaderNavigation extends Component {
         super(props);
     }
 
-    // componentDidMount() {
-    //     BackHandler.addEventListener("hardwareBackPress", this.onGoBack);
-    // }
-    //
-    // componentWillUnmount() {
-    //     BackHandler.removeEventListener("hardwareBackPress", this.onGoBack);
-    // }
+    componentDidMount() {
+        BackHandler.addEventListener("hardwareBackPress", this.onGoBack);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener("hardwareBackPress", this.onGoBack);
+    }
 
     onChangeNavigation = () => {
         this.props.navigation.toggleDrawer()

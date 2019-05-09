@@ -33,9 +33,10 @@ import Text from '../../../base/components/Text';
 
 // Actions
 import {objectUI} from '../../../modules/auth/actions';
+import {updateStatusApp} from '../../../ui/actions/current';
 
 // Selectors
-import {getStatusApp} from '../../../ui/selectors/currentSelectors';
+import {getStatusApp, getUnit} from '../../../ui/selectors/currentSelectors';
 
 import styles from './styles/index.css';
 
@@ -47,18 +48,19 @@ class SignInScreen extends React.Component {
             username: '',
             password: '',
             isInvalid: false,
-            isLoadLogin: false
-        }
+            isLoadLogin: false,
+        };
     }
 
     componentDidUpdate(prevProps) {
-        debugger;
         if(prevProps.statusApp !== this.props.statusApp) {
             if(this.props.statusApp === 'isLoginSuccess') {
                 this.goApp();
+                this.props.updateStatusApp('');
             }
             if(this.props.statusApp === 'isLoginFalse') {
                 this.setState({isInvalid: true, isLoadLogin: false});
+                this.props.updateStatusApp('');
             }
         }
     }
@@ -68,13 +70,13 @@ class SignInScreen extends React.Component {
     };
 
 
-    onSignIn = async () => {
+    onSignIn = () => {
         const {username, password} = this.state;
         if(username !== '' && password !== '') {
             this.setState({isLoadLogin: true});
             this.props.onLogin(username, password);
         } else {
-            this.setState({isInvalid: true, })
+            this.setState({isInvalid: true})
         }
     };
 
@@ -91,14 +93,22 @@ class SignInScreen extends React.Component {
         this.setState({password});
     };
 
+    onChangeUnit = () => {
+        this.props.navigation.navigate('UnitScreen');
+        this.setState({isInvalid: false, isLoadLogin: false});
+    };
+
     render() {
         const {showPass, isInvalid, isLoadLogin} = this.state;
+        const {unit} = this.props;
         return (
             <SafeAreaView style={styles.container}>
                 <StatusBar barStyle="light-content" />
                     <View style={styles.containerLogo}>
-                        <Image source={require('./styles/images/logo.png')} style={styles.image} />
-                        <Text text={"REACT NATIVE"} style={styles.text} />
+                        <Image source={require('./styles/images/logoCHXHCNVN.png')} style={styles.image} />
+                        <Text
+                            text={unit ? unit.get('unit_name') : null}
+                            style={styles.text} />
                     </View>
                     <View style={styles.containerForm}>
                         <View style={styles.inputWrapper}>
@@ -141,7 +151,18 @@ class SignInScreen extends React.Component {
                             </TouchableOpacity>
                         </View>
                         {
-                            isInvalid && <Text text={"Sai tài khoản hoặc mật khẩu"} style={{paddingBottom: 5, color: 'red' }}/>
+                            isInvalid &&
+                            <TouchableOpacity
+                                // disabled={isLoadLogin}
+                                activeOpacity={0.7}
+                                // style={styles.btnSignIn}
+                                onPress={this.onChangeUnit}
+                            >
+                                <Text text={"Chọn đơn vị"} style={{color: "white"}} />
+                            </TouchableOpacity>
+                        }
+                        {
+                            isInvalid && <Text text={"Sai tài khoản hoặc mật khẩu hoặc sai đơn vị."} style={{paddingBottom: 5, color: 'red' }}/>
                         }
                         <TouchableOpacity
                             disabled={isLoadLogin}
@@ -151,7 +172,7 @@ class SignInScreen extends React.Component {
                         >
                             {
                                 isLoadLogin ?
-                                    <ActivityIndicator size="small" color="#00ff00" /> :
+                                    <ActivityIndicator size="small" color="#ffffff" /> :
                                     <Text text={"Đăng nhập"} style={{color: "white"}} />
                             }
                         </TouchableOpacity>
@@ -163,19 +184,22 @@ class SignInScreen extends React.Component {
 
 SignInScreen.propTypes = {
     onLogin: PropTypes.func,
-    statusApp: PropTypes.string
+    statusApp: PropTypes.string,
+    updateStatusApp: PropTypes.func,
+    unit: PropTypes.object
 };
 
 function mapStateToProps(state) {
     const statusApp = getStatusApp(state);
-    debugger;
     return {
         statusApp: statusApp,
+        unit: getUnit(state)
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
+        updateStatusApp: (statusApp) => dispatch(updateStatusApp(statusApp)),
         onLogin: (username, password) => dispatch(objectUI.loginUi(username, password)),
     };
 }

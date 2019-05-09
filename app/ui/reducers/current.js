@@ -14,7 +14,7 @@
 
 'use strict';
 
-import {fromJS, remove } from 'immutable';
+import {fromJS, Map } from 'immutable';
 import createReducer from '../../base/reducers/createReducer';
 
 import {CURRENT} from '../actions/current';
@@ -32,14 +32,29 @@ const updatePageSubmission = (state, action) => {
 
 const updateStatusApp = (state, action) => {
     const { statusApp } = action.payload;
-    debugger;
     return state.set('statusApp', statusApp);
+};
+
+const updateUnit = (state, action) => {
+    const { unit } = action.payload;
+    return state.set('unit', unit);
+};
+
+const updateChecked = (state, action) => {
+    const { keyStore, id } = action.payload;
+    const checked = state.getIn(['checked', keyStore]);
+    if(checked && checked === id) {
+        return state.set('checked', fromJS({}));
+    }
+    return state.setIn(['checked'], Map([[keyStore, id]]));
 };
 
 const uiStateReducer = createReducer(fromJS(uiStateDefault), {
     [CURRENT.UPDATE_PAGE_DOCUMENT]: updatePageDocument,
     [CURRENT.UPDATE_PAGE_SUBMISSION]: updatePageSubmission,
     [CURRENT.UPDATE_STATUS_APP]: updateStatusApp,
+    [CURRENT.UPDATE_UNIT]: updateUnit,
+    [CURRENT.UPDATE_CHECKED]: updateChecked
 });
 
 export default uiStateReducer;

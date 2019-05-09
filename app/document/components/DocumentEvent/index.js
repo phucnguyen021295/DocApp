@@ -21,7 +21,7 @@ import {
     Image,
     TouchableHighlight,
     TouchableOpacity,
-    Platform
+    Platform,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -44,8 +44,11 @@ class DocumentEvent extends Component {
     };
 
     onChangeDoc = () => {
+        const url = 'http://mobile_qlvb.bacninh.gov.vn/user/listByTitles.json?titles_id=26,27,52,28,23,60,59,62,58,61,63,36,44,30,42,41,25,24,33,38,53,54,55,56,57,29&unit_id=000.00.01.H05'
         this.props.getUserForDepart();
-        alert("Chuc nang dang phat trien");
+        debugger;
+        this.props.navigation.navigate('MoveDCMScreen');
+        // alert("Chuc nang dang phat trien");
     };
 
     onRevoke = () => {
@@ -85,6 +88,7 @@ DocumentEvent.propTypes = {
     title: PropTypes.string,
     isBtnBack: PropTypes.bool,
     getUserForDepart: PropTypes.func,
+    navigation: PropTypes.object,
 };
 
 function mapDispatchToProps(dispatch) {

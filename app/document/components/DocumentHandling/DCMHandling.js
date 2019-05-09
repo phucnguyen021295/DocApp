@@ -42,9 +42,9 @@ class DCMHandling extends Component {
                         (
                             <View>
                                 <View style={{flexDirection: 'row'}}>
-                                    <MediumText text={`[${handlingDCM.get('action_type')}] `} style={[styles.textTitle, {color: '#000000'}]} />
+                                    <Text text={`[${handlingDCM.get('action_type')}] `} style={styles.textTitle} />
                                     <Text text={handlingDCM.get('assigned_by_name')} style={[styles.textTitle]} />
-                                    <Text text={`  Đã ${handlingDCM.get('notes')}`} style={styles.textDate} />
+                                    <Text text={`  Đã ${handlingDCM.get('notes')}`} style={styles.textTitle} />
                                 </View>
                                 <View style={{flexDirection: 'row'}}>
                                     <Text text={`${handlingDCM.get('notes')}(Vào lúc: ${handlingDCM.get('assigned_date')})`} style={styles.text} />
@@ -54,7 +54,7 @@ class DCMHandling extends Component {
                         (
                             <View style={{flexDirection: 'column'}}>
                                 <View style={{flexDirection: 'row'}}>
-                                    <MediumText text={`[${handlingDCM.get('action_type')}] `} style={[styles.textTitle, {color: '#000000'}]} />
+                                    <Text text={`[${handlingDCM.get('action_type')}] `} style={styles.textTitle} />
                                     <Text text={`${handlingDCM.get('assigned_by_name')} Gửi lãnh đạo vào:(${handlingDCM.get('assigned_date')})`} style={[styles.textTitle]} />
                                 </View>
                                 <Text text={`- Cho: ${handlingDCM.get('assigned_to_name')}`} style={styles.text}/>
@@ -63,13 +63,15 @@ class DCMHandling extends Component {
                         (
                             <View style={{flexDirection: 'column'}}>
                                 <View style={{flexDirection: 'row'}}>
-                                    <MediumText text={`[${handlingDCM.get('action_type')}] `} style={[styles.textTitle, {color: '#000000'}]} />
-                                    <Text text={`${handlingDCM.get('assigned_by_name')} Chuyển bút ph:(${handlingDCM.get('assigned_date')})`} style={[styles.textTitle]}  />
+                                    <Text text={`[${handlingDCM.get('action_type')}] `} style={styles.textTitle} />
+                                    <Text text={`${handlingDCM.get('assigned_by_name')} Chuyển bút phê:(${handlingDCM.get('assigned_date')})`} style={[styles.textTitle]}  />
                                 </View>
                                 <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
                                     <Text text={'- Cho: '} style={styles.text}/>
                                     {
-                                        handlingUserDCMIds.map(item => <DCMHandlingUserContainer handlingUserDCMId={item} />)
+                                        handlingUserDCMIds.map((item, index) => {
+                                            return <DCMHandlingUserContainer handlingUserDCMId={item} isComma={index !== handlingUserDCMIds.size - 1 ? true :false } />
+                                        })
                                     }
                                 </View>
                                 <Text text={`${handlingDCM.get('notes')}`} style={styles.text}/>

@@ -18,7 +18,7 @@ import createReducer from '../../../base/reducers/createReducer';
 
 import {DEPARTMENT_USER} from '../actions/departmentUser';
 
-// import documentDefault from './document.default';
+import documentDefault from './departmentUser.default';
 
 const add = (state, action) => {
     const {data} = action.payload;
@@ -30,7 +30,7 @@ const add = (state, action) => {
     });
 };
 
-const departmentUserReducer = createReducer(fromJS({}), {
+const departmentUserReducer = createReducer(fromJS(documentDefault), {
     [DEPARTMENT_USER.ADD]: add,
 });
 

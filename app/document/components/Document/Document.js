@@ -18,13 +18,12 @@ class Document extends Component {
     }
 
     onChangeNavigation = () => {
-        const {document} = this.props;
-        debugger;
+        const {document, drawerLabel} = this.props;
         const documentId = document.get('id');
         const url = 'http://mobile_qlvb.bacninh.gov.vn/document/view.json?id=' + documentId;
         // this.props.getDocument(documentId, url);
         this.props.getHandlingDoc(documentId, `http://mobile_qlvb.bacninh.gov.vn/document/history.json?id=${documentId}`);
-        this.props.navigation.navigate("DetailUnProcessScreen", {documentId});
+        this.props.navigation.navigate("DetailUnProcessScreen", {documentId, drawerLabel});
     };
 
     render() {
@@ -47,7 +46,8 @@ Document.propTypes = {
     document: PropTypes.object,
     navigation: PropTypes.object,
     getDocument: PropTypes.func,
-    getHandlingDoc: PropTypes.func
+    getHandlingDoc: PropTypes.func,
+    drawerLabel: PropTypes.string
 };
 
 export default withNavigation(Document);

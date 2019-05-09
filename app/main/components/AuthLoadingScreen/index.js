@@ -15,6 +15,8 @@
 'use strict';
 
 import React from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import {
     ActivityIndicator,
     AsyncStorage,
@@ -23,6 +25,12 @@ import {
     View,
     SafeAreaView
 } from 'react-native';
+
+// Actons
+import {updateUnit} from '../../../ui/actions/current';
+
+// Shares
+import {convertToObject} from '../../../shares/convertData';
 
 import styles from './styles/index.css';
 
@@ -34,14 +42,21 @@ class AuthLoadingScreen extends React.Component {
 
     // Fetch the token from storage then navigate to our appropriate place
     _bootstrapAsync = async () => {
-        const userToken = await AsyncStorage.getItem('token');
+        // AsyncStorage.removeItem('unit');
+        const unit = await AsyncStorage.getItem('unit');
 
         // This will switch to the App screen or Auth screen and this loading
         // screen will be unmounted and thrown away.
-        // this.props.navigation.navigate('Auth');
-        this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+        // this.props.navigation.navigate('SignInScreen');
+        this.props.navigation.navigate(unit ? 'SignInScreen' : 'UnitScreen');
 
-        StatusBar.setBackgroundColor('#123668')
+        if(unit) {
+            const obj = convertToObject(unit);
+            this.props.updateUnit(obj);
+            StatusBar.setBackgroundColor('#123668')
+        } else {
+            // StatusBar.setBackgroundColor('#ffffff')
+        }
     };
 
     // Render any loading content that you like here
@@ -55,4 +70,14 @@ class AuthLoadingScreen extends React.Component {
     }
 }
 
-export default AuthLoadingScreen;
+AuthLoadingScreen.propTypes = {
+    updateUnit: PropTypes.func,
+};
+
+function mapDispatchToProps(dispatch) {
+    return {
+        updateUnit: (unit) => dispatch(updateUnit(unit)),
+    };
+}
+
+export default connect(null, mapDispatchToProps)(AuthLoadingScreen);

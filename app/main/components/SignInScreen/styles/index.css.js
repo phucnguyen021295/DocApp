@@ -25,9 +25,10 @@ const styles = StyleSheet.create({
     },
     text: {
         color: '#000000',
-        fontWeight: 'bold',
+        fontWeight: '600',
         backgroundColor: 'transparent',
         marginTop: 20,
+        fontSize: 16,
     },
     containerForm: {
         flex: 1,
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
         height: 40,
         paddingVertical: 10,
         paddingHorizontal: 30,
-        backgroundColor: 'red',
+        backgroundColor: '#123668',
         borderRadius: 20
     }
 });

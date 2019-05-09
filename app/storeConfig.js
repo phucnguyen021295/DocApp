@@ -25,7 +25,7 @@ export const storeConfig = {
     HandlingDCM: 'HandlingDCM',
 
     DepartmentUser: 'DepartmentUser',
-    HasDepartmentUser: 'HasDepartmentUser',
+    HasDepartment: 'HasDepartment',
 
     Me: 'Me',
     User: 'User',

@@ -22,3 +22,11 @@ export const getPageByDocument = (state, typeDocument) => state.getIn([...stateP
 export const getPageBySubmission = (state) => state.getIn([...statePath, 'submission']);
 
 export const getStatusApp = (state) => state.getIn([...statePath, 'statusApp']);
+
+export const getUnit = (state) => state.getIn([...statePath, 'unit']);
+
+export const getCheckedDept = (state) => state.getIn([...statePath, 'checked', 'department']);
+
+export const getCheckedUser = (state) => state.getIn([...statePath, 'checked', 'user']);
+
+export const getActionType = (state, type) => state.getIn([...statePath, 'action_type', type]);

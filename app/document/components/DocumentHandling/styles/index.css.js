@@ -29,10 +29,12 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     title: {
-        color: '#000000',
         backgroundColor: '#bbbbbb',
         paddingVertical: 5,
-        paddingHorizontal: 15
+        paddingHorizontal: 15,
+    },
+    textTitle: {
+        color: '#4267b2',
     }
 });
 

@@ -28,6 +28,7 @@ import {fetchEntity} from '../../../base/apis/fetchEntity';
 
 // Shares
 import getAsyncs from '../../../shares/bootstrapAsync';
+import {convertToObject} from '../../../shares/convertData';
 
 const apiFn = fetchEntity.bind(null, objectApi.login, callApi);
 
@@ -37,10 +38,12 @@ const watchLoginUi = function* watchLoginUi() {
         const {username, password, url} = payload;
 
         const unit = username.split('.')[1];
+        // const {unit} = yield call(getAsyncs, 'unit');
+        const unitObject = convertToObject(unit);
         const data = {
             username,
             password,
-            unit
+            unit: 'vpubnd'  // unitObject.unit_auth_code
         };
         yield call(apiFn, data, url);
     }
@@ -55,6 +58,13 @@ const watchLoginSuccess = function* watchLoginSuccess() {
         yield put(auth.add(payload));
         yield put(me.add(payload.getIn(['data', 'info', 'id'])));
         yield put(updateStatusApp('isLoginSuccess'));
+    }
+};
+
+const watchLoginFailure = function* watchLoginFailure() {
+    while (true) { // eslint-disable-line
+        const fetchResult = yield take( AUTH_TYPE.LOGIN.FAILURE);
+        yield put(updateStatusApp('isLoginFalse'));
     }
 };
 
@@ -77,6 +87,7 @@ const getLoginSaga = function* getLoginSaga() {
         call(watchLoginUi),
         call(watchLoginSuccess),
         call(watchAppStartSuccess),
+        call(watchLoginFailure),
     ]);
 };
 

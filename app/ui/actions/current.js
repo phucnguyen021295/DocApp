@@ -14,11 +14,14 @@
 'use strict';
 
 import createActionNoAppID from '../../base/actions/createActionNoAppID';
+import {fromJS} from 'immutable';
 
 export const CURRENT = {
     UPDATE_PAGE_DOCUMENT: 'UPDATE_PAGE_DOCUMENT_CURRENT',
     UPDATE_PAGE_SUBMISSION: 'UPDATE_PAGE_SUBMISSION_CURRENT',
-    UPDATE_STATUS_APP: 'UPDATE_STATUS_APP_CURRENT'
+    UPDATE_STATUS_APP: 'UPDATE_STATUS_APP_CURRENT',
+    UPDATE_UNIT: 'UPDATE_UNIT_CURRENT',
+    UPDATE_CHECKED: 'UPDATE_CHECKED_CURRENT'
 };
 
 export const updatePageDocument = (type, page) => createActionNoAppID(CURRENT.UPDATE_PAGE_DOCUMENT, {type, page});
@@ -26,3 +29,7 @@ export const updatePageDocument = (type, page) => createActionNoAppID(CURRENT.UP
 export const updatePageSubmission = (page) => createActionNoAppID(CURRENT.UPDATE_PAGE_SUBMISSION, {page});
 
 export const updateStatusApp = (statusApp) => createActionNoAppID(CURRENT.UPDATE_STATUS_APP, {statusApp});
+
+export const updateUnit = (unit) => createActionNoAppID(CURRENT.UPDATE_UNIT, {unit: fromJS(unit)});
+
+export const updateChecked = (keyStore, id) => createActionNoAppID(CURRENT.UPDATE_CHECKED, {keyStore, id});

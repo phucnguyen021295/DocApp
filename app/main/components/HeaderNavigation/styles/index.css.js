@@ -3,7 +3,7 @@ import {colorBlue} from '../../../../shares/styles/color'
 
 const styles = StyleSheet.create({
     container: {
-        height: 40,
+        height: 46,
         flexDirection: 'row',
         // justifyContent: 'flex-start',
         // alignItems: 'center',

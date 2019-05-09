@@ -17,25 +17,27 @@ import React, { Component } from 'react';
 import {
     View,
     SafeAreaView,
+    ScrollView
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import HeaderNavigation from '../../../main/components/HeaderNavigation';
+import DepartmentListContainer from '../../../modules/department/components/DepartmentList/DepartmentListContainer';
 
 import styles from './styles/index.css';
 
 const  drawerLabel = 'Chuyển văn bản';
 class MoveDCMScreen extends Component {
     render() {
-
         return (
             <SafeAreaView style={styles.container}>
                 <HeaderNavigation {...this.props} title={drawerLabel} isBtnBack={true} />
                 <View style={{flex: 1, backgroundColor: 'white'}}>
+                    <DepartmentListContainer />
                 </View>
             </SafeAreaView>
         );
     }
 }
 
-export default InternalScreen;
+export default MoveDCMScreen;

@@ -25,6 +25,16 @@ const uiStateDefault = {
     },
     submission: 'page1',
     statusApp: '',
+    unit: {},
+    checked: {},
+    action_type: {
+        '1': 'đã đăng kí văn bản',
+        '2': 'đã gửi văn bản cho lãnh đạo',
+        '3': 'đã chuyển bút phê',
+        '4': 'đã chuyển bút phê',
+        '10': 'đã tạo hồ sơ công việc',
+        'default': 'Chuyển tiếp văn bản'
+    }
 };
 
 export default uiStateDefault;

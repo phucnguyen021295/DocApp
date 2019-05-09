@@ -17,4 +17,6 @@ import {storeConfig} from '../../../storeConfig';
 
 export const statePath = [storeConfig.DepartmentUser];
 
+export const getAll = (state) => state.getIn([...statePath]);
+
 export const get = (state, departmentId) => state.getIn([...statePath, departmentId]);

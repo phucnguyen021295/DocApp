@@ -18,7 +18,7 @@ class DocumentList extends Component {
 
     getItem = (data, index) => data.get(index);
 
-    renderItem = (data) => <DocumentContainer documentId={data.item} />;
+    renderItem = (data) => <DocumentContainer documentId={data.item} drawerLabel={this.props.drawerLabel} />;
 
     render() {
         const {documentIds} = this.props;

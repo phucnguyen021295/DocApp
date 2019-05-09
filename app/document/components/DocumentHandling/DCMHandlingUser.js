@@ -27,12 +27,12 @@ class DCMHandlingUser extends Component {
         super(props);
     }
     render() {
-        const {handlingUserDCM} = this.props;
-        debugger;
+        const {handlingUserDCM, isComma} = this.props;
+        const listUser = isComma ? `${handlingUserDCM.get('assigned_to_name')}, ` : handlingUserDCM.get('assigned_to_name');
         const status = handlingUserDCM.get('status');
         return status === '0' ?
-            <Text text={handlingUserDCM.get('assigned_to_name')} style={{color: '#000000'}}/> :
-            <MediumText text={handlingUserDCM.get('assigned_to_name')} style={{color: '#000000'}} />
+            <Text text={listUser} style={{color: '#000000'}}/> :
+            <MediumText text={listUser} style={{color: '#000000'}} />
     }
 }
 

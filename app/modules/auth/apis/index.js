@@ -57,7 +57,6 @@ export const callApi = (data, url) => {
         data: qs.stringify(data),
         url: 'http://mobile_qlvb.bacninh.gov.vn/login/auth.json',
     };
-    debugger;
     return axios(options)
         .then(checkStatus)
         .then(parseJSON)

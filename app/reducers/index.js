@@ -34,6 +34,9 @@ import userReducer from '../modules/users/reducers/user';
 import submissionReducer from '../phieutrinh/reducers/submission';
 import hasSubmissionReducer from '../phieutrinh/reducers/hasSubmission';
 
+import hasDepartmentReducer from '../modules/department/reducers/hasDepartment';
+import departmentUserReducer from '../modules/department/reducers/departmentUser';
+
 import currentReducer from '../ui/reducers/current';
 
 const rootReducer = combineReducers({
@@ -53,6 +56,9 @@ const rootReducer = combineReducers({
     [storeConfig.User]: userReducer,
 
     [storeConfig.current]: currentReducer,
+
+    [storeConfig.HasDepartment]: hasDepartmentReducer,
+    [storeConfig.DepartmentUser]: departmentUserReducer,
 });
 
 export default rootReducer;

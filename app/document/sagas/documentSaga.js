@@ -54,7 +54,6 @@ const watchGetUi = function* watchGetUi() {
     while (true) { // eslint-disable-line
         const datafetch = yield take(OBJECT_UI.GET_UI);
         const {condition} = datafetch;
-        debugger;
         const {url, api} = condition;
         yield call(apiGet, api.get, url, condition);
     }

@@ -31,6 +31,7 @@ import DrawerContent from './components/DrawerContent';
 // SignIn
 import AuthLoadingScreen from './components/AuthLoadingScreen';
 import SignInScreen from './components/SignInScreen';
+import UnitScreen from './components/UnitScreen';
 
 // Main
 import UnProcessScreen from '../document/components/UnProcessScreen';
@@ -39,6 +40,7 @@ import AboutExpireScreen from '../document/components/AboutExpireScreen';
 import ReceiveScreen from '../document/components/ReceiveScreen';
 import ProcessScreen from '../document/components/ProcessScreen';
 import InternalScreen from '../document/components/InternalScreen';
+import MoveDCMScreen from '../document/components/MoveDCMScreen';
 // import NoteScreen from '../document/components/NoteScreen';
 import MeetingScreen from '../calendar/components/MeetingScreen';
 import WorkingScheduleScreen from '../calendar/components/WorkingScheduleScreen';
@@ -48,11 +50,12 @@ import DetailPhieuTrinhScreen from '../phieutrinh/components/DetailPhieuTrinhScr
 const {height, width} = Dimensions.get('window');
 
 const AuthStack = createStackNavigator({
-    SignIn: SignInScreen,
+    UnitScreen: UnitScreen,
+    SignInScreen: SignInScreen,
     AuthLoadingScreen: AuthLoadingScreen,
 }, {
     headerMode: 'none',
-    initialRouteName: 'SignIn',
+    initialRouteName: 'AuthLoadingScreen',
 });
 
 const routeConfigs = {
@@ -65,8 +68,7 @@ const routeConfigs = {
     PhieuTrinhScreen: PhieuTrinhScreen,
     // DetailPhieuTrinhScreen: DetailPhieuTrinhScreen,
     MeetingScreen: MeetingScreen,
-    WorkingScheduleScreen: WorkingScheduleScreen
-
+    WorkingScheduleScreen: WorkingScheduleScreen,
 };
 
 const drawerNavigatorConfig = {
@@ -106,6 +108,7 @@ const AppMainStack = createStackNavigator({
     DetailUnProcessScreen: {
         screen: DetailUnProcessScreen
     },
+    MoveDCMScreen: MoveDCMScreen,
 }, {
     initialRouteName: 'AppStack',
     headerMode: 'none',

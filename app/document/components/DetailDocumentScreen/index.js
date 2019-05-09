@@ -15,7 +15,7 @@ import DocumentTitle from './DocumentTitle';
 
 import styles from './styles/index.css';
 
-const  drawerLabel = 'Văn bản abc';
+// const  drawerLabel = 'Văn bản abc';
 class DetailDocumentScreen extends Component {
     // static navigationOptions = {
     //     drawerLabel: () => null
@@ -37,11 +37,12 @@ class DetailDocumentScreen extends Component {
     render() {
         const {navigation} = this.props;
         const documentId = navigation.getParam('documentId');
+        const drawerLabel = navigation.getParam('drawerLabel');
         return (
             <SafeAreaView style={styles.container}>
                 <HeaderNavigation {...this.props} title={drawerLabel} isBtnBack={true} />
                 <View style={styles.content}>
-                    <DocumentEvent documentId={documentId} />
+                    <DocumentEvent documentId={documentId} navigation={navigation} />
                     <ScrollView contentContainerStyle={styles.contentContainer}>
                         <DocumentTitle documentId={documentId} />
                         {/*<View style={{paddingHorizontal: 15}}>*/}

@@ -14,11 +14,16 @@
 'use strict';
 
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import {DrawerItems} from 'react-navigation';
 import { View, TouchableOpacity, Platform, AsyncStorage, ScrollView } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Text, {MediumText} from '../../../base/components/Text';
+
+// Selectors
+import {getInfoAuth} from '../../../modules/auth/selectors/authSelectors';
 
 import styles from './styles/index.css';
 
@@ -41,11 +46,12 @@ class DrawerContent extends Component {
     };
 
     logout = () => {
-        AsyncStorage.clear();
+        AsyncStorage.removeItem('token');
         this.props.navigation.navigate("Auth");
     };
 
     render() {
+        const {authInfo} = this.props;
         return (
             <View style={styles.container}>
                 <ScrollView>
@@ -60,7 +66,7 @@ class DrawerContent extends Component {
                                 color={"#ffffff"}
                             />
                         </TouchableOpacity>
-                        <Text text={'Nguyễn Hồng Phúc'} style={{color: '#ffffff'}} />
+                        <Text text={authInfo && authInfo.get('fullname')} style={{color: '#ffffff'}} />
                     </View>
                     <View style={styles.screenContainer}>
                         {
@@ -92,4 +98,15 @@ class DrawerContent extends Component {
     }
 }
 
-export default DrawerContent;
+DrawerContent.propTypes = {
+    authInfo: PropTypes.object
+};
+
+function mapStateToProps(state) {
+    debugger;
+    return {
+        authInfo: getInfoAuth(state),
+    };
+}
+
+export default connect(mapStateToProps)(DrawerContent);

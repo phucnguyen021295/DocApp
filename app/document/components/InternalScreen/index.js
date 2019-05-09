@@ -46,7 +46,7 @@ class InternalScreen extends Component {
                 <HeaderNavigation {...this.props} title={drawerLabel} />
                 <View style={{flex: 1, backgroundColor: 'white',}}>
                     <DocumentSearch />
-                    <DocumentListContainer />
+                    <DocumentListContainer drawerLabel={drawerLabel} />
                 </View>
             </SafeAreaView>
         );

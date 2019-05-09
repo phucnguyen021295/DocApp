@@ -14,58 +14,172 @@
 'use strict';
 
 import React from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import {
     ActivityIndicator,
     AsyncStorage,
     StatusBar,
     StyleSheet,
     View,
-    SafeAreaView
+    SafeAreaView,
+    // Text,
+    TouchableOpacity,
+    TextInput,
+    KeyboardAvoidingView
 } from 'react-native';
+import Autocomplete from 'react-native-autocomplete-input';
+import axios from 'axios';
+
+// Components
+import Text, {MediumText} from '../../../base/components/Text';
+
+// Actions
+import {updateUnit} from '../../../ui/actions/current';
+
+// Shares
+import {convertToString} from '../../../shares/convertData';
 
 import styles from './styles/index.css';
-
-
-const unit = [
-    {
-        id: 'stttt',
-        description: 'Sở thông tin truyền thông',
-        unit: 'stttt'
-    },
-    {
-        id: 'vpubnd',
-        description: 'Văn phòng ủy ban nhân dân',
-        unit: 'vpubnd'
-    }
-];
 
 class UnitScreen extends React.Component {
     constructor(props) {
         super(props);
-        this._bootstrapAsync();
+        this.state = {
+            query: '',
+            data: [],
+            isResult: false
+        }
     }
 
-    // Fetch the token from storage then navigate to our appropriate place
-    _bootstrapAsync = async () => {
-        const userToken = await AsyncStorage.getItem('token');
+    componentDidMount() {
+        const _that = this;
+        const options = {
+            method: 'GET',
+            headers: { 'content-type': 'application/x-www-form-urlencoded' },
+            url: 'http://mobile_qlvb.bacninh.gov.vn/login/unitlist.json',
+        };
+        return axios(options).then(
+            (response) => {
+                const data = response.data.data.list;
+                _that.setState({data});
+            },
+            (error) => ({error})
+        );
+    }
 
-        // This will switch to the App screen or Auth screen and this loading
-        // screen will be unmounted and thrown away.
-        // this.props.navigation.navigate('Auth');
-        this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    onChangeText = (text) => {
+        this.setState({ query: text, isResult: false });
+    };
 
-        StatusBar.setBackgroundColor('#123668')
+    findFilm(query) {
+        const { data, isResult } = this.state;
+        if (query === '' && isResult) {
+            return [];
+        }
+        const regex = new RegExp(`${query.trim()}`, 'i');
+        return data.filter(film => film.unit_name.search(regex) >= 0);
+    }
+
+    comp = (a, b) => {
+        return a.toLowerCase().trim() === b.toLowerCase().trim();
+    };
+
+    onFocus = () => {
+        this.setState({isResult: false});
+    };
+
+    onBlur = () => {
+        this.setState({isResult: true});
+    };
+
+    setUnit = (item) => {
+        this.props.updateUnit(item);
+        AsyncStorage.setItem('unit', convertToString(item));
+        this.onBlur();
+        this.setState({query: item.unit_name});
+    };
+
+    onConnect = () => {
+        this.props.navigation.navigate('SignInScreen');
+    };
+
+    renderItem = (item, i) => {
+        return (
+            <TouchableOpacity
+                style={{paddingHorizontal: 10, paddingVertical: 5, width: '100%'}}
+                onPress={() => {
+                    this.setState({ query: item.unit_name });
+                    this.setUnit(item);
+                }}
+            >
+                <Text text={item.unit_name} />
+            </TouchableOpacity>
+        )
+    };
+
+    renderTextInput = () => {
+        return <TextInput
+            style={{color: '#bbbbbb'}}
+            // autoFocus={true}
+            placeholder="Chọn đơn vị"
+            autoCorrect={false}
+            value={this.state.query}
+            autoCapitalize={false}
+            returnKeyType='done'
+            placeholderTextColor="#bbbbbb"
+            underlineColorAndroid="transparent"
+            onChangeText={this.onChangeText}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+        />
     };
 
     // Render any loading content that you like here
     render() {
+        const {query, data, isResult} = this.state;
+        const films = this.findFilm(query);
         return (
             <SafeAreaView style={styles.container}>
-                <ActivityIndicator />
-                <StatusBar barStyle="default" />
+                <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+                    <View style={{alignItems: 'center', marginTop: 100}}>
+                        <MediumText text={'eGov'} style={{fontSize: 50, color: "white"}}/>
+                    </View>
+                    <View style={[styles.autocompleteContainer, {zIndex: isResult ? 1 : 3}]}>
+                        <Autocomplete
+                            hideResults={isResult}
+                            inputContainerStyle={{height: 40, paddingHorizontal: 15, borderRadius: 5,color: '#bbbbbb', backgroundColor: '#ffffff', marginHorizontal: 11}}
+                            listStyle={{maxHeight: 180, borderBottomRightRadius: 5, borderBottomLeftRadius: 5}}
+                            data={films.length === 1 && this.comp(query, data[0].unit_name) ? [] : films}
+                            defaultValue={query}
+                            renderItem={this.renderItem}
+                            focus={this.onFocus}
+                            renderTextInput={this.renderTextInput}
+                            onShowResults={this.onShowResults}
+                        />
+                    </View>
+                    <TouchableOpacity
+                        activeOpacity={0.7}
+                        disabled={query !== '' ? false : true}
+                        style={styles.btnConnect}
+                        onPress={this.onConnect}
+                    >
+                        <Text text={"Kết nối"} style={{color: "white"}} />
+                    </TouchableOpacity>
+                </KeyboardAvoidingView>
             </SafeAreaView>
         );
     }
 }
 
-export default UnitScreen;
+UnitScreen.propTypes = {
+    updateUnit: PropTypes.func,
+};
+
+function mapDispatchToProps(dispatch) {
+    return {
+        updateUnit: (unit) => dispatch(updateUnit(unit)),
+    };
+}
+
+export default connect(null, mapDispatchToProps)(UnitScreen);
