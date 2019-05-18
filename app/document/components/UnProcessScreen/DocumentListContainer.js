@@ -28,9 +28,10 @@ import {getPageByDocument} from '../../../ui/selectors/currentSelectors';
 
 import decorateGetList from '../../../base/utils/decorateGetList';
 import {storeConfig} from '../../../storeConfig';
+import {DOMAIN} from '../../../config';
 
 const stateKeyChild = storeConfig.DocumentUnprocess;
-const url = 'http://mobile_qlvb.bacninh.gov.vn/document/search.json?page=1&status=0&kind=&content=&notes=2';
+const url = `${DOMAIN}/document/search.json?page=1&status=0&kind=&content=&notes=2`;
 
 function mapStateToProps(state) {
     const page = getPageByDocument(state, stateKeyChild);

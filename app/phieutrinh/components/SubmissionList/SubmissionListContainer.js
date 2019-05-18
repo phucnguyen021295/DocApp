@@ -13,6 +13,7 @@ import {getPageBySubmission} from '../../../ui/selectors/currentSelectors';
 
 import decorateGetList from '../../../base/utils/decorateGetList';
 import {storeConfig} from '../../../storeConfig';
+import {DOMAIN} from '../../../config';
 
 function mapStateToProps(state) {
     const page = getPageBySubmission(state);

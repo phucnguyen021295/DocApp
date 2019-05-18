@@ -18,3 +18,11 @@ import {storeConfig} from '../../../storeConfig';
 const statePath = [storeConfig.auth];
 
 export const getInfoAuth = (state, documentId) => state.getIn([...statePath, 'data', 'info']);
+
+export const getUnit = (state) => state.getIn([...statePath, 'unit']);
+
+export const getUnitCode = (state, key) => state.getIn([...statePath, 'unit', 'unit_code']);
+
+export const getUnitAuthCode = (state) => state.getIn([...statePath, 'unit', 'unit_auth_code']);
+
+export const getUnitLink = (state, key) => state.getIn([...statePath, 'unit', 'unit_link']);

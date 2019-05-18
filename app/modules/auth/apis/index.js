@@ -50,7 +50,7 @@ function checkStatus(response) {
     return Promise.reject(error);
 }
 
-export const callApi = (data, url) => {
+export const callApi = (data) => {
     const options = {
         method: 'POST',
         headers: { 'content-type': 'application/x-www-form-urlencoded' },

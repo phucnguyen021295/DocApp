@@ -24,16 +24,22 @@ const add = (state, action) => {
         let itemIds = OrderedSet([]);
         let action_typeIds = OrderedSet([]);
         let i = 0;
-        let action_type = 1;
+        let action = 1;
+        let action_type = null;
+        let assigned_date = null;
         data.get('users').map(item => {
-            if(item.get('action_type') !== action_type.toString()) {
-                stateNew.setIn([documentId, action_type, 'itemIds'], itemIds);
-                action_typeIds = action_typeIds.add(action_type);
-                action_type++;
+            if((item.get('action_type') !== '1' && item.get('action_type') !== action_type) || (item.get('action_type') !== '1' && assigned_date !== item.get('assigned_date'))) {
+                stateNew.setIn([documentId, action, 'itemIds'], itemIds);
+                action_typeIds = action_typeIds.add(action);
+                action++;
                 itemIds = OrderedSet([]);
             }
+            assigned_date = item.get('assigned_date');
+            action_type = item.get('action_type');
             itemIds = itemIds.add(item.get('id'));
         });
+        stateNew.setIn([documentId, action, 'itemIds'], itemIds);
+        action_typeIds = action_typeIds.add(action);
         stateNew.setIn([documentId, 'action_typeIds'], action_typeIds);
     });
 };

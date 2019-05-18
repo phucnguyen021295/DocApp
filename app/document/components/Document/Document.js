@@ -9,6 +9,8 @@ import {withNavigation} from 'react-navigation';
 // Components
 import Text, {MediumText} from '../../../base/components/Text';
 
+// Config
+import {DOMAIN} from '../../../config';
 
 import styles from './styles/index.css';
 
@@ -22,7 +24,8 @@ class Document extends Component {
         const documentId = document.get('id');
         const url = 'http://mobile_qlvb.bacninh.gov.vn/document/view.json?id=' + documentId;
         // this.props.getDocument(documentId, url);
-        this.props.getHandlingDoc(documentId, `http://mobile_qlvb.bacninh.gov.vn/document/history.json?id=${documentId}`);
+        this.props.getHandlingDoc(documentId, `${DOMAIN}/document/history.json?id=${documentId}`);
+        this.props.getAssignToHis(`${DOMAIN}/document/assignTohis.json?id=${documentId}`);
         this.props.navigation.navigate("DetailUnProcessScreen", {documentId, drawerLabel});
     };
 
@@ -47,7 +50,8 @@ Document.propTypes = {
     navigation: PropTypes.object,
     getDocument: PropTypes.func,
     getHandlingDoc: PropTypes.func,
-    drawerLabel: PropTypes.string
+    drawerLabel: PropTypes.string,
+    getAssignToHis: PropTypes.func,
 };
 
 export default withNavigation(Document);

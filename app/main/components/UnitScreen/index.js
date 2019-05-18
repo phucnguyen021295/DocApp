@@ -95,6 +95,7 @@ class UnitScreen extends React.Component {
 
     setUnit = (item) => {
         this.props.updateUnit(item);
+        debugger;
         AsyncStorage.setItem('unit', convertToString(item));
         this.onBlur();
         this.setState({query: item.unit_name});

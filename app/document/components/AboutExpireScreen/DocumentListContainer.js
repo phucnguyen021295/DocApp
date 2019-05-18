@@ -28,9 +28,10 @@ import {getPageByDocument} from '../../../ui/selectors/currentSelectors';
 
 import decorateGetList from '../../../base/utils/decorateGetList';
 import {storeConfig} from '../../../storeConfig';
+import {DOMAIN} from '../../../config';
 
 const stateKeyChild = storeConfig.DocumentAboutExprire;
-const url = 'http://mobile_qlvb.bacninh.gov.vn/document/expireddoc.json?page=1&status=0&kind_id=&content=&notes=0';
+const url = `${DOMAIN}/document/expireddoc.json?page=1&status=0&kind_id=&content=&notes=0`;
 
 function mapStateToProps(state) {
     const page = getPageByDocument(state, stateKeyChild);

@@ -31,6 +31,13 @@ import Text from '../../../base/components/Text';
 // Actions
 import * as departmentUserAction from '../../../modules/department/actions/departmentUser';
 
+// Selector
+import {getUnitAuthCode} from '../../../modules/auth/selectors/authSelectors';
+import {getStatusDoc} from '../../selectors/assignTohisSelectors';
+
+// config
+import {DOMAIN} from '../../../config';
+
 // Styles
 import styles from './styles/index.css';
 
@@ -44,9 +51,9 @@ class DocumentEvent extends Component {
     };
 
     onChangeDoc = () => {
-        const url = 'http://mobile_qlvb.bacninh.gov.vn/user/listByTitles.json?titles_id=26,27,52,28,23,60,59,62,58,61,63,36,44,30,42,41,25,24,33,38,53,54,55,56,57,29&unit_id=000.00.01.H05'
+        const {unit_id} = this.props;
+        const url = `${DOMAIN}/user/listByTitles.json?titles_id=26,27,52,28,23,60,59,62,58,61,63,36,44,30,42,41,25,24,33,38,53,54,55,56,57,29&unit_id=${unit_id}`;
         this.props.getUserForDepart();
-        debugger;
         this.props.navigation.navigate('MoveDCMScreen');
         // alert("Chuc nang dang phat trien");
     };
@@ -56,7 +63,7 @@ class DocumentEvent extends Component {
     };
 
     render() {
-        const {isBtnBack, title} = this.props;
+        const {isBtnBack, statusBtnHT} = this.props;
         return (
             <View style={styles.container}>
                 <TouchableOpacity
@@ -66,19 +73,16 @@ class DocumentEvent extends Component {
                     <Text text={"Chuyển văn bản"} style={{color: 'gray'}} />
                 </TouchableOpacity>
                 <View style={styles.space} />
-                <TouchableOpacity
-                    style={styles.btn}
-                    onPress={this.onSuccess}
-                >
-                    <Text text={"Hoàn thành"} style={{color: 'gray'}} />
-                </TouchableOpacity>
-                <View style={styles.space} />
-                <TouchableOpacity
-                    style={[styles.btn, {backgroundColor: '#751a0f'}]}
-                    onPress={this.onRevoke}
-                >
-                    <Text text={"Thu Hồi"} style={{color: '#ffffff'}} />
-                </TouchableOpacity>
+                {
+                    statusBtnHT ? (
+                        <TouchableOpacity
+                            style={styles.btn}
+                            onPress={this.onSuccess}
+                        >
+                            <Text text={"Hoàn thành"} style={{color: 'gray'}} />
+                        </TouchableOpacity>
+                    ) : null
+                }
             </View>
         );
     }
@@ -89,7 +93,17 @@ DocumentEvent.propTypes = {
     isBtnBack: PropTypes.bool,
     getUserForDepart: PropTypes.func,
     navigation: PropTypes.object,
+    unit_id: PropTypes.string,
+    statusBtnHT: PropTypes.bool,
 };
+
+function mapStateToProps(state, ownProps) {
+    const {documentId} = ownProps;
+    return {
+        unit_id: getUnitAuthCode(state),
+        statusBtnHT: getStatusDoc(state, documentId),
+    };
+}
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -97,4 +111,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(null, mapDispatchToProps)(DocumentEvent);
+export default connect(mapStateToProps, mapDispatchToProps)(DocumentEvent);

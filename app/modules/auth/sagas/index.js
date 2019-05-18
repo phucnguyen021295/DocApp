@@ -21,6 +21,7 @@ import {callApi} from '../apis';
 import {AUTH_UI, objectApi, AUTH_TYPE} from '../actions';
 import * as auth from '../actions';
 import * as me from '../../users/actions/me';
+import * as user from '../../users/actions/user';
 import {updateStatusApp} from '../../../ui/actions/current';
 
 // Apis
@@ -30,6 +31,9 @@ import {fetchEntity} from '../../../base/apis/fetchEntity';
 import getAsyncs from '../../../shares/bootstrapAsync';
 import {convertToObject} from '../../../shares/convertData';
 
+// config
+import {DOMAIN} from '../../../config';
+
 const apiFn = fetchEntity.bind(null, objectApi.login, callApi);
 
 const watchLoginUi = function* watchLoginUi() {
@@ -37,15 +41,15 @@ const watchLoginUi = function* watchLoginUi() {
         const {payload}  = yield take(AUTH_UI.LOGIN);
         const {username, password, url} = payload;
 
-        const unit = username.split('.')[1];
-        // const {unit} = yield call(getAsyncs, 'unit');
+        // const unit = username.split('.')[1];
+        const {unit} = yield call(getAsyncs, 'unit');
         const unitObject = convertToObject(unit);
         const data = {
-            username,
+            username: username,
             password,
-            unit: 'vpubnd'  // unitObject.unit_auth_code
+            unit: unitObject.unit_auth_code  // unitObject.unit_auth_code
         };
-        yield call(apiFn, data, url);
+        yield call(apiFn, data);
     }
 };
 
@@ -72,10 +76,14 @@ const watchAppStartSuccess = function* watchAppStartSuccess() {
     while (true) { // eslint-disable-line
         const fetchResult = yield take('LOGIN_SUCCESS');
         // const {payload} = fetchResult;
-        const meId = yield call(getAsyncs, 'meId');
-        // AsyncStorage.setItem('token', payload.getIn(['data', 'token']));
-        // AsyncStorage.setItem('meId', payload.getIn(['data', 'info', 'id']));
-        // yield put(auth.add, payload);
+        const {meId, unit} = yield call(getAsyncs, 'meId', 'unit');
+
+        // Cập nhật đơn vị
+        const unitObject = convertToObject(unit);
+        yield put(auth.addUnit(unitObject));
+
+        const url = `${DOMAIN}/user/getuserbyID.json?id=${meId}`;
+        yield put(user.get(meId, url));
         yield put(me.add(meId));
     }
 };

@@ -17,14 +17,18 @@
 import {all, call, take} from 'redux-saga/effects';
 
 import authSaga from '../modules/auth/sagas';
+import userSagas from '../modules/users/sagas/user';
 import documentSaga from '../document/sagas/documentSaga';
 import submissionSaga from '../phieutrinh/sagas/submission';
+import calendarSaga from '../calendar/sagas/calendar';
 
 const getRouterSaga = function* getRouterSaga() {
     yield all([
         call(authSaga),
+        call(userSagas),
         call(documentSaga),
         call(submissionSaga),
+        call(calendarSaga),
     ]);
 };
 

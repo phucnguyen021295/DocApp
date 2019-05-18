@@ -20,6 +20,8 @@ import {fetchEntity} from '../../base/apis/fetchEntity';
 import * as actionDoc from '../actions/document';
 import * as actionDetailDoc from '../actions/detailDocument';
 import * as actionHandlingDCM from '../actions/handlingDocument';
+import * as actionFileDocument from '../actions/fileDocument';
+import * as actionAssignTohis from '../actions/assignTohis';
 
 // Get list document
 const apiFn = fetchEntity.bind(null, objectApi.getList);
@@ -55,6 +57,7 @@ const watchGetUi = function* watchGetUi() {
         const datafetch = yield take(OBJECT_UI.GET_UI);
         const {condition} = datafetch;
         const {url, api} = condition;
+        debugger;
         yield call(apiGet, api.get, url, condition);
     }
 };
@@ -83,9 +86,37 @@ const watchGetHandlingDocumentSuccess = function* watchGetHandlingDocumentSucces
     while (true) { // eslint-disable-line
         const fetchResult = yield take(isGetHandlingDoccumentSuccess);
         const {payload, original} = fetchResult;
-        debugger;
         const {documentId} = original;
         yield put(actionHandlingDCM.add(payload, documentId));
+    }
+};
+
+// Get file van ban
+const isGetFileDoccumentSuccess = function isGetFileDoccumentSuccess(action) {
+    const actionType = action.type;
+    return actionType && actionType === OBJECT_TYPE.GET.SUCCESS && action.original.actionKey === 'fileDocUi.get';
+};
+
+const watchGetFileDocumentSuccess = function* watchGetFileDocumentSuccess() {
+    while (true) { // eslint-disable-line
+        const fetchResult = yield take(isGetFileDoccumentSuccess);
+        const {payload, original} = fetchResult;
+        const {documentId} = original;
+        yield put(actionFileDocument.add(payload, documentId));
+    }
+};
+
+const isGetAssignToHisSuccess = function isGetAssignToHisSuccess(action) {
+    const actionType = action.type;
+    return actionType && actionType === OBJECT_TYPE.GET.SUCCESS &&  action.original.actionKey === 'assignUi.get';
+};
+
+const watchGetAssignToHisSuccess = function* watchGetAssignToHisSuccess() {
+    while (true) { // eslint-disable-line
+        const fetchResult = yield take(isGetAssignToHisSuccess);
+        const {payload} = fetchResult;
+        debugger;
+        yield put(actionAssignTohis.add(payload));
     }
 };
 
@@ -98,6 +129,10 @@ const getDocumentSaga = function* getDocumentSaga() {
         call(watchGetDocumentSuccess),
 
         call(watchGetHandlingDocumentSuccess),
+
+        call(watchGetFileDocumentSuccess),
+
+        call(watchGetAssignToHisSuccess),
     ]);
 };
 

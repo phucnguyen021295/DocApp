@@ -22,7 +22,7 @@ export const USER = {
     ADD: 'ADD_USER'
 };
 
-export const add = (data, stateKeyChild) => createActionNoAppID(DOCUMENT.ADD, {data, stateKeyChild});
+export const add = (data) => createActionNoAppID(USER.ADD, {data});
 
 export const get = (userId, url) => {
     return objectUI.getUi(
@@ -32,7 +32,7 @@ export const get = (userId, url) => {
             url: url,
             selector: userSelectors,
             api: userApi,
-            actionKey: 'docUi.get',
+            actionKey: 'user.get',
             // stateKeyChild: stateKeyChild
         }
     );

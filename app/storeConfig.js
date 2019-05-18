@@ -23,6 +23,15 @@ export const storeConfig = {
     HasSubmission: 'HasSubmission',
     HasHandlingDCM: 'HasHandlingDCM',
     HandlingDCM: 'HandlingDCM',
+    AssignTohis: 'AssignTohis',
+
+    // File
+    HasFileDocument: 'HasFileDocument',
+    FileDocument: 'FileDocument',
+
+    // calendar
+    HasCalendar: 'HasCalendar',
+    Calendar: 'Calendar',
 
     DepartmentUser: 'DepartmentUser',
     HasDepartment: 'HasDepartment',
@@ -32,6 +41,10 @@ export const storeConfig = {
     UserDepartment: 'UserDepartment',
 
     current: 'uiCurentState',
+
+    // Key cac loai lich
+    CalendarWorking: 'CalendarWorking',
+    CalendarMeeting: 'CalendarMeeting',
 
     // Key loại văn bản
     DocumentUnprocess: 'DocumentUnproce',  // Văn bản chưa xử lý

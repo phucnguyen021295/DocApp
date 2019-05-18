@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     text: { textAlign: 'center', fontWeight: '100' },
     header: { height: 40, backgroundColor: colorBlue, color: '#ffffff' },
     dataWrapper: { marginTop: -1 },
-    row: { height: 'auto', backgroundColor: '#E7E6E1' },
+    row: { height: 'auto', backgroundColor: '#E7E6E1', minHeight: 40 },
     textBtn: {
         color: "gray",
         fontSize: 14,

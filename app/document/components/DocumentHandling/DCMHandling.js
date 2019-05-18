@@ -34,7 +34,7 @@ class DCMHandling extends Component {
 
 
     render() {
-        const {handlingDCM, handlingUserDCMIds} = this.props;
+        const {handlingDCM, handlingUserDCMIds, handlingDCMId} = this.props;
         return (
             <View>
                 {
@@ -42,7 +42,7 @@ class DCMHandling extends Component {
                         (
                             <View>
                                 <View style={{flexDirection: 'row'}}>
-                                    <Text text={`[${handlingDCM.get('action_type')}] `} style={styles.textTitle} />
+                                    <Text text={`[${handlingDCMId}] `} style={styles.textTitle} />
                                     <Text text={handlingDCM.get('assigned_by_name')} style={[styles.textTitle]} />
                                     <Text text={`  Đã ${handlingDCM.get('notes')}`} style={styles.textTitle} />
                                 </View>
@@ -54,7 +54,7 @@ class DCMHandling extends Component {
                         (
                             <View style={{flexDirection: 'column'}}>
                                 <View style={{flexDirection: 'row'}}>
-                                    <Text text={`[${handlingDCM.get('action_type')}] `} style={styles.textTitle} />
+                                    <Text text={`[${handlingDCMId}] `} style={styles.textTitle} />
                                     <Text text={`${handlingDCM.get('assigned_by_name')} Gửi lãnh đạo vào:(${handlingDCM.get('assigned_date')})`} style={[styles.textTitle]} />
                                 </View>
                                 <Text text={`- Cho: ${handlingDCM.get('assigned_to_name')}`} style={styles.text}/>
@@ -62,8 +62,8 @@ class DCMHandling extends Component {
                         ) :
                         (
                             <View style={{flexDirection: 'column'}}>
-                                <View style={{flexDirection: 'row'}}>
-                                    <Text text={`[${handlingDCM.get('action_type')}] `} style={styles.textTitle} />
+                                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                                    <Text text={`[${handlingDCMId}] `} style={styles.textTitle} />
                                     <Text text={`${handlingDCM.get('assigned_by_name')} Chuyển bút phê:(${handlingDCM.get('assigned_date')})`} style={[styles.textTitle]}  />
                                 </View>
                                 <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
@@ -85,7 +85,8 @@ class DCMHandling extends Component {
 
 DCMHandling.propTypes = {
     handlingDCM: PropTypes.object,
-    handlingUserDCMIds: PropTypes.array
+    handlingUserDCMIds: PropTypes.array,
+    handlingDCMId: PropTypes.string,
 };
 
 DCMHandling.defaultProps = {

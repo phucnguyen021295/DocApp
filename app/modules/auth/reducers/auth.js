@@ -22,12 +22,17 @@ import {AUTH} from '../actions';
 
 const add = (state, action) => {
     const {data} = action.payload;
-    debugger;
     return state.set('data', data);
+};
+
+const addUnit = (state, action) => {
+    const {unit} = action.payload;
+    return state.set('unit', fromJS(unit));
 };
 
 const authReducer = createReducer(fromJS({}), {
     [AUTH.ADD]: add,
+    [AUTH.ADD_UNIT]: addUnit,
 });
 
 export default authReducer;

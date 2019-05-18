@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
     },
     contentContainer: {
-        flex: 1,
+        // flex: 1,
     },
     title: {
         color: '#000000',

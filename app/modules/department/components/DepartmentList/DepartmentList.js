@@ -83,14 +83,15 @@ class DepartmentList extends Component {
     render() {
         const {departmentIds} = this.props;
         return (
-            <View style={{paddingHorizontal: 8}}>
+            <View style={{paddingLeft: 8, flex: 1}}>
                 <VirtualizedList
                     data={departmentIds.size > 0 && departmentIds.toList()}
                     renderItem={this.renderItem}
                     getItemCount={this.getItemCount}
                     getItem={this.getItem}
                     keyExtractor={this._keyExtractor}
-                    contentContainerStyle={{height: height - 350}}
+                    style={{height: height - 350}}
+                    // contentContainerStyle={{height: height - 350}}
                 />
                 <View style={{flexDirection: 'row', marginLeft: 5, marginVertical: 15, alignItems: 'center'}}>
                     <Text text={'Ngày hết hạn: '} style={{color: '#000000'}} />

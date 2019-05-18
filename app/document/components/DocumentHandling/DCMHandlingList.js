@@ -44,7 +44,7 @@ class DCMHandlingList extends Component {
                 getItem={this.getItem}
                 keyExtractor={this.keyExtractor}
                 renderItem={this.renderItem}
-                scrollEnabled={false}
+                // scrollEnabled={false}
             />
         );
     }

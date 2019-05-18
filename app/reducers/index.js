@@ -27,6 +27,7 @@ import hasDetailDocumentReducer from '../document/reducers/hasDetailDocument';
 import detailDocumentReducer from '../document/reducers/detailDocument';
 import hasHandlingDCMReducer from '../document/reducers/hasHandlingDocument';
 import handlingDCMReducer from '../document/reducers/handlingDocument';
+import assignTohisReducer from '../document/reducers/assignTohis';
 
 import meReducer from '../modules/users/reducers/me';
 import userReducer from '../modules/users/reducers/user';
@@ -36,6 +37,10 @@ import hasSubmissionReducer from '../phieutrinh/reducers/hasSubmission';
 
 import hasDepartmentReducer from '../modules/department/reducers/hasDepartment';
 import departmentUserReducer from '../modules/department/reducers/departmentUser';
+
+// Lich
+import hasCalendarReducer from '../calendar/reducers/hasCalendar';
+import calendarReducer from '../calendar/reducers/calendar';
 
 import currentReducer from '../ui/reducers/current';
 
@@ -48,6 +53,7 @@ const rootReducer = combineReducers({
     [storeConfig.DetailDocument]: detailDocumentReducer,
     [storeConfig.HasHandlingDCM]: hasHandlingDCMReducer,
     [storeConfig.HandlingDCM]: handlingDCMReducer,
+    [storeConfig.AssignTohis]: assignTohisReducer,
 
     [storeConfig.HasSubmission]: hasSubmissionReducer,
     [storeConfig.Submission]: submissionReducer,
@@ -59,6 +65,9 @@ const rootReducer = combineReducers({
 
     [storeConfig.HasDepartment]: hasDepartmentReducer,
     [storeConfig.DepartmentUser]: departmentUserReducer,
+
+    [storeConfig.HasCalendar]: hasCalendarReducer,
+    [storeConfig.Calendar]: calendarReducer,
 });
 
 export default rootReducer;

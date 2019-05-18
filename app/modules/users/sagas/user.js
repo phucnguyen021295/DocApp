@@ -14,20 +14,27 @@
 'use strict';
 
 import {OBJECT_TYPE} from "../../../base/apis/actionApi";
-import {put, take} from "redux-saga/effects";
-import * as actionDetailDoc from "../../../document/actions/detailDocument";
+import {all, call, put, take} from "redux-saga/effects";
+import * as actionUser from "../actions/user";
 
 const isGetUserSuccess = function isGetUserSuccess(action) {
     const actionType = action.type;
-    return actionType && actionType === OBJECT_TYPE.GET.SUCCESS &&  action.original.actionKey === 'docUi.get';
+    return actionType && actionType === OBJECT_TYPE.GET.SUCCESS &&  action.original.actionKey === 'user.get';
 };
 
-const watchGetDocumentSuccess = function* watchGetDocumentSuccess() {
+const watchGetUserSuccess = function* watchGetUserSuccess() {
     while (true) { // eslint-disable-line
-        const fetchResult = yield take(isGetDoccumentSuccess);
+        const fetchResult = yield take(isGetUserSuccess);
         const {payload, original} = fetchResult;
-        const {documentId} = original;
-        yield put(actionDetailDoc.add(payload, documentId));
+        yield put(actionUser.add(payload));
     }
 };
+
+const getUserSaga = function* getUserSaga() {
+    yield all([
+        call(watchGetUserSuccess),
+    ]);
+};
+
+export default getUserSaga;
 

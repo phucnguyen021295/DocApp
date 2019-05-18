@@ -12,6 +12,7 @@ import DCMHandlingListContainer from '../DocumentHandling/DCMHandlingListContain
 import HeaderNavigation from '../../../main/components/HeaderNavigation';
 import Text, {MediumText} from '../../../base/components/Text';
 import DocumentTitle from './DocumentTitle';
+import ReadFile from '../../../base/components/ReadFile';
 
 import styles from './styles/index.css';
 
@@ -63,6 +64,7 @@ class DetailDocumentScreen extends Component {
                         </View>
                         <View style={{marginBottom: 20}}>
                             <MediumText text={"Tệp tin đính kèm:"} style={styles.title}/>
+                            {/*<ReadFile />*/}
                         </View>
 
                     </ScrollView>

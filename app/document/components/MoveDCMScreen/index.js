@@ -32,7 +32,7 @@ class MoveDCMScreen extends Component {
         return (
             <SafeAreaView style={styles.container}>
                 <HeaderNavigation {...this.props} title={drawerLabel} isBtnBack={true} />
-                <View style={{flex: 1, backgroundColor: 'white'}}>
+                <View style={{ flex: 1, backgroundColor: 'white'}}>
                     <DepartmentListContainer />
                 </View>
             </SafeAreaView>

@@ -23,7 +23,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Text, {MediumText} from '../../../base/components/Text';
 
 // Selectors
-import {getInfoAuth} from '../../../modules/auth/selectors/authSelectors';
+import {getMeId} from '../../../modules/users/selectors/meSelectors';
+import * as userSelectors from '../../../modules/users/selectors/userSelectors';
 
 import styles from './styles/index.css';
 
@@ -103,9 +104,9 @@ DrawerContent.propTypes = {
 };
 
 function mapStateToProps(state) {
-    debugger;
+    const meId = getMeId(state);
     return {
-        authInfo: getInfoAuth(state),
+        authInfo: userSelectors.get(state, meId),
     };
 }
 

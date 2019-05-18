@@ -12,13 +12,16 @@ import {getItemIds} from '../../selectors/hasDocumentSelectors';
 
 import decorateGetList from '../../../base/utils/decorateGetList';
 import {storeConfig} from '../../../storeConfig';
+import {DOMAIN} from '../../../config';
+
+const url = `${DOMAIN}/document/list.json?status=0&page=1`;
 
 function mapStateToProps(state) {
     return {
         documentIds: getItemIds(state, storeConfig.Document + 'denhan'),
 
         getListAction: getList,
-        url: 'http://mobile_qlvb.bacninh.gov.vn/document/list.json?status=0&page=1',
+        url: url,
         stateKey: storeConfig.Document,
         stateKeyChild: storeConfig.Document + 'denhan'
     };

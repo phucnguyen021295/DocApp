@@ -45,6 +45,7 @@ export const OBJECT_UI = {
 };
 
 const getUi = (payload, condition) => {
+    debugger;
     return createActionNoAppID(OBJECT_UI.GET_UI, payload, null, condition);
 };
 

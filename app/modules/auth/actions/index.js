@@ -16,10 +16,12 @@
 import {createActionNoAppID, createRequestActions, createFetchTypes} from '../../../base/actions';
 
 export const AUTH = {
-  ADD: 'ADD_AUTH'
+    ADD: 'ADD_AUTH',
+    ADD_UNIT: 'ADD_UNIT_AUTH',
 };
 
 export const add = (data) => createActionNoAppID(AUTH.ADD, {data});
+export const addUnit = (unit) => createActionNoAppID(AUTH.ADD_UNIT, {unit});
 
 export const AUTH_UI = {
     LOGIN: 'LOGIN_UI'
