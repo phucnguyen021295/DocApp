@@ -17,7 +17,7 @@ import {put, call} from 'redux-saga/effects';
 
 export const fetchEntity = function* fetchEntity(entity, apiFn, url, original, ...args) {
     yield put(entity.request(original));
-    const { response, error } = yield call(apiFn, url);
+    const { response, error } = yield call(apiFn, url, ...args);
     if (response) {
         yield put(entity.success(original, response));
     } else {

@@ -15,6 +15,7 @@
 'use strict';
 
 import {callApi} from './callApi';
+import qs from 'qs';
 
 class BaseApi {
     constructor(uriPattern, headers = {}) {

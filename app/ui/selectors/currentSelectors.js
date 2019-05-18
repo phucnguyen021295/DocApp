@@ -13,6 +13,8 @@
  */
 'use strict';
 
+import {OrderedSet} from 'immutable';
+
 import {storeConfig} from '../../storeConfig';
 
 const statePath = [storeConfig.current];
@@ -25,8 +27,24 @@ export const getStatusApp = (state) => state.getIn([...statePath, 'statusApp']);
 
 export const getUnit = (state) => state.getIn([...statePath, 'unit']);
 
-export const getCheckedDept = (state) => state.getIn([...statePath, 'checked', 'department']);
+export const getCheckedDept = (state) => state.getIn([...statePath, 'checked', 'department', 'id']);
 
-export const getCheckedUser = (state) => state.getIn([...statePath, 'checked', 'user']);
+export const getCheckedUser = (state) => state.getIn([...statePath, 'checked', 'user', 'id']);
 
 export const getActionType = (state, type) => state.getIn([...statePath, 'action_type', type]);
+
+export const getCheckBoxByDept = (state, meId) => {
+    return state.getIn([...statePath, 'checkBox', meId]) ? state.getIn([...statePath, 'checkBox', meId, 'itemIds']) : OrderedSet([]);
+};
+
+export const getNotes = (state) => {
+    if(state.getIn([...statePath, 'checked', 'department'])) {
+        debugger;
+        const departmentName = state.getIn([...statePath, 'checked', 'department', 'name']);
+        return `Phòng/ban ${departmentName} chủ trì, các đơn vị, phòng, ban liên quan phối hợp.`;
+    } else if(state.getIn([...statePath, 'checked', 'user'])) {
+        const UserName = state.getIn([...statePath, 'checked', 'user', 'name']);
+        return `Đ/c ${UserName} chủ trì, các đ/c liên quan phối hợp xử lý.`
+    }
+    return '';
+};

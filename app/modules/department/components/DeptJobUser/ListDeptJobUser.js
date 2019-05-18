@@ -52,9 +52,9 @@ class ListDeptJobUser extends Component {
         return (
             <View>
                 {
-                    department && department.get('data').map((data) => {
+                    department && department.get('data').map((data, index) => {
                         return (
-                            <DeptJobUserContainer user={data} isCheckBoxParent={isCheckBoxParent} />
+                            <DeptJobUserContainer key={index} user={data} isCheckBoxParent={isCheckBoxParent} />
                         )
                     })
                 }

@@ -57,7 +57,6 @@ const watchGetUi = function* watchGetUi() {
         const datafetch = yield take(OBJECT_UI.GET_UI);
         const {condition} = datafetch;
         const {url, api} = condition;
-        debugger;
         yield call(apiGet, api.get, url, condition);
     }
 };
@@ -115,8 +114,47 @@ const watchGetAssignToHisSuccess = function* watchGetAssignToHisSuccess() {
     while (true) { // eslint-disable-line
         const fetchResult = yield take(isGetAssignToHisSuccess);
         const {payload} = fetchResult;
-        debugger;
         yield put(actionAssignTohis.add(payload));
+    }
+};
+
+const apiPost = fetchEntity.bind(null, objectApi.post);
+
+const watchPostUi = function* watchPostUi() {
+    while (true) { // eslint-disable-line
+        const datafetch = yield take(OBJECT_UI.POST_UI);
+        const {condition} = datafetch;
+        const {url, api, body} = condition;
+        yield call(apiPost, api.post.bind(api), url, condition, body);
+    }
+};
+
+const isPostFinishTextSuccess = function isPostFinishTextSuccess(action) {
+    const actionType = action.type;
+    return actionType && actionType === OBJECT_TYPE.POST.SUCCESS &&  action.original.actionKey === 'docUi.finish.post';
+};
+
+const watchPostFinishTextSuccess = function* watchPostFinishTextSuccess() {
+    while (true) { // eslint-disable-line
+        const fetchResult = yield take(isPostFinishTextSuccess);
+        const {payload, original} = fetchResult;
+        const {documentId} = original;
+        yield put(actionAssignTohis.updateStstus(payload, documentId));
+    }
+};
+
+const isPostTransferTextSuccess = function isPostTransferTextSuccess(action) {
+    const actionType = action.type;
+    return actionType && actionType === OBJECT_TYPE.POST.SUCCESS &&  action.original.actionKey === 'docUi.transfer.post';
+};
+
+const watchPostTransferTextSuccess = function* watchPostTransferTextSuccess() {
+    while (true) { // eslint-disable-line
+        const fetchResult = yield take(isPostTransferTextSuccess);
+        debugger;
+        const {payload, original} = fetchResult;
+        const {documentId} = original;
+        debugger;
     }
 };
 
@@ -133,6 +171,10 @@ const getDocumentSaga = function* getDocumentSaga() {
         call(watchGetFileDocumentSuccess),
 
         call(watchGetAssignToHisSuccess),
+
+        call(watchPostUi),
+        call(watchPostFinishTextSuccess),
+        call(watchPostTransferTextSuccess),
     ]);
 };
 

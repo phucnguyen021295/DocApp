@@ -50,3 +50,32 @@ export const get = (documentId, url) => {
         }
     );
 };
+
+export const finishText = (url, documentId) => {
+    return objectUI.postUi(
+        null,
+        {
+            documentId,
+            url: url,
+            selector: documentSelectors,
+            api: documentApi,
+            actionKey: 'docUi.finish.post',
+            // stateKeyChild: stateKeyChild
+        }
+    );
+};
+
+export const transferText = (url, documentId, body) => {
+    return objectUI.postUi(
+        null,
+        {
+            documentId,
+            url: url,
+            body: body,
+            selector: documentSelectors,
+            api: documentApi,
+            actionKey: 'docUi.transfer.post',
+            // stateKeyChild: stateKeyChild
+        }
+    );
+};

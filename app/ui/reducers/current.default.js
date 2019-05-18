@@ -34,7 +34,8 @@ const uiStateDefault = {
         '4': 'đã chuyển bút phê',
         '10': 'đã tạo hồ sơ công việc',
         'default': 'Chuyển tiếp văn bản'
-    }
+    },
+    checkBox: {}
 };
 
 export default uiStateDefault;

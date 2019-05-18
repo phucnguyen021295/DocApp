@@ -30,7 +30,7 @@ const add = (state, action) => {
     });
 };
 
-const departmentUserReducer = createReducer(fromJS(documentDefault), {
+const departmentUserReducer = createReducer(fromJS({}), {
     [DEPARTMENT_USER.ADD]: add,
 });
 

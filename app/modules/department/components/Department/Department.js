@@ -60,23 +60,27 @@ class Department extends Component {
     };
 
     onCheckbox = () => {
-        const {onCheckbox} = this.props;
+        const {onCheckbox, updateCheckBoxByDept, meId, department} = this.props;
         const {isCheckBox} = this.state;
         this.setState({isCheckBox: !isCheckBox});
         onCheckbox();
+
+        let userIds = [];
+        department.get('data').map(item => userIds.push(item.get('id')));
+
+        updateCheckBoxByDept(meId, userIds)
     };
 
     onChecked = () => {
-        const {departmentId} = this.props;
+        const {departmentId, department} = this.props;
         const {isBtnChecked} = this.state;
         this.setState({isBtnChecked: !isBtnChecked});
-        this.props.updateChecked('department', departmentId)
+        this.props.updateChecked('department', departmentId, department.get('dep_name'));
     };
 
     render() {
         const {department, checkedDept, departmentId} = this.props;
         const {statusDrop, isCheckBox, isBtnChecked} = this.state;
-        debugger;
         const isChecked = checkedDept && checkedDept === departmentId ? true : false;
         return (
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -102,7 +106,9 @@ Department.propTypes = {
     navigationApp: PropTypes.object,
     onShowChild: PropTypes.func,
     onCheckbox: PropTypes.func,
-    checkedDept: PropTypes.bool
+    checkedDept: PropTypes.bool,
+    updateCheckBoxByDept: PropTypes.func,
+    meId: PropTypes.String,
 };
 
 

@@ -24,8 +24,11 @@ class Document extends Component {
         const documentId = document.get('id');
         const url = 'http://mobile_qlvb.bacninh.gov.vn/document/view.json?id=' + documentId;
         // this.props.getDocument(documentId, url);
-        this.props.getHandlingDoc(documentId, `${DOMAIN}/document/history.json?id=${documentId}`);
         this.props.getAssignToHis(`${DOMAIN}/document/assignTohis.json?id=${documentId}`);
+        const _that = this;
+        setTimeout(() => {
+            _that.props.getHandlingDoc(documentId, `${DOMAIN}/document/history.json?id=${documentId}`);
+        }, 100);
         this.props.navigation.navigate("DetailUnProcessScreen", {documentId, drawerLabel});
     };
 

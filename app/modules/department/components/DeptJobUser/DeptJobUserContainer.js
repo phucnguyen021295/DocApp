@@ -20,20 +20,24 @@ import {connect} from 'react-redux';
 import DeptJobUser from './DeptJobUser';
 
 // Actions
-import {updateChecked} from '../../../../ui/actions/current';
+import {updateChecked, updateCheckBoxByDept} from '../../../../ui/actions/current';
 
 // Selector.
 import {getCheckedUser} from '../../../../ui/selectors/currentSelectors';
+import {getMeId} from '../../../users/selectors/meSelectors';
 
 function mapStateToProps(state, onwProps) {
+    const meId = getMeId(state);
     return {
+        meId,
         checkedUser: getCheckedUser(state)
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        updateChecked: (keyStore, id) => dispatch(updateChecked(keyStore, id))
+        updateChecked: (keyStore, id, name) => dispatch(updateChecked(keyStore, id, name)),
+        updateCheckBoxByDept: (meId, userIds) => dispatch(updateCheckBoxByDept(meId, userIds)),
     };
 }
 

@@ -15,7 +15,6 @@
 
 import axios from 'axios';
 import getAsyncs from '../../shares/bootstrapAsync';
-import qs from 'qs';
 
 // const Code2xx = [204, 205];
 /**
@@ -54,11 +53,10 @@ function checkStatus(response) {
 export const callApi = (options) => {
     return getAsyncs('token').then((data) => {
         const token = data.token;
-        const headers = {
+        options.headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': 'Bearer ' + token,
         };
-        options.headers = headers;
         return axios(options)
             .then(checkStatus)
             .then(parseJSON)

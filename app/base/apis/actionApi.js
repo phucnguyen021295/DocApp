@@ -45,7 +45,6 @@ export const OBJECT_UI = {
 };
 
 const getUi = (payload, condition) => {
-    debugger;
     return createActionNoAppID(OBJECT_UI.GET_UI, payload, null, condition);
 };
 
@@ -65,10 +64,12 @@ const post = createRequestActions(OBJECT_API.POST);
 
 export const objectUI = {
     getUi,
-    getListUi
+    getListUi,
+    postUi
 };
 
 export const objectApi = {
     get,
-    getList
+    getList,
+    post
 };

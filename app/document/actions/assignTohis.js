@@ -19,13 +19,14 @@ import assignToHisApi from '../apis/assignTohisApi';
 import * as assignTohisSelectors from '../selectors/assignTohisSelectors';
 
 export const ASSIDNTOHIS = {
-    ADD: 'ADD_ASSIDNTOHIS'
+    ADD: 'ADD_ASSIDNTOHIS',
+    UPDATE_STATUS: 'UPDATE_STATUS_ASSIDNTOHIS',
 };
 
 export const add = (data) => createActionNoAppID(ASSIDNTOHIS.ADD, {data});
+export const updateStstus = (data, documentId) => createActionNoAppID(ASSIDNTOHIS.UPDATE_STATUS, {data, documentId});
 
 export const get = (url) => {
-    debugger;
     return objectUI.getUi(
         null,
         {

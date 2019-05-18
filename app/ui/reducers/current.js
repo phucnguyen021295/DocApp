@@ -14,7 +14,7 @@
 
 'use strict';
 
-import {fromJS, Map } from 'immutable';
+import {fromJS, Map, OrderedSet } from 'immutable';
 import createReducer from '../../base/reducers/createReducer';
 
 import {CURRENT} from '../actions/current';
@@ -41,12 +41,30 @@ const updateUnit = (state, action) => {
 };
 
 const updateChecked = (state, action) => {
-    const { keyStore, id } = action.payload;
+    const { keyStore, id, name } = action.payload;
     const checked = state.getIn(['checked', keyStore]);
     if(checked && checked === id) {
         return state.set('checked', fromJS({}));
     }
-    return state.setIn(['checked'], Map([[keyStore, id]]));
+    if(!keyStore) {
+        return state.set('checked', fromJS({}));
+    }
+    const data = fromJS({id, name});
+    debugger;
+    return state.setIn(['checked'], Map([[keyStore, data]]));
+};
+
+const updateCheckBoxByDept = (state, action) => {
+    const { meId, userIds} = action.payload;
+    let itemIds = state.getIn(['checkBox', meId, 'itemIds']) || OrderedSet([]);
+    userIds.map(item => {
+        if(itemIds.includes(item)) {
+            itemIds = itemIds.remove(item);
+        } else {
+            itemIds = itemIds.add(item);
+        }
+    });
+    return state.setIn(['checkBox', meId, 'itemIds'], itemIds);
 };
 
 const uiStateReducer = createReducer(fromJS(uiStateDefault), {
@@ -54,7 +72,8 @@ const uiStateReducer = createReducer(fromJS(uiStateDefault), {
     [CURRENT.UPDATE_PAGE_SUBMISSION]: updatePageSubmission,
     [CURRENT.UPDATE_STATUS_APP]: updateStatusApp,
     [CURRENT.UPDATE_UNIT]: updateUnit,
-    [CURRENT.UPDATE_CHECKED]: updateChecked
+    [CURRENT.UPDATE_CHECKED]: updateChecked,
+    [CURRENT.UPDATE_CHECKBOX]: updateCheckBoxByDept
 });
 
 export default uiStateReducer;

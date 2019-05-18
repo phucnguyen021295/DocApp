@@ -18,20 +18,21 @@ import createReducer from '../../base/reducers/createReducer';
 
 import {ASSIDNTOHIS} from '../actions/assignTohis';
 
-// import documentDefault from './document.default';
+// import documentDefault from './document.default';+
 
 const add = (state, action) => {
     const {data} = action.payload;
-    return state.withMutations((stateNew) => {
-        data.get('list').map(item => {
-            const id = item.get('doc_id');
-            stateNew.mergeDeep(Map([[id, item]]));
-        })
-    });
+    return state.mergeDeep(Map([[data.getIn(['data', 'doc_id']), data]]))
+};
+
+const updateStatus = (state, action) => {
+    const {data, documentId} = action.payload;
+    return state.setIn([documentId, 'data', 'status'], data.get('affected'));
 };
 
 const assignToHisReducer = createReducer(fromJS({}), {
     [ASSIDNTOHIS.ADD]: add,
+    [ASSIDNTOHIS.UPDATE_STATUS]: updateStatus,
 });
 
 export default assignToHisReducer;

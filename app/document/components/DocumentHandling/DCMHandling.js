@@ -70,7 +70,7 @@ class DCMHandling extends Component {
                                     <Text text={'- Cho: '} style={styles.text}/>
                                     {
                                         handlingUserDCMIds.map((item, index) => {
-                                            return <DCMHandlingUserContainer handlingUserDCMId={item} isComma={index !== handlingUserDCMIds.size - 1 ? true :false } />
+                                            return <DCMHandlingUserContainer key={item} handlingUserDCMId={item} isComma={index !== handlingUserDCMIds.size - 1 ? true :false } />
                                         })
                                     }
                                 </View>

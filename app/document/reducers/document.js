@@ -8,7 +8,8 @@ import {DOCUMENT} from '../actions/document';
 const add = (state, action) => {
     const {data} = action.payload;
     return state.withMutations((stateNew) => {
-        data.get('list').map(item => {
+        const list = data.get('list') || data.get('data');
+        list.map(item => {
             const id = item.get('id');
             stateNew.mergeDeep(Map([[id, item]]));
         })

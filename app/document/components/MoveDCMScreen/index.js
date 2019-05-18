@@ -25,19 +25,26 @@ import HeaderNavigation from '../../../main/components/HeaderNavigation';
 import DepartmentListContainer from '../../../modules/department/components/DepartmentList/DepartmentListContainer';
 
 import styles from './styles/index.css';
+import PropTypes from "prop-types";
 
 const  drawerLabel = 'Chuyển văn bản';
 class MoveDCMScreen extends Component {
     render() {
+        const {navigation} = this.props;
+        const documentId = navigation.getParam('documentId');
         return (
             <SafeAreaView style={styles.container}>
                 <HeaderNavigation {...this.props} title={drawerLabel} isBtnBack={true} />
                 <View style={{ flex: 1, backgroundColor: 'white'}}>
-                    <DepartmentListContainer />
+                    <DepartmentListContainer documentId={documentId} />
                 </View>
             </SafeAreaView>
         );
     }
 }
+
+MoveDCMScreen.propTypes = {
+    navigation: PropTypes.object,
+};
 
 export default MoveDCMScreen;

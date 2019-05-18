@@ -27,13 +27,15 @@ import {getItemIds} from '../../selectors/hasDocumentSelectors';
 
 import decorateGetList from '../../../base/utils/decorateGetList';
 import {storeConfig} from '../../../storeConfig';
+import {getPageByDocument} from "../../../ui/selectors/currentSelectors";
 
-const stateKeyChild = `${storeConfig.Document + '_Internal'}`;
+const stateKeyChild = storeConfig.DocumentInternal;
 const url = 'http://mobile_qlvb.bacninh.gov.vn/document/internal.json?page=1&content=';
 
 function mapStateToProps(state) {
+    const page = getPageByDocument(state, stateKeyChild);
     return {
-        documentIds: getItemIds(state, stateKeyChild),
+        documentIds: getItemIds(state, stateKeyChild, page),
 
         getListAction: getList,
         url: url,

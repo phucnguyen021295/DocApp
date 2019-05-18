@@ -22,13 +22,12 @@ export const DEPARTMENT_USER = {
     ADD: 'ADD_DEPARTMENT_USER'
 };
 
-export const add = (data, stateKeyChild) => createActionNoAppID(DEPARTMENT_USER.ADD, {data, stateKeyChild});
+export const add = (data, meId) => createActionNoAppID(DEPARTMENT_USER.ADD, {data, meId});
 
-export const get = (userId, url) => {
+export const get = (url) => {
     return objectUI.getUi(
         null,
         {
-            userId,
             url: url,
             selector: departmentUserSelectors,
             api: departmentUserApi,

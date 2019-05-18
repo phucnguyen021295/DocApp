@@ -21,6 +21,7 @@ import userSagas from '../modules/users/sagas/user';
 import documentSaga from '../document/sagas/documentSaga';
 import submissionSaga from '../phieutrinh/sagas/submission';
 import calendarSaga from '../calendar/sagas/calendar';
+import departmentSaga from '../modules/department/sagas/department';
 
 const getRouterSaga = function* getRouterSaga() {
     yield all([
@@ -29,6 +30,7 @@ const getRouterSaga = function* getRouterSaga() {
         call(documentSaga),
         call(submissionSaga),
         call(calendarSaga),
+        call(departmentSaga),
     ]);
 };
 

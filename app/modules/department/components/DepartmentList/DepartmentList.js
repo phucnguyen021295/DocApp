@@ -27,12 +27,15 @@ import {
 } from 'react-native';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import Icons from 'react-native-vector-icons/MaterialIcons';
+import {withNavigation} from 'react-navigation';
 
 // Component
 import Text from '../../../../base/components/Text';
 import DepartmentChild from './DepartmentChild';
 
 import * as color from '../../../../shares/styles/color/index';
+
+import {DOMAIN} from '../../../../config';
 
 import styles from "../DeptJobUser/styles/index.css";
 
@@ -43,13 +46,25 @@ class DepartmentList extends Component {
         super(props);
         this.state = {
             isDateTimePickerVisible: false,
-            textDate: ''
+            textDate: '',
+            expired_at: new Date(),
+            notes: props.notes,
         };
     }
 
     componentDidMount() {
         const {groupIds, onRendered} = this.props;
         // onRendered(groupIds.size);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.notes !== this.props.notes) {
+            this.setState({notes: nextProps.notes});
+        }
+    }
+
+    componentWillUnmount() {
+        this.props.removeChecked(null);
     }
 
     _keyExtractor = (groupId) => groupId;
@@ -71,13 +86,46 @@ class DepartmentList extends Component {
     };
 
     handleDatePicked = (date) => {
-        const textDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-        this.setState({textDate: textDate});
+        const textDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+        this.setState({textDate: textDate, expired_at: date});
         // this.hideDateTimePicker();
     };
 
     onChangeDate = (date) => {
         this.setState({textDate: date});
+    };
+
+    getsAsigned_to = (userIds) => {
+        let assigned_to = '';
+        userIds.map(userId => {
+            if(assigned_to === '') {
+                assigned_to = `${assigned_to}${userId}`
+            } else {
+                assigned_to = `${assigned_to},${userId}`
+            }
+        });
+        return assigned_to;
+    };
+
+    onTransferText = () => {
+        const {userIds, documentId} = this.props;
+        const { textDate, notes} = this.state;
+        const url =`${DOMAIN}/document/assign.json`;
+        const data = {
+            doc_id: documentId,
+            action_type: 3,
+            status: 1,
+            assigned_to: this.getsAsigned_to(userIds),
+            expired_at: textDate,
+            notes: notes
+        };
+        this.props.transferText(url, documentId, data);
+        debugger;
+        this.props.navigation.replace('AppStack');
+    };
+
+    onChangeText = (text) => {
+        this.setState({notes: text})
     };
 
     render() {
@@ -113,12 +161,12 @@ class DepartmentList extends Component {
                     multiline = {true}
                     numberOfLines = {4}
                     textAlignVertical={'top'}
-                    onChangeText={(text) => this.setState({text})}
-                    value={this.state.text}
+                    onChangeText={this.onChangeText}
+                    value={this.state.notes}
                     style={{borderWidth: 1, borderColor: 'gray', marginHorizontal: 5}}
                 />
                 <View style={{flexDirection: 'row', marginLeft: 5, marginVertical: 15}}>
-                    <TouchableOpacity style={{paddingHorizontal: 12, paddingVertical: 6, backgroundColor: color.colorBlue}}>
+                    <TouchableOpacity onPress={this.onTransferText} style={{paddingHorizontal: 12, paddingVertical: 6, backgroundColor: color.colorBlue}}>
                         <Text text={'Chuyển Văn Bản'} style={{color: '#FFFFFf', flexWrap:'wrap'}} />
                     </TouchableOpacity>
                 </View>
@@ -142,8 +190,13 @@ DepartmentList.propTypes = {
     departmentIds: PropTypes.object,
     getList: PropTypes.func,
     updateIsSeeMore: PropTypes.func,
-    navigationApp: PropTypes.object,
+    navigation: PropTypes.object,
     onRendered: PropTypes.func,
+    userIds: PropTypes.array,
+    documentId: PropTypes.String,
+    transferText: PropTypes.func,
+    notes: PropTypes.String,
+    removeChecked: PropTypes.func,
 };
 
 DepartmentList.defaultProps = {
@@ -152,4 +205,4 @@ DepartmentList.defaultProps = {
 };
 
 
-export default DepartmentList;
+export default withNavigation(DepartmentList);

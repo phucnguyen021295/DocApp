@@ -57,15 +57,18 @@ class DeptJobUser extends Component {
     };
 
     onCheckbox = () => {
+        const {updateCheckBoxByDept, meId, user} = this.props;
         const {isCheckBox} = this.state;
         this.setState({isCheckBox: !isCheckBox});
+        debugger;
+        updateCheckBoxByDept(meId, [user.get('id')]);
     };
 
     onChecked = () => {
         const {user, updateChecked} = this.props;
         const {isBtnChecked} = this.state;
         this.setState({isBtnChecked: !isBtnChecked});
-        updateChecked('user', user.get('id'));
+        updateChecked('user', user.get('id'), user.get('fullname'));
     };
 
     render() {
@@ -97,6 +100,8 @@ DeptJobUser.propTypes = {
     isCheckBoxParent: PropTypes.bool,
     checkedUser: PropTypes.string,
     updateChecked: PropTypes.func,
+    updateCheckBoxByDept: PropTypes.func,
+    meId: PropTypes.String,
 };
 
 export default withNavigation(DeptJobUser);

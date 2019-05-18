@@ -19,16 +19,19 @@ import {connect} from 'react-redux';
 import Department from './Department';
 
 // Actions
-import {updateChecked} from '../../../../ui/actions/current';
+import {updateChecked, updateCheckBoxByDept} from '../../../../ui/actions/current';
 
 // Selector.
 import * as departmentUserSelectors from '../../selectors/departmentUserSelectors';
 import {getCheckedDept} from '../../../../ui/selectors/currentSelectors';
+import {getMeId} from '../../../users/selectors/meSelectors';
 
 function mapStateToProps(state, onwProps) {
     const {departmentId} = onwProps;
     const department = departmentUserSelectors.get(state, departmentId);
+    const meId = getMeId(state);
     return {
+        meId,
         departmentId,
         department: department,
         checkedDept: getCheckedDept(state)
@@ -37,7 +40,8 @@ function mapStateToProps(state, onwProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        updateChecked: (keyStore, id) => dispatch(updateChecked(keyStore, id))
+        updateChecked: (keyStore, id, name) => dispatch(updateChecked(keyStore, id, name)),
+        updateCheckBoxByDept: (meId, userIds) => dispatch(updateCheckBoxByDept(meId, userIds)),
     };
 }
 

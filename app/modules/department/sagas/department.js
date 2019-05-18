@@ -13,11 +13,13 @@
  */
 'use strict';
 
-import {all, call, take, put} from 'redux-saga/effects';
+import {all, call, take, put, select} from 'redux-saga/effects';
 import {OBJECT_UI, objectApi, OBJECT_TYPE} from '../../../base/apis/actionApi';
 // import {fetchEntity} from '../../../base/apis/fetchEntity';
 
 import * as dpmUserAction from '../actions/departmentUser';
+
+import {getMeId} from '../../users/selectors/meSelectors';
 
 // Get vawn banr xuwr lys
 const isGetHandlingDoccumentSuccess = function isGetHandlingDoccumentSuccess(action) {
@@ -29,15 +31,13 @@ const watchGetHandlingDocumentSuccess = function* watchGetHandlingDocumentSucces
     while (true) { // eslint-disable-line
         const fetchResult = yield take(isGetHandlingDoccumentSuccess);
         const {payload, original} = fetchResult;
-        debugger;
-        const {user} = original;
-        yield put(dpmUserAction.add(payload, documentId));
+        const meId = yield select(getMeId);
+        yield put(dpmUserAction.add(payload, meId));
     }
 };
 
 const getDocumentSaga = function* getDocumentSaga() {
     yield all([
-
         call(watchGetHandlingDocumentSuccess),
     ]);
 };

@@ -30,10 +30,12 @@ import Text from '../../../base/components/Text';
 
 // Actions
 import * as departmentUserAction from '../../../modules/department/actions/departmentUser';
+import {finishText} from '../../actions/document';
 
 // Selector
-import {getUnitAuthCode} from '../../../modules/auth/selectors/authSelectors';
+import {getUnitCode} from '../../../modules/auth/selectors/authSelectors';
 import {getStatusDoc} from '../../selectors/assignTohisSelectors';
+import {getMeId} from '../../../modules/users/selectors/meSelectors';
 
 // config
 import {DOMAIN} from '../../../config';
@@ -47,14 +49,16 @@ class DocumentEvent extends Component {
     }
 
     onSuccess = () => {
-        alert("Chuc nang dang phat trien");
+        const {documentId} = this.props;
+        const url = `${DOMAIN}/document/setdone.json?id=${documentId}&status=1`;
+        this.props.updateStatus(url, documentId);
     };
 
     onChangeDoc = () => {
-        const {unit_id} = this.props;
+        const {unit_id, documentId} = this.props;
         const url = `${DOMAIN}/user/listByTitles.json?titles_id=26,27,52,28,23,60,59,62,58,61,63,36,44,30,42,41,25,24,33,38,53,54,55,56,57,29&unit_id=${unit_id}`;
-        this.props.getUserForDepart();
-        this.props.navigation.navigate('MoveDCMScreen');
+        this.props.getUserForDepart(url);
+        this.props.navigation.navigate('MoveDCMScreen', {documentId});
         // alert("Chuc nang dang phat trien");
     };
 
@@ -89,25 +93,28 @@ class DocumentEvent extends Component {
 }
 
 DocumentEvent.propTypes = {
-    title: PropTypes.string,
+    title: PropTypes.String,
     isBtnBack: PropTypes.bool,
     getUserForDepart: PropTypes.func,
     navigation: PropTypes.object,
-    unit_id: PropTypes.string,
+    unit_id: PropTypes.String,
     statusBtnHT: PropTypes.bool,
+    updateStatus: PropTypes.func,
+    documentId: PropTypes.String,
 };
 
 function mapStateToProps(state, ownProps) {
     const {documentId} = ownProps;
     return {
-        unit_id: getUnitAuthCode(state),
+        unit_id: getUnitCode(state),
         statusBtnHT: getStatusDoc(state, documentId),
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        getUserForDepart: (userId, url) => dispatch(departmentUserAction.get(userId, url))
+        updateStatus: (url, documentId) => dispatch(finishText(url, documentId)),
+        getUserForDepart: (url) => dispatch(departmentUserAction.get(url))
     };
 }
 

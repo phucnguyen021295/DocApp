@@ -30,7 +30,7 @@ import decorateGetList from '../../../base/utils/decorateGetList';
 import {storeConfig} from '../../../storeConfig';
 
 const stateKeyChild = storeConfig.DocumentReceive;
-const url = 'http://mobile_qlvb.bacninh.gov.vn/document/expireddoc.json?page=1&status=0&kind=&content=&notes=1';
+const url = 'http://mobile_qlvb.bacninh.gov.vn/document/searchsaved.json?year=2019&to=&from=&page=1&kind=&doccode=&content=';
 
 function mapStateToProps(state) {
     const page = getPageByDocument(state, stateKeyChild);
