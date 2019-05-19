@@ -3,15 +3,15 @@ package com.docapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.reactlibrary.RNReactNativeDocViewerPackage;
-import org.wonday.pdf.RCTPdfView;
 import com.RNFetchBlob.RNFetchBlobPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import org.wonday.pdf.RCTPdfView;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.reactlibrary.RNReactNativeDocViewerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.oblador.vectoricons.VectorIconsPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,11 +28,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNReactNativeDocViewerPackage(),
-            new RCTPdfView(),
             new RNFetchBlobPackage(),
+            new VectorIconsPackage(),
+            new RCTPdfView(),
             new RNGestureHandlerPackage(),
-            new VectorIconsPackage()
+            new RNReactNativeDocViewerPackage()
       );
     }
 
