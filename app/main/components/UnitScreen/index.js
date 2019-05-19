@@ -121,7 +121,6 @@ class UnitScreen extends React.Component {
 
     renderTextInput = () => {
         return <TextInput
-            style={{color: '#bbbbbb'}}
             // autoFocus={true}
             placeholder="Chọn đơn vị"
             autoCorrect={false}
@@ -144,12 +143,13 @@ class UnitScreen extends React.Component {
             <SafeAreaView style={styles.container}>
                 <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                     <View style={{alignItems: 'center', marginTop: 100}}>
-                        <MediumText text={'eGov'} style={{fontSize: 50, color: "white"}}/>
+                        <MediumText text={'GOV'.toUpperCase()} style={{fontSize: 30, color: "white", marginBottom: 15}}/>
+                        <MediumText text={'Quản lý văn bản tỉnh Bắc Ninh'.toUpperCase()} style={{fontSize: 20, color: "white"}}/>
                     </View>
                     <View style={[styles.autocompleteContainer, {zIndex: isResult ? 1 : 3}]}>
                         <Autocomplete
                             hideResults={isResult}
-                            inputContainerStyle={{height: 40, paddingHorizontal: 15, borderRadius: 5,color: '#bbbbbb', backgroundColor: '#ffffff', marginHorizontal: 11}}
+                            inputContainerStyle={styles.inputContainerStyle}
                             listStyle={{maxHeight: 180, borderBottomRightRadius: 5, borderBottomLeftRadius: 5}}
                             data={films.length === 1 && this.comp(query, data[0].unit_name) ? [] : films}
                             defaultValue={query}

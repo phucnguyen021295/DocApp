@@ -14,3 +14,5 @@
 'use strict';
 
 export const colorBlue = "#2e4395";
+
+export const colorBlue1 = "#324cad";
