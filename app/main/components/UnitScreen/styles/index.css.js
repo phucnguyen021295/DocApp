@@ -1,10 +1,13 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
+import * as color from '../../../../shares/styles/color';
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#4d7eb2'
+        backgroundColor: color.colorBlue1
     },
+
+
     autocompleteContainer: {
         // flex: 1,
         left: 0,
@@ -33,13 +36,31 @@ const styles = StyleSheet.create({
         top: 290,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'red',
+        backgroundColor: '#c61d1d',
         width: 100,
         height: 36,
         marginLeft: -55,
         borderRadius: 5,
         zIndex: 2
     },
+
+    inputContainerStyle: {
+        height: 40,
+        paddingHorizontal: 10,
+        borderRadius: 5,
+        color: '#bbbbbb',
+        backgroundColor: '#ffffff',
+        ...Platform.select({
+            ios: {
+                lineHeight: 40,
+                justifyContent: 'center'
+                // backgroundColor: 'red',
+            },
+            android: {
+                marginHorizontal: 11,
+            },
+        }),
+    }
 });
 
 export default styles;

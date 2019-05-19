@@ -1,10 +1,11 @@
 import {StyleSheet} from 'react-native';
+import * as color from '../../../../shares/styles/color';
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: '#4267b2'
+        backgroundColor: color.colorBlue1
     },
 });
 

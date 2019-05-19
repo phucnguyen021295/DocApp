@@ -16,8 +16,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {DrawerItems} from 'react-navigation';
-import { View, TouchableOpacity, Platform, AsyncStorage, ScrollView } from 'react-native'
+import { View, TouchableOpacity, Platform, AsyncStorage, ScrollView, SafeAreaView } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Text, {MediumText} from '../../../base/components/Text';
@@ -54,8 +53,8 @@ class DrawerContent extends Component {
     render() {
         const {authInfo} = this.props;
         return (
-            <View style={styles.container}>
-                <ScrollView>
+            <SafeAreaView style={styles.container}>
+                <ScrollView style={{backgroundColor: '#ffffff'}}>
                     <View style={styles.headerContainer}>
                         <TouchableOpacity
                             style={styles.btnBack}
@@ -93,7 +92,7 @@ class DrawerContent extends Component {
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
-            </View>
+            </SafeAreaView>
 
         )
     }
