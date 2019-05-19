@@ -3,13 +3,17 @@ import PropTypes from 'prop-types';
 import {OrderedSet} from 'immutable';
 import {
     View,
-    VirtualizedList
+    VirtualizedList,
+    RefreshControl
 } from 'react-native';
 import DocumentContainer from '../Document/DocumentContainer';
 
 class DocumentList extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            refreshing: false
+        }
     }
 
     keyExtractor = (documentId) => documentId;
@@ -19,6 +23,13 @@ class DocumentList extends Component {
     getItem = (data, index) => data.get(index);
 
     renderItem = (data) => <DocumentContainer documentId={data.item} drawerLabel={this.props.drawerLabel} />;
+
+    _refreshListView(){
+        //Start Rendering Spinner
+        this.setState({refreshing:true});
+        this.props.decorateGetListRef.getNewer();
+        this.setState({refreshing:false}) //Stop Rendering Spinner
+    }
 
     render() {
         const {documentIds} = this.props;
@@ -31,6 +42,12 @@ class DocumentList extends Component {
                     getItem={this.getItem}
                     keyExtractor={this.keyExtractor}
                     renderItem={this.renderItem}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={this._onRefresh}
+                        />
+                    }
                 />
             </View>
         );
@@ -39,7 +56,8 @@ class DocumentList extends Component {
 
 DocumentList.propTypes = {
     documentIds: PropTypes.array,
-    getDoc: PropTypes.func
+    getDoc: PropTypes.func,
+    decorateGetListRef: PropTypes.object
 };
 
 DocumentList.defaultProps = {
