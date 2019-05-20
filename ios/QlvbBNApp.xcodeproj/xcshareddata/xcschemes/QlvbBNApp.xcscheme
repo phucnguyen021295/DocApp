@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "qlvbBN.app"
-               BlueprintName = "qlvbBN"
-               ReferencedContainer = "container:qlvbBN.xcodeproj">
+               BuildableName = "QlvbBNApp.app"
+               BlueprintName = "QlvbBNApp"
+               ReferencedContainer = "container:QlvbBNApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "qlvbBNTests.xctest"
-               BlueprintName = "qlvbBNTests"
-               ReferencedContainer = "container:qlvbBN.xcodeproj">
+               BuildableName = "QlvbBNAppTests.xctest"
+               BlueprintName = "QlvbBNAppTests"
+               ReferencedContainer = "container:QlvbBNApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "qlvbBNTests.xctest"
-               BlueprintName = "qlvbBNTests"
-               ReferencedContainer = "container:qlvbBN.xcodeproj">
+               BuildableName = "QlvbBNAppTests.xctest"
+               BlueprintName = "QlvbBNAppTests"
+               ReferencedContainer = "container:QlvbBNApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "qlvbBN.app"
-            BlueprintName = "qlvbBN"
-            ReferencedContainer = "container:qlvbBN.xcodeproj">
+            BuildableName = "QlvbBNApp.app"
+            BlueprintName = "QlvbBNApp"
+            ReferencedContainer = "container:QlvbBNApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "qlvbBN.app"
-            BlueprintName = "qlvbBN"
-            ReferencedContainer = "container:qlvbBN.xcodeproj">
+            BuildableName = "QlvbBNApp.app"
+            BlueprintName = "QlvbBNApp"
+            ReferencedContainer = "container:QlvbBNApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "qlvbBN.app"
-            BlueprintName = "qlvbBN"
-            ReferencedContainer = "container:qlvbBN.xcodeproj">
+            BuildableName = "QlvbBNApp.app"
+            BlueprintName = "QlvbBNApp"
+            ReferencedContainer = "container:QlvbBNApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

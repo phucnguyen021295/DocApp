@@ -1,4 +1,4 @@
-package com.qlvbbn;
+package com.qlvbbnapp;
 
 import android.app.Application;
 
