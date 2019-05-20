@@ -37,7 +37,8 @@ class DocumentList extends Component {
             <View style={{flex: 1}} >
                 <VirtualizedList
                     data={documentIds.toList()}
-                    style={{flex: 1, paddingHorizontal: 15}}
+                    contentContainerStyle={{paddingHorizontal: 15}}
+                    style={{flex: 1}}
                     getItemCount={this.getItemCount}
                     getItem={this.getItem}
                     keyExtractor={this.keyExtractor}

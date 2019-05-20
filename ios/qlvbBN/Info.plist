@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>DocApp</string>
+	<string>QLVB Bắc Ninh</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -70,10 +70,6 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
-    <string>Roboto-Regular.ttf</string>
-    <string>Roboto-Light.ttf</string>
-    <string>Roboto-Medium.ttf</string>
-    <string>Roboto-Thin.ttf</string>
 	</array>
 </dict>
 </plist>
