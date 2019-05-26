@@ -22,12 +22,10 @@ const add = (state, action) => {
     const {data, documentId} = action.payload;
     return state.withMutations((stateNew) => {
         let itemIds = OrderedSet([]);
-        let i = 0;
-        data.get('document').map(item => {
-            itemIds = itemIds.add(i);
-            i++
+        data.get('users').map(item => {
+            itemIds = itemIds.add(item.get('id'));
         });
-        stateNew.set(documentId, itemIds)
+        stateNew.setIn([documentId, 'itemIds'], itemIds)
     });
 };
 

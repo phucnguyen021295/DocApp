@@ -33,7 +33,7 @@ function mapStateToProps(state) {
         documentIds: getItemIds(state, storeConfig.Document + 'denhan'),
 
         getListAction: getList,
-        url: ,
+        url: "gggf",
         stateKeyChild: storeConfig.Document + 'denhan'
     };
 }

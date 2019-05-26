@@ -52,4 +52,5 @@ export const storeConfig = {
     DocumentProcess: 'DocumentProcess',    // Văn bản đã xử lý
     DocumentInternal: 'DocumentInternal',  // Văn bẳn nội bộ
     DocumentAboutExprire: 'DocumentAboutExprire', // Văn bản sắp hết hạn xử lý.
+    DocumentSearch: 'DocumentSearch',
 };

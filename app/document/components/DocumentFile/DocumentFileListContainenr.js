@@ -6,22 +6,26 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 19/05/19.
+ * @author phucnhb@bkav.com on 26/05/19.
  *
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
 'use strict';
 
-import {StyleSheet} from 'react-native';
-import * as color from '../../../../shares/styles/color';
+import {connect} from 'react-redux';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        backgroundColor: color.colorBlue1
-    },
-});
+// Components
+import DocumentFileList from './DocumentFileList';
 
-export default styles;
+// Selectors
+import {getItemIds} from '../../selectors/hasFileDCMSelectors';
+
+function mapStateToProps(state, ownProps) {
+    const {documentId} = ownProps;
+    return {
+        fileIds: getItemIds(state, documentId),
+    };
+}
+
+export default connect(mapStateToProps)(DocumentFileList);

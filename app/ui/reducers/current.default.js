@@ -17,13 +17,14 @@ import {storeConfig} from '../../storeConfig';
 
 const uiStateDefault = {
     document: {
-        [storeConfig.DocumentAboutExprire]: 'page1',
-        [storeConfig.DocumentInternal]: 'page1',
-        [storeConfig.DocumentProcess]: 'page1',
-        [storeConfig.DocumentUnprocess]: 'page1',
-        [storeConfig.DocumentReceive]: 'page1'
+        [storeConfig.DocumentAboutExprire]: '1', // page
+        [storeConfig.DocumentInternal]: '1',
+        [storeConfig.DocumentProcess]: '1',
+        [storeConfig.DocumentUnprocess]: '1',
+        [storeConfig.DocumentReceive]: '1',
+        [storeConfig.DocumentSearch]: '1'
     },
-    submission: 'page1',
+    submission: '1',
     statusApp: '',
     unit: {},
     checked: {},
@@ -35,7 +36,8 @@ const uiStateDefault = {
         '10': 'đã tạo hồ sơ công việc',
         'default': 'Chuyển tiếp văn bản'
     },
-    checkBox: {}
+    checkBox: {},
+    seachDoc: ''
 };
 
 export default uiStateDefault;

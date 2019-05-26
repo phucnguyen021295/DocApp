@@ -18,3 +18,5 @@ import {storeConfig} from '../../storeConfig';
 export const statePath = [storeConfig.HasSubmission];
 
 export const getItemIds = (state, pageId) => state.getIn([...statePath, pageId, "itemIds"]);
+
+export const getItems = (state, pageId) => state.getIn([...statePath, pageId, "items"]);

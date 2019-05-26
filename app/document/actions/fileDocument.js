@@ -22,7 +22,7 @@ export const FILE_DOCUMENT = {
     ADD: 'ADD_FILE_DOCUMENT'
 };
 
-export const add = (data, stateKeyChild) => createActionNoAppID(FILE_DOCUMENT.ADD, {data, stateKeyChild});
+export const add = (data, documentId) => createActionNoAppID(FILE_DOCUMENT.ADD, {data, documentId});
 
 export const get = (documentId, url) => {
     return objectUI.getUi(

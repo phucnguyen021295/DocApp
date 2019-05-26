@@ -14,6 +14,7 @@
 'use strict';
 
 import {all, call, take, put} from 'redux-saga/effects';
+import {delay} from 'redux-saga';
 import {OBJECT_UI, objectApi, OBJECT_TYPE} from '../../base/apis/actionApi';
 import {fetchEntity} from '../../base/apis/fetchEntity';
 
@@ -22,6 +23,7 @@ import * as actionDetailDoc from '../actions/detailDocument';
 import * as actionHandlingDCM from '../actions/handlingDocument';
 import * as actionFileDocument from '../actions/fileDocument';
 import * as actionAssignTohis from '../actions/assignTohis';
+import {DOMAIN} from "../../config";
 
 // Get list document
 const apiFn = fetchEntity.bind(null, objectApi.getList);
@@ -58,6 +60,18 @@ const watchGetUi = function* watchGetUi() {
         const {condition} = datafetch;
         const {url, api} = condition;
         yield call(apiGet, api.get, url, condition);
+    }
+};
+
+const watchGetDocumentDetailSuccess = function* watchGetDocumentDetailSuccess() {
+    while (true) { // eslint-disable-line
+        const fetchResult = yield take('GET_DOCUMENT_DETAIL');
+        const {documentId} = fetchResult.payload;
+        yield put(actionAssignTohis.get(`${DOMAIN}/document/assignTohis.json?id=${documentId}`));
+        yield call(delay, 150);
+        yield put(actionHandlingDCM.get(documentId, `${DOMAIN}/document/history.json?id=${documentId}`));
+        yield call(delay, 150);
+        yield put(actionFileDocument.get(documentId, `${DOMAIN}/document/attach.json?id=${documentId}`));
     }
 };
 
@@ -162,6 +176,8 @@ const getDocumentSaga = function* getDocumentSaga() {
     yield all([
         call(watchGetListUi),
         call(watchGetListDocumentSuccess),
+
+        call(watchGetDocumentDetailSuccess),
 
         call(watchGetUi),
         call(watchGetDocumentSuccess),

@@ -28,6 +28,8 @@ import detailDocumentReducer from '../document/reducers/detailDocument';
 import hasHandlingDCMReducer from '../document/reducers/hasHandlingDocument';
 import handlingDCMReducer from '../document/reducers/handlingDocument';
 import assignTohisReducer from '../document/reducers/assignTohis';
+import hasFileDocumentReducer from '../document/reducers/hasFileDocument';
+import fileDocumentReducer from '../document/reducers/fileDocument';
 
 import meReducer from '../modules/users/reducers/me';
 import userReducer from '../modules/users/reducers/user';
@@ -54,6 +56,8 @@ const rootReducer = combineReducers({
     [storeConfig.HasHandlingDCM]: hasHandlingDCMReducer,
     [storeConfig.HandlingDCM]: handlingDCMReducer,
     [storeConfig.AssignTohis]: assignTohisReducer,
+    [storeConfig.HasFileDocument]: hasFileDocumentReducer,
+    [storeConfig.FileDocument]: fileDocumentReducer,
 
     [storeConfig.HasSubmission]: hasSubmissionReducer,
     [storeConfig.Submission]: submissionReducer,

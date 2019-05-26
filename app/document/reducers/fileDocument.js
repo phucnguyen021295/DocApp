@@ -23,7 +23,7 @@ import {FILE_DOCUMENT} from '../actions/fileDocument';
 const add = (state, action) => {
     const {data} = action.payload;
     return state.withMutations((stateNew) => {
-        data.get('list').map(item => {
+        data.get('users').map(item => {
             const id = item.get('id');
             stateNew.mergeDeep(Map([[id, item]]));
         })

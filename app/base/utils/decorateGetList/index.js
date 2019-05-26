@@ -27,8 +27,22 @@ function decorateGetList(WrappedComponent) {
             this.getNewer();
         }
 
+        componentWillReceiveProps(nextProps) {
+            const { getList, stateKeyChild, url } = this.props;
+            if(url !== nextProps.url) {
+                getList(nextProps.url, stateKeyChild);
+            }
+
+        }
+
         getNewer = () => {
             const { getList, stateKeyChild, url } = this.props;
+            getList(url, stateKeyChild);
+        };
+
+        getPage = () => {
+            const { getList, stateKeyChild, url } = this.props;
+            url = url.replace();
             getList(url, stateKeyChild);
         };
 

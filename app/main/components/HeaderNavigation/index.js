@@ -50,6 +50,10 @@ class HeaderNavigation extends Component {
     };
 
     onGoBack = () => {
+        const {onGoBack} = this.props;
+        if(onGoBack) {
+            onGoBack();
+        }
         this.props.navigation.goBack();
         return true;
     };
@@ -94,6 +98,7 @@ class HeaderNavigation extends Component {
 HeaderNavigation.propTypes = {
     title: PropTypes.string,
     isBtnBack: PropTypes.bool,
+    onGoBack: PropTypes.func
 };
 
 export default HeaderNavigation;

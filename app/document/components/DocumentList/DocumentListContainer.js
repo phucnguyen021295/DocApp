@@ -6,17 +6,20 @@ import DocumentList from './DocumentList';
 
 // Actions
 import {getList} from '../../actions/document';
+import {updatePageDocument} from '../../../ui/actions/current';
 
 // Selectors
 import {getItemIds} from '../../selectors/hasDocumentSelectors';
+import {getPageByDocument} from '../../../ui/selectors/currentSelectors';
 
 import decorateGetList from '../../../base/utils/decorateGetList';
 import {storeConfig} from '../../../storeConfig';
 import {DOMAIN} from '../../../config';
 
-const url = `${DOMAIN}/document/list.json?status=0&page=1`;
 
 function mapStateToProps(state) {
+    const page = getPageByDocument(state, storeConfig.Document + 'denhan');
+    const url = `${DOMAIN}/document/list.json?status=0&page=${page}`;
     return {
         documentIds: getItemIds(state, storeConfig.Document + 'denhan'),
 
@@ -25,6 +28,12 @@ function mapStateToProps(state) {
         stateKey: storeConfig.Document,
         stateKeyChild: storeConfig.Document + 'denhan'
     };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        updatePageDocument: () => dispatch(updatePageDocument())
+    }
 }
 
 const enhance = compose(

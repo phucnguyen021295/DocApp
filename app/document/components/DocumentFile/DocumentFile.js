@@ -1,3 +1,18 @@
+/**
+ * Copyright 2016-present, Bkav, Cop.
+ * All rights reserved.
+ *
+ * This source code is licensed under the Bkav license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @author phucnhb@bkav.com on 26/05/19.
+ *
+ * History:
+ * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
+ */
+'use strict';
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -5,20 +20,20 @@ import {
     TouchableOpacity,
     Platform,
     Alert,
-    Linking
+    Linking,
+    Image,
 } from 'react-native';
-import {withNavigation} from 'react-navigation';
-import OpenFile from 'react-native-doc-viewer';
 
 // Components
 import Text, {MediumText} from '../../../base/components/Text';
 
-// config
-import {DOMAIN_FILE} from '../../../config';
+// Share
+import convertFile from '../../../shares/convertFile';
 
 import styles from './styles/index.css';
+import OpenFile from "react-native-doc-viewer";
 
-class Submission extends Component {
+class DocumentFile extends Component {
     constructor(props) {
         super(props);
     }
@@ -39,15 +54,15 @@ class Submission extends Component {
         );
     };
 
-    onReadFile = (url) => {
-        const fileName = url.split('/')[url.split('/').length -1];
-        const fileType = url.split('.')[url.split('.').length - 1];
+    onChangeNavigation = () => {
+        const {file} = this.props;
+        const {fileName, fileType, url} = convertFile(file.get('file_name'));
         if(Platform.OS === 'android') {
             OpenFile.openDoc([{
                 url: url, // Local "file://" + filepath
                 fileName: fileName,
                 cache:true,
-                fileType: 'doc'
+                fileType: fileType
             }], (error, url) => {
                 if (error) {
                     this.onAlert(fileType);
@@ -61,7 +76,7 @@ class Submission extends Component {
                 url: url,
                 fileName: fileName,
                 cache:true,
-                fileType: 'doc'
+                fileType: fileType
             }], (error, url) => {
                 if (error) {
                     this.onAlert(fileType);
@@ -73,35 +88,28 @@ class Submission extends Component {
         }
     };
 
-    onChangeNavigation = () => {
-        const {submission} = this.props;
-        let url = '';
-        if(submission.get('file_name') && submission.get('file_name') !== '') {
-            url = `${DOMAIN_FILE}${submission.get('file_name').slice(11)}`;
-            this.onReadFile(url);
-        }
-
-    };
-
     render() {
-        const {submission} = this.props;
+        const {file} = this.props;
+        const {fileName, fileType} = convertFile(file.get('file_name'));
+        const source = fileType === 'pdf' ? require('./styles/images/icon_pdf.png') : require('./styles/images/icon_word.png');
+        debugger;
         return (
-            <TouchableOpacity onPress={this.onChangeNavigation.bind(this)} style={styles.btn}>
-                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                    <Text text={submission.get('ticket_name')} style={[styles.textTitle]} numberOfLines={1} />
-                    {/*<Text text={document.get('published_date')} style={styles.textDate} />*/}
-                </View>
-                <View style={{flexDirection: 'column'}}>
-                    <Text text={submission.get('summary')} style={styles.text} numberOfLines={2} />
+            <TouchableOpacity onPress={this.onChangeNavigation} style={styles.btn}>
+                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                    <Image
+                        style={{width: 20, height: 20}}
+                        source={source}
+                        resizeMode={'contain'}
+                    />
+                    <Text text={fileName} style={[styles.textTitle]} />
                 </View>
             </TouchableOpacity>
         );
     }
 }
 
-Submission.propTypes = {
-    submission: PropTypes.object,
-    navigation: PropTypes.object,
+DocumentFile.propTypes = {
+    file: PropTypes.object,
 };
 
-export default withNavigation(Submission);
+export default DocumentFile;

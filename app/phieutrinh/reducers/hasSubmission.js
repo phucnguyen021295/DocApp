@@ -25,7 +25,7 @@ const add = (state, action) => {
         const id = item.get('id');
         itemIds = itemIds.add(id);
     });
-    const page = 'page' + data.getIn(['pages', 'current']);
+    const page = data.getIn(['pages', 'current']).toString();
     return state.setIn([page, 'itemIds',], itemIds).
     setIn([page, 'items'], data.get('pages'));
 };

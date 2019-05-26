@@ -23,6 +23,7 @@ export const CURRENT = {
     UPDATE_UNIT: 'UPDATE_UNIT_CURRENT',
     UPDATE_CHECKED: 'UPDATE_CHECKED_CURRENT',
     UPDATE_CHECKBOX: 'UPDATE_CHECKBOX_CUCCENT',
+    UPDATE_SEARCH_DOC: 'UPDATE_SEARCH_DOC_CURRENT'
 };
 
 export const updatePageDocument = (type, page) => createActionNoAppID(CURRENT.UPDATE_PAGE_DOCUMENT, {type, page});
@@ -36,3 +37,5 @@ export const updateUnit = (unit) => createActionNoAppID(CURRENT.UPDATE_UNIT, {un
 export const updateChecked = (keyStore, id, name) => createActionNoAppID(CURRENT.UPDATE_CHECKED, {keyStore, id, name});
 
 export const updateCheckBoxByDept = (meId, userIds) => createActionNoAppID(CURRENT.UPDATE_CHECKBOX, {meId, userIds});
+
+export const updateSearch = (keySearch) => createActionNoAppID(CURRENT.UPDATE_SEARCH_DOC, {keySearch});

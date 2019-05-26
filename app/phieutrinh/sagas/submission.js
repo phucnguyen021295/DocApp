@@ -29,7 +29,6 @@ const watchGetListSubmissionSuccess = function* watchGetListSubmissionSuccess() 
         const fetchResult = yield take(isGetListSubmissionSuccess);
         const {payload, original} = fetchResult;
         const {stateKeyChild} = original;
-        debugger;
         yield put(add(payload, stateKeyChild));
     }
 };

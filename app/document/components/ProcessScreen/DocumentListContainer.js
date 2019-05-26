@@ -23,19 +23,23 @@ import DocumentList from '../DocumentList/DocumentList';
 import {getList} from '../../actions/document';
 
 // Selectors
-import {getItemIds} from '../../selectors/hasDocumentSelectors';
+import {getItemIds, getItems} from '../../selectors/hasDocumentSelectors';
 import {getPageByDocument} from '../../../ui/selectors/currentSelectors';
 
 import decorateGetList from '../../../base/utils/decorateGetList';
 import {storeConfig} from '../../../storeConfig';
+import {DOMAIN} from "../../../config";
+import {updatePageDocument} from "../../../ui/actions/current";
 
 const stateKeyChild = storeConfig.DocumentProcess;
-const url = 'http://mobile_qlvb.bacninh.gov.vn/document/search.json?page=1&status=1&kind=&content=&notes=2';
 
 function mapStateToProps(state) {
     const page = getPageByDocument(state, stateKeyChild);
+    const url = `${DOMAIN}/document/search.json?page=${page}&status=1&kind=&content=&notes=2`;
     return {
         documentIds: getItemIds(state, stateKeyChild, page),
+        pageItems: getItems(state, stateKeyChild, page),
+        page,
 
         getListAction: getList,
         url: url,
@@ -43,8 +47,14 @@ function mapStateToProps(state) {
     };
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        updatePageDocument: (page) => dispatch(updatePageDocument(stateKeyChild, page)),
+    }
+}
+
 const enhance = compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     decorateGetList
 );
 

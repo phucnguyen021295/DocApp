@@ -48,3 +48,5 @@ export const getNotes = (state) => {
     }
     return '';
 };
+
+export const getSearchDoc = (state) => state.getIn([...statePath, 'seachDoc']);

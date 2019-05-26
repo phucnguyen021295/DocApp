@@ -6,22 +6,20 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @author phucnhb@bkav.com on 19/05/19.
+ * @author phucnhb@bkav.com on 26/05/19.
  *
  * History:
  * @modifier abc@bkav.com on xx/xx/xxxx đã chỉnh sửa abcxyx (Chỉ các thay đổi quan trọng mới cần ghi lại note này)
  */
 'use strict';
 
-import {StyleSheet} from 'react-native';
-import * as color from '../../../../shares/styles/color';
+import {DOMAIN_FILE} from '../config';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        backgroundColor: color.colorBlue1
-    },
-});
+const convertFile = (file) => {
+    const fileName = file.split('/')[file.split('/').length - 1];
+    const fileType = fileName.split('.')[fileName.split('.').length - 1];
+    const url = `${DOMAIN_FILE}${file.split('files')[1]}`;
+    return {fileName, fileType, url};
+};
 
-export default styles;
+export default convertFile;

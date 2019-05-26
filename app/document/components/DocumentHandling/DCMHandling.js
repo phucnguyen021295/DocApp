@@ -42,8 +42,8 @@ class DCMHandling extends Component {
                         (
                             <View>
                                 <View style={{flexDirection: 'row'}}>
-                                    <Text text={`[${handlingDCMId}] `} style={styles.textTitle} />
-                                    <Text text={handlingDCM.get('assigned_by_name')} style={[styles.textTitle]} />
+                                    {/*<Text text={`[${handlingDCMId}] `} style={styles.textTitle} />*/}
+                                    <Text text={`[${handlingDCMId}] ${handlingDCM.get('assigned_by_name')}`} style={[styles.textTitle]} />
                                     <Text text={`  Đã ${handlingDCM.get('notes')}`} style={styles.textTitle} />
                                 </View>
                                 <View style={{flexDirection: 'row'}}>
@@ -54,8 +54,7 @@ class DCMHandling extends Component {
                         (
                             <View style={{flexDirection: 'column'}}>
                                 <View style={{flexDirection: 'row'}}>
-                                    <Text text={`[${handlingDCMId}] `} style={styles.textTitle} />
-                                    <Text text={`${handlingDCM.get('assigned_by_name')} Gửi lãnh đạo vào:(${handlingDCM.get('assigned_date')})`} style={[styles.textTitle]} />
+                                    <Text text={`[${handlingDCMId}] ${handlingDCM.get('assigned_by_name')} Gửi lãnh đạo vào:(${handlingDCM.get('assigned_date')})`} style={styles.textTitle} />
                                 </View>
                                 <Text text={`- Cho: ${handlingDCM.get('assigned_to_name')}`} style={styles.text}/>
                             </View>
@@ -63,8 +62,7 @@ class DCMHandling extends Component {
                         (
                             <View style={{flexDirection: 'column'}}>
                                 <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                                    <Text text={`[${handlingDCMId}] `} style={styles.textTitle} />
-                                    <Text text={`${handlingDCM.get('assigned_by_name')} Chuyển bút phê:(${handlingDCM.get('assigned_date')})`} style={[styles.textTitle]}  />
+                                    <Text text={`[${handlingDCMId}] ${handlingDCM.get('assigned_by_name')} Chuyển bút phê:(${handlingDCM.get('assigned_date')})`} style={styles.textTitle} />
                                 </View>
                                 <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
                                     <Text text={'- Cho: '} style={styles.text}/>

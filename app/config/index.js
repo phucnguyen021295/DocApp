@@ -14,3 +14,5 @@
 'use strict';
 
 export const DOMAIN = 'http://mobile_qlvb.bacninh.gov.vn';
+
+export const DOMAIN_FILE = 'http://files.bacninh.gov.vn';

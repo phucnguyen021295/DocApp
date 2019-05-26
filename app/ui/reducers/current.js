@@ -50,7 +50,6 @@ const updateChecked = (state, action) => {
         return state.set('checked', fromJS({}));
     }
     const data = fromJS({id, name});
-    debugger;
     return state.setIn(['checked'], Map([[keyStore, data]]));
 };
 
@@ -67,13 +66,19 @@ const updateCheckBoxByDept = (state, action) => {
     return state.setIn(['checkBox', meId, 'itemIds'], itemIds);
 };
 
+const updateSearchDoc = (state, action) => {
+    const { keySearch } = action.payload;
+    return state.set('seachDoc', keySearch);
+};
+
 const uiStateReducer = createReducer(fromJS(uiStateDefault), {
     [CURRENT.UPDATE_PAGE_DOCUMENT]: updatePageDocument,
     [CURRENT.UPDATE_PAGE_SUBMISSION]: updatePageSubmission,
     [CURRENT.UPDATE_STATUS_APP]: updateStatusApp,
     [CURRENT.UPDATE_UNIT]: updateUnit,
     [CURRENT.UPDATE_CHECKED]: updateChecked,
-    [CURRENT.UPDATE_CHECKBOX]: updateCheckBoxByDept
+    [CURRENT.UPDATE_CHECKBOX]: updateCheckBoxByDept,
+    [CURRENT.UPDATE_SEARCH_DOC]: updateSearchDoc,
 });
 
 export default uiStateReducer;

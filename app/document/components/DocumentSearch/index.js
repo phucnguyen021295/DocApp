@@ -26,14 +26,28 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 // Components
 import Text from '../../../base/components/Text';
 
+// Action
+import {updateSearch} from '../../../ui/actions/current';
+
+// Selector
+import {getSearchDoc} from "../../../ui/selectors/currentSelectors";
+
 // Styles
 import styles from './styles/index.css';
+import {connect} from "react-redux";
+import {withNavigation} from "react-navigation";
 
 class DocumentSearch extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            textSearch: ''
+            textSearch: props.keySearch
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.keySearch !== this.props.keySearch) {
+            this.setState({textSearch: nextProps.keySearch})
         }
     }
 
@@ -42,7 +56,27 @@ class DocumentSearch extends Component {
     };
 
     onSearch = () => {
+        const {textSearch} = this.state;
+        const {keySearch} = this.props;
 
+        if(textSearch === keySearch) {
+            return;
+        }
+
+        if(textSearch !== '' && keySearch !== '') {
+            this.props.updateSearch(textSearch);
+            this.props.navigation.replace("SearchScreen");
+        }
+
+        if(textSearch !== '' && keySearch === '') {
+            this.props.updateSearch(textSearch);
+            this.props.navigation.navigate("SearchScreen");
+        }
+
+        if(textSearch === '' && keySearch !== '') {
+            this.props.updateSearch(textSearch);
+            this.props.navigation.goBack();
+        }
     };
 
     render() {
@@ -71,6 +105,21 @@ class DocumentSearch extends Component {
 }
 
 DocumentSearch.propTypes = {
+    updateSearch: PropTypes.fuc,
+    keySearch: PropTypes.string,
+    navigation: PropTypes.object
 };
 
-export default DocumentSearch;
+function mapStateToProps(state) {
+    return {
+        keySearch: getSearchDoc(state)
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        updateSearch: (keySearch) => dispatch(updateSearch(keySearch))
+    }
+}
+
+export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(DocumentSearch));

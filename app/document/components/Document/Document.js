@@ -9,9 +9,6 @@ import {withNavigation} from 'react-navigation';
 // Components
 import Text, {MediumText} from '../../../base/components/Text';
 
-// Config
-import {DOMAIN} from '../../../config';
-
 import styles from './styles/index.css';
 
 class Document extends Component {
@@ -22,13 +19,7 @@ class Document extends Component {
     onChangeNavigation = () => {
         const {document, drawerLabel} = this.props;
         const documentId = document.get('id');
-        const url = 'http://mobile_qlvb.bacninh.gov.vn/document/view.json?id=' + documentId;
-        // this.props.getDocument(documentId, url);
-        this.props.getAssignToHis(`${DOMAIN}/document/assignTohis.json?id=${documentId}`);
-        const _that = this;
-        setTimeout(() => {
-            _that.props.getHandlingDoc(documentId, `${DOMAIN}/document/history.json?id=${documentId}`);
-        }, 100);
+        this.props.getDocumentDetail(documentId);
         this.props.navigation.navigate("DetailUnProcessScreen", {documentId, drawerLabel});
     };
 
@@ -37,7 +28,7 @@ class Document extends Component {
         return (
             <TouchableOpacity onPress={this.onChangeNavigation} style={styles.btn}>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                    <Text text={document.get('office_name')} style={[styles.textTitle, !document.get('status') && {color: '#980910', fontWeight: '600'}]} numberOfLines={1} />
+                    <Text text={document.get('office_name')} style={[styles.textTitle, !document.get('status') && {color: '#980910', fontWeight: '600'}, {maxWidth: 296}]} numberOfLines={1} />
                     <Text text={document.get('published_date')} style={styles.textDate} />
                 </View>
                 <View style={{flexDirection: 'column'}}>
@@ -51,10 +42,8 @@ class Document extends Component {
 Document.propTypes = {
     document: PropTypes.object,
     navigation: PropTypes.object,
-    getDocument: PropTypes.func,
-    getHandlingDoc: PropTypes.func,
+    getDocumentDetail: PropTypes.func,
     drawerLabel: PropTypes.string,
-    getAssignToHis: PropTypes.func,
 };
 
 export default withNavigation(Document);

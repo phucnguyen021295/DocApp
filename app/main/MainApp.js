@@ -46,6 +46,8 @@ import MeetingScreen from '../calendar/components/MeetingScreen';
 import WorkingScheduleScreen from '../calendar/components/WorkingScheduleScreen';
 import PhieuTrinhScreen from '../phieutrinh/components/PhieuTrinhScreen';
 import DetailPhieuTrinhScreen from '../phieutrinh/components/DetailPhieuTrinhScreen';
+import SearchScreen from '../document/components/SearchScreen';
+import ViewerFilePDF from '../base/components/ViewerFilePDF';
 
 const {height, width} = Dimensions.get('window');
 
@@ -109,6 +111,8 @@ const AppMainStack = createStackNavigator({
         screen: DetailUnProcessScreen
     },
     MoveDCMScreen: MoveDCMScreen,
+    SearchScreen: SearchScreen,
+    ViewerFilePDF: ViewerFilePDF,
 }, {
     initialRouteName: 'AppStack',
     headerMode: 'none',
