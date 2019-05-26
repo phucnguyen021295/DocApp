@@ -33,7 +33,7 @@ class DCMHandlingList extends Component {
 
     getItem = (data, index) => data.get(index);
 
-    renderItem = (data) => <DCMHandlingContainer documentId={this.props.documentId} handlingDCMId={data.item}  />;
+    renderItem = (data, index) => <DCMHandlingContainer key={data.item} documentId={this.props.documentId} handlingDCMId={data.item} />;
 
     render() {
         const {handlingDCMIds} = this.props;

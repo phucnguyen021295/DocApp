@@ -41,6 +41,10 @@ class DocumentTitle extends Component {
                     <MediumText text={'Số hiệu: '} style={{color: '#000000'}}/>
                     <Text text={document.get('doc_code')} style={{color: '#000000'}}/>
                 </View>
+                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                    <MediumText text={'Trích yếu: '} style={{color: '#000000'}}/>
+                    <Text text={document.get('summary')} style={{color: '#000000'}}/>
+                </View>
             </View>
         );
     }

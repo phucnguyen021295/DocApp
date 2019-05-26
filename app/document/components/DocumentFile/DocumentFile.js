@@ -92,7 +92,6 @@ class DocumentFile extends Component {
         const {file} = this.props;
         const {fileName, fileType} = convertFile(file.get('file_name'));
         const source = fileType === 'pdf' ? require('./styles/images/icon_pdf.png') : require('./styles/images/icon_word.png');
-        debugger;
         return (
             <TouchableOpacity onPress={this.onChangeNavigation} style={styles.btn}>
                 <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>

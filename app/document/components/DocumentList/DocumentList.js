@@ -84,7 +84,7 @@ class DocumentList extends Component {
                     </TouchableOpacity>
                     <Picker
                         selectedValue={this.state.numberPage}
-                        style={{height: 50, width: 100, borderColor: '#000000', borderWidth: 1}}
+                        style={{height: 50, width: 80, borderColor: '#000000', borderWidth: 1}}
                         onValueChange={this.onValueChange}>
                         {this.renderItems()}
                     </Picker>

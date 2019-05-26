@@ -36,15 +36,15 @@ class DCMHandling extends Component {
     render() {
         const {handlingDCM, handlingUserDCMIds, handlingDCMId} = this.props;
         return (
-            <View>
+            <View style={{paddingVertical: 5}}>
                 {
                     handlingDCM.get('action_type') === '1' ?
                         (
                             <View>
                                 <View style={{flexDirection: 'row'}}>
                                     {/*<Text text={`[${handlingDCMId}] `} style={styles.textTitle} />*/}
-                                    <Text text={`[${handlingDCMId}] ${handlingDCM.get('assigned_by_name')}`} style={[styles.textTitle]} />
-                                    <Text text={`  Đã ${handlingDCM.get('notes')}`} style={styles.textTitle} />
+                                    <MediumText text={`[${handlingDCMId}] ${handlingDCM.get('assigned_by_name')}`} style={[styles.textTitle]} />
+                                    <MediumText text={`  Đã ${handlingDCM.get('notes')}`} style={styles.textTitle} />
                                 </View>
                                 <View style={{flexDirection: 'row'}}>
                                     <Text text={`${handlingDCM.get('notes')}(Vào lúc: ${handlingDCM.get('assigned_date')})`} style={styles.text} />
@@ -54,7 +54,7 @@ class DCMHandling extends Component {
                         (
                             <View style={{flexDirection: 'column'}}>
                                 <View style={{flexDirection: 'row'}}>
-                                    <Text text={`[${handlingDCMId}] ${handlingDCM.get('assigned_by_name')} Gửi lãnh đạo vào:(${handlingDCM.get('assigned_date')})`} style={styles.textTitle} />
+                                    <MediumText text={`[${handlingDCMId}] ${handlingDCM.get('assigned_by_name')} Gửi lãnh đạo vào:(${handlingDCM.get('assigned_date')})`} style={styles.textTitle} />
                                 </View>
                                 <Text text={`- Cho: ${handlingDCM.get('assigned_to_name')}`} style={styles.text}/>
                             </View>
@@ -62,17 +62,22 @@ class DCMHandling extends Component {
                         (
                             <View style={{flexDirection: 'column'}}>
                                 <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                                    <Text text={`[${handlingDCMId}] ${handlingDCM.get('assigned_by_name')} Chuyển bút phê:(${handlingDCM.get('assigned_date')})`} style={styles.textTitle} />
+                                    <MediumText text={`[${handlingDCMId}] ${handlingDCM.get('assigned_by_name')} Chuyển bút phê:(${handlingDCM.get('assigned_date')})`} style={styles.textTitle} />
                                 </View>
                                 <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
                                     <Text text={'- Cho: '} style={styles.text}/>
                                     {
-                                        handlingUserDCMIds.map((item, index) => {
-                                            return <DCMHandlingUserContainer key={item} handlingUserDCMId={item} isComma={index !== handlingUserDCMIds.size - 1 ? true :false } />
+                                        handlingUserDCMIds.toList().map((item, index) => {
+                                            const isComma = index !== handlingUserDCMIds.size - 1 ? true : false;
+                                            return <DCMHandlingUserContainer key={item} handlingUserDCMId={item} isComma={isComma} />
                                         })
                                     }
                                 </View>
-                                <Text text={`${handlingDCM.get('notes')}`} style={styles.text}/>
+                                {
+                                    handlingDCM.get('notes') !== '' ?
+                                        <Text text={`${handlingDCM.get('notes')}`} style={styles.text}/>
+                                        : null
+                                }
                             </View>
                         )
                 }

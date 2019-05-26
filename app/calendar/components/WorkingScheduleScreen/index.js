@@ -164,7 +164,7 @@ class WorkingScheduleScreen extends Component {
                                 color={"#bbbbbb"}
                             />
                         </View>
-                        <View style={{flexDirection: "row", justifyContent: "center", paddingTop: 10}}>
+                        <View style={{flexDirection: "row", justifyContent: "center", paddingVertical: 15}}>
                             <TouchableOpacity onPress={this.onChangeWeekBefore}>
                                 <MediumText text={"Tuần trước"} style={styles.textBtn}/>
                             </TouchableOpacity>
