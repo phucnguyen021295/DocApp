@@ -36,8 +36,12 @@ class SubmissionList extends Component {
         super(props);
         this.state = {
             refreshing: false,
-            numberPage: 1
+            numberPage: '1'
         }
+
+        this.inputRefs = {
+            favSport1: null,
+        };
     }
 
     keyExtractor = (submissionId) => submissionId;
@@ -56,23 +60,23 @@ class SubmissionList extends Component {
     };
 
     onPrew = () => {
-        const {page, updatePageDocument} = this.props;
+        const {page, updatePageSubmission} = this.props;
         const itemValue = (parseInt(page) - 1).toString();
-        updatePageDocument(itemValue);
+        updatePageSubmission(itemValue);
         this.setState({numberPage: itemValue});
     };
 
     onNext = () => {
-        const {page, updatePageDocument} = this.props;
+        const {page, updatePageSubmission} = this.props;
         const itemValue = (parseInt(page) + 1).toString();
-        updatePageDocument(itemValue);
+        updatePageSubmission(itemValue);
         this.setState({numberPage: itemValue});
     };
 
     onValueChange = (itemValue) => {
-        const {updatePageDocument} = this.props;
+        const {updatePageSubmission} = this.props;
         this.setState({numberPage: itemValue});
-        updatePageDocument((parseInt(itemValue)).toString());
+        updatePageSubmission((parseInt(itemValue)).toString());
     };
 
     renderItems = () => {
@@ -171,6 +175,7 @@ SubmissionList.propTypes = {
     submissionIds: PropTypes.array,
     pageItems: PropTypes.object,
     page: PropTypes.String,
+    updatePageSubmission: PropTypes.func,
 };
 
 SubmissionList.defaultProps = {

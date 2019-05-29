@@ -6,6 +6,7 @@ import SubmissionList from './SubmissionList';
 
 // Actions
 import {getList} from '../../actions/submission';
+import {updatePageSubmission} from '../../../ui/actions/current';
 
 // Selectors
 import {getItemIds, getItems} from '../../selectors/hasSubmissionSelectors';
@@ -29,8 +30,14 @@ function mapStateToProps(state) {
     };
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        updatePageSubmission: (page) => dispatch(updatePageSubmission(page)),
+    }
+}
+
 const enhance = compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     decorateGetList
 );
 
