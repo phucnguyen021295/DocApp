@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: '#4267b2'
+        backgroundColor: '#324cad'
     },
 });
 

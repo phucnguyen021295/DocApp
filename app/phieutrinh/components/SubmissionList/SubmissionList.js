@@ -2,14 +2,34 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {OrderedSet} from 'immutable';
 import {
-    Picker, Platform, RefreshControl, TouchableOpacity,
+    Picker, Platform, RefreshControl, StyleSheet, TouchableOpacity,
     View,
     VirtualizedList
 } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 import SubmissionContainer from '../Submission/SubmissionContainer';
 import styles from "../../../main/components/HeaderNavigation/styles/index.css";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Text from "../../../base/components/Text";
+
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+        fontSize: 16,
+        paddingVertical: 12,
+        paddingHorizontal: 10,
+        color: 'black',
+        textAlign: 'center',
+        alignItems: 'center',
+        paddingRight: 30, // to ensure the text is never behind the icon
+    },
+    inputAndroid: {
+        fontSize: 16,
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        color: 'black',
+        paddingRight: 30, // to ensure the text is never behind the icon
+    },
+});
 
 class SubmissionList extends Component {
     constructor(props) {
@@ -55,17 +75,23 @@ class SubmissionList extends Component {
         updatePageDocument((parseInt(itemValue)).toString());
     };
 
-    renderItems = (pageCount) => {
+    renderItems = () => {
         const {pageItems} = this.props;
         let array = [];
         for(let i = 1; i <= pageItems.get('pageCount'); i++) {
-            array.push(<Picker.Item label={i.toString()} value={i.toString()} />)
+            array.push({
+                label: i.toString(),
+                value: i.toString(),
+            })
         }
         return array;
     };
 
     renderFooter = () => {
         const {pageItems, page} = this.props;
+
+        const items = this.renderItems();
+
         return (
             <View style={{justifyContent: 'center', alignItems: 'center', paddingBottom: 10}}>
                 <View style={{flexDirection: 'row'}}>
@@ -80,12 +106,23 @@ class SubmissionList extends Component {
                             color={"#000000"}
                         />
                     </TouchableOpacity>
-                    <Picker
-                        selectedValue={this.state.numberPage}
-                        style={{height: 50, width: 100, borderColor: '#000000', borderWidth: 1}}
-                        onValueChange={this.onValueChange}>
-                        {this.renderItems()}
-                    </Picker>
+                    {/*<Picker*/}
+                    {/*    selectedValue={this.state.numberPage}*/}
+                    {/*    style={{height: 50, width: 80, borderColor: '#000000', borderWidth: 1}}*/}
+                    {/*    onValueChange={this.onValueChange}>*/}
+                    {/*    {this.renderItems()}*/}
+                    {/*</Picker>*/}
+                    <RNPickerSelect
+                        // placeholder={placeholder}
+                        items={items}
+                        onValueChange={this.onValueChange}
+                        value={this.state.numberPage}
+                        style={pickerSelectStyles}
+                        useNativeAndroidPickerStyle={false}
+                        ref={(el) => {
+                            this.inputRefs.favSport1 = el;
+                        }}
+                    />
                     <TouchableOpacity
                         style={styles.btn}
                         onPress={this.onNext}

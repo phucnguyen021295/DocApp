@@ -68,9 +68,9 @@ const watchGetDocumentDetailSuccess = function* watchGetDocumentDetailSuccess() 
         const fetchResult = yield take('GET_DOCUMENT_DETAIL');
         const {documentId} = fetchResult.payload;
         yield put(actionAssignTohis.get(`${DOMAIN}/document/assignTohis.json?id=${documentId}`));
-        yield call(delay, 150);
+        yield call(delay, 200);
         yield put(actionHandlingDCM.get(documentId, `${DOMAIN}/document/history.json?id=${documentId}`));
-        yield call(delay, 150);
+        yield call(delay, 200);
         yield put(actionFileDocument.get(documentId, `${DOMAIN}/document/attach.json?id=${documentId}`));
     }
 };

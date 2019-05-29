@@ -6,20 +6,47 @@ import {
     VirtualizedList,
     RefreshControl, Platform, TouchableOpacity,
     Picker,
+    StyleSheet
 } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
+
 import DocumentContainer from '../Document/DocumentContainer';
 import Text from '../../../base/components/Text';
 
 import styles from "../../../main/components/HeaderNavigation/styles/index.css";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+        fontSize: 16,
+        paddingVertical: 12,
+        paddingHorizontal: 10,
+        color: 'black',
+        textAlign: 'center',
+        alignItems: 'center',
+        paddingRight: 30, // to ensure the text is never behind the icon
+    },
+    inputAndroid: {
+        fontSize: 16,
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        color: 'black',
+        paddingRight: 30, // to ensure the text is never behind the icon
+    },
+});
+
+
 class DocumentList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             refreshing: false,
-            numberPage: 1
+            numberPage: '1'
         }
+
+        this.inputRefs = {
+            favSport1: null,
+        };
     }
 
     keyExtractor = (documentId) => documentId;
@@ -34,7 +61,11 @@ class DocumentList extends Component {
         //Start Rendering Spinner
         this.setState({refreshing:true});
         this.props.decorateGetListRef.getNewer();
-        this.setState({refreshing:false}) //Stop Rendering Spinner
+        const _that = this;
+        setTimeout(() => {
+            _that.setState({refreshing:false}) //Stop Rendering Spinner
+        }, 1500);
+
     };
 
     onPrew = () => {
@@ -57,17 +88,23 @@ class DocumentList extends Component {
         updatePageDocument((parseInt(itemValue)).toString());
     };
 
-    renderItems = (pageCount) => {
+    renderItems = () => {
         const {pageItems} = this.props;
         let array = [];
         for(let i = 1; i <= pageItems.get('pageCount'); i++) {
-            array.push(<Picker.Item label={i.toString()} value={i.toString()} />)
+            array.push({
+                label: i.toString(),
+                value: i.toString(),
+            })
         }
         return array;
     };
 
     renderFooter = () => {
         const {pageItems, page} = this.props;
+
+        const items = this.renderItems();
+
         return (
             <View style={{justifyContent: 'center', alignItems: 'center', paddingBottom: 10}}>
                 <View style={{flexDirection: 'row'}}>
@@ -82,12 +119,23 @@ class DocumentList extends Component {
                             color={"#000000"}
                         />
                     </TouchableOpacity>
-                    <Picker
-                        selectedValue={this.state.numberPage}
-                        style={{height: 50, width: 80, borderColor: '#000000', borderWidth: 1}}
-                        onValueChange={this.onValueChange}>
-                        {this.renderItems()}
-                    </Picker>
+                    {/*<Picker*/}
+                    {/*    selectedValue={this.state.numberPage}*/}
+                    {/*    style={{height: 50, width: 80, borderColor: '#000000', borderWidth: 1}}*/}
+                    {/*    onValueChange={this.onValueChange}>*/}
+                    {/*    {this.renderItems()}*/}
+                    {/*</Picker>*/}
+                    <RNPickerSelect
+                        // placeholder={placeholder}
+                        items={items}
+                        onValueChange={this.onValueChange}
+                        value={this.state.numberPage}
+                        style={pickerSelectStyles}
+                        useNativeAndroidPickerStyle={false}
+                        ref={(el) => {
+                            this.inputRefs.favSport1 = el;
+                        }}
+                    />
                     <TouchableOpacity
                         style={styles.btn}
                         onPress={this.onNext}

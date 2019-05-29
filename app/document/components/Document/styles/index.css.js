@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     },
     textTitle: {
         color: '#000000',
-        maxWidth: 298
+        maxWidth: 250
     },
     textDate: {
         color: '#000000'

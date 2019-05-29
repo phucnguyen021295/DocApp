@@ -17,6 +17,7 @@ import Text, {MediumText} from '../../../base/components/Text';
 import {DOMAIN_FILE} from '../../../config';
 
 import styles from './styles/index.css';
+import convertFile from "../../../shares/convertFile";
 
 class Submission extends Component {
     constructor(props) {
@@ -39,48 +40,40 @@ class Submission extends Component {
         );
     };
 
-    onReadFile = (url) => {
-        const fileName = url.split('/')[url.split('/').length -1];
-        const fileType = url.split('.')[url.split('.').length - 1];
-        if(Platform.OS === 'android') {
-            OpenFile.openDoc([{
-                url: url, // Local "file://" + filepath
-                fileName: fileName,
-                cache:true,
-                fileType: 'doc'
-            }], (error, url) => {
-                if (error) {
-                    this.onAlert(fileType);
-                } else {
-                    this.setState({animating: false});
-                    console.log(url)
-                }
-            })
-        } else {
-            OpenFile.openDoc([{
-                url: url,
-                fileName: fileName,
-                cache:true,
-                fileType: 'doc'
-            }], (error, url) => {
-                if (error) {
-                    this.onAlert(fileType);
-                } else {
-                    this.setState({animating: false});
-                    console.log(url)
-                }
-            })
-        }
-    };
-
     onChangeNavigation = () => {
         const {submission} = this.props;
-        let url = '';
-        if(submission.get('file_name') && submission.get('file_name') !== '') {
-            url = `${DOMAIN_FILE}${submission.get('file_name').slice(11)}`;
-            this.onReadFile(url);
+        if(submission.get('file_name') !== null) {
+            const {fileName, fileType, url} = convertFile(submission.get('file_name'));
+            if(Platform.OS === 'android') {
+                OpenFile.openDoc([{
+                    url: url, // Local "file://" + filepath
+                    fileName: fileName,
+                    cache:true,
+                    fileType: fileType
+                }], (error, url) => {
+                    if (error) {
+                        this.onAlert(fileType);
+                    } else {
+                        this.setState({animating: false});
+                        console.log(url)
+                    }
+                })
+            } else {
+                OpenFile.openDoc([{
+                    url: url,
+                    fileName: fileName,
+                    cache:true,
+                    fileType: fileType
+                }], (error, url) => {
+                    if (error) {
+                        this.onAlert(fileType);
+                    } else {
+                        this.setState({animating: false});
+                        console.log(url)
+                    }
+                })
+            }
         }
-
     };
 
     render() {

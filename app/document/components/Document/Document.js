@@ -30,8 +30,8 @@ class Document extends Component {
                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                     {
                         document.get('viewed') !== null ?
-                            <Text text={document.get('office_name')} style={[styles.textTitle, !document.get('status') && {color: '#980910', fontWeight: '600'}, {maxWidth: 296}]} numberOfLines={1} /> :
-                            <MediumText text={document.get('office_name')} style={[styles.textTitle, !document.get('status') && {color: '#980910', fontWeight: '600'}, {maxWidth: 296}]} numberOfLines={1} />
+                            <Text text={document.get('office_name')} style={[styles.textTitle, !document.get('status') && {color: '#980910', fontWeight: '600'}, {maxWidth: 260}]} numberOfLines={1} /> :
+                            <MediumText text={document.get('office_name')} style={[styles.textTitle, !document.get('status') && {color: '#980910', fontWeight: '600'}, {maxWidth: 260}]} numberOfLines={1} />
                     }
                     <Text text={document.get('published_date')} style={styles.textDate} />
                 </View>

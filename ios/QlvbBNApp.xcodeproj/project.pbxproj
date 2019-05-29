@@ -56,6 +56,8 @@
 		99F1A459A6C745A08819426F /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE41BBA5C192450F82F6E4F7 /* FontAwesome5_Brands.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		BC8D1C98E14F48F6BED4FEAA /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0D72B99B76743D7BB1948A3 /* FontAwesome5_Regular.ttf */; };
+		CA6729BF229C29EC005C068A /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA672992229C29EC005C068A /* AssetsLibrary.framework */; };
+		CA6729C1229C2A07005C068A /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA6729C0229C2A07005C068A /* QuickLook.framework */; };
 		CAB0F7DD229265EE00D2528C /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CAB0F7D9229265EE00D2528C /* Roboto-Medium.ttf */; };
 		CAB0F7DE229265EE00D2528C /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CAB0F7DA229265EE00D2528C /* Roboto-Thin.ttf */; };
 		CAB0F7DF229265EE00D2528C /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CAB0F7DB229265EE00D2528C /* Roboto-Regular.ttf */; };
@@ -443,6 +445,8 @@
 		B1D622D6FAE44942BC24CA92 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		B2E252B0E4044251BB8B8408 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		BC2F5A4272BC47F382D36AE8 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		CA672992229C29EC005C068A /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		CA6729C0229C2A07005C068A /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		CAB0F7D9229265EE00D2528C /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Medium.ttf"; path = "../../../../../Desktop/font/Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		CAB0F7DA229265EE00D2528C /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Thin.ttf"; path = "../../../../../Desktop/font/Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		CAB0F7DB229265EE00D2528C /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Regular.ttf"; path = "../../../../../Desktop/font/Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -468,6 +472,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA6729C1229C2A07005C068A /* QuickLook.framework in Frameworks */,
+				CA6729BF229C29EC005C068A /* AssetsLibrary.framework in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
@@ -659,6 +665,8 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CA6729C0229C2A07005C068A /* QuickLook.framework */,
+				CA672992229C29EC005C068A /* AssetsLibrary.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
