@@ -34,6 +34,11 @@ class DocumentTitle extends Component {
 
     render() {
         const {document} = this.props;
+
+        if(!document) {
+            return null;
+        }
+
         return (
             <View style={{paddingHorizontal: 15}}>
                 <Text text={document.get('office_name')} style={{color: '#000000', paddingVertical: 5}}/>

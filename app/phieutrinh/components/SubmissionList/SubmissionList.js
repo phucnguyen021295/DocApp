@@ -2,15 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {OrderedSet} from 'immutable';
 import {
+    ActivityIndicator,
     Picker, Platform, RefreshControl, StyleSheet, TouchableOpacity,
     View,
     VirtualizedList
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import SubmissionContainer from '../Submission/SubmissionContainer';
-import styles from "../../../main/components/HeaderNavigation/styles/index.css";
 import Ionicons from "react-native-vector-icons/Ionicons";
+
+// Components
+import SubmissionContainer from '../Submission/SubmissionContainer';
 import Text from "../../../base/components/Text";
+
+// Styles
+import styles from './styles/index.css';
 
 const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
@@ -36,8 +41,9 @@ class SubmissionList extends Component {
         super(props);
         this.state = {
             refreshing: false,
-            numberPage: '1'
-        }
+            numberPage: '1',
+            isLoadingFile: false,
+        };
 
         this.inputRefs = {
             favSport1: null,
@@ -50,7 +56,7 @@ class SubmissionList extends Component {
 
     getItem = (data, index) => data.get(index);
 
-    renderItem = (data) => <SubmissionContainer submissionId={data.item} />;
+    renderItem = (data) => <SubmissionContainer submissionId={data.item} onLoadingFile={this.onLoadingFile} />;
 
     _refreshListView = () => {
         //Start Rendering Spinner
@@ -110,12 +116,6 @@ class SubmissionList extends Component {
                             color={"#000000"}
                         />
                     </TouchableOpacity>
-                    {/*<Picker*/}
-                    {/*    selectedValue={this.state.numberPage}*/}
-                    {/*    style={{height: 50, width: 80, borderColor: '#000000', borderWidth: 1}}*/}
-                    {/*    onValueChange={this.onValueChange}>*/}
-                    {/*    {this.renderItems()}*/}
-                    {/*</Picker>*/}
                     <RNPickerSelect
                         // placeholder={placeholder}
                         items={items}
@@ -146,10 +146,18 @@ class SubmissionList extends Component {
         )
     };
 
+    onLoadingFile = (isLoadingFile) => {
+        this.setState({isLoadingFile: isLoadingFile})
+    };
+
     render() {
+        const {isLoadingFile} = this.state;
         const {submissionIds, pageItems} = this.props;
         return (
             <View style={{flex: 1}}>
+                {
+                    isLoadingFile ? <ActivityIndicator size="large" color="#0000ff" style={styles.loading} /> : null
+                }
                 <VirtualizedList
                     data={submissionIds.toList()}
                     contentContainerStyle={{paddingHorizontal: 15}}

@@ -20,8 +20,7 @@ const styles = StyleSheet.create({
     },
     textDate: {
         color: '#000000'
-
-    }
+    },
 });
 
 export default styles;

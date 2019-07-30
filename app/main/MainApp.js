@@ -15,7 +15,7 @@
 'use strict';
 
 import React from 'react';
-import { AppRegistry, Dimensions } from 'react-native';
+import { AppRegistry, Dimensions, Easing, Animated } from 'react-native';
 import {
     createDrawerNavigator,
     createAppContainer,
@@ -32,6 +32,7 @@ import DrawerContent from './components/DrawerContent';
 import AuthLoadingScreen from './components/AuthLoadingScreen';
 import SignInScreen from './components/SignInScreen';
 import UnitScreen from './components/UnitScreen';
+import CheckAuth from './CheckAuth';
 
 // Main
 import UnProcessScreen from '../document/components/UnProcessScreen';
@@ -79,6 +80,7 @@ const drawerNavigatorConfig = {
     drawerPosition: 'left',
     useNativeAnimations: true,
     drawerType: 'back',
+    gesturesEnabled: false,
     contentOptions: {
         activeTintColor: '#e91e63',
         itemsContainerStyle: {
@@ -108,24 +110,31 @@ const AppMainStack = createStackNavigator({
         screen: AppStack
     },
     DetailUnProcessScreen: {
-        screen: DetailUnProcessScreen
+        screen: DetailUnProcessScreen,
     },
-    MoveDCMScreen: MoveDCMScreen,
-    SearchScreen: SearchScreen,
-    ViewerFilePDF: ViewerFilePDF,
+    MoveDCMScreen: {
+        screen: MoveDCMScreen
+    },
+    SearchScreen: {
+        screen: SearchScreen
+    },
+    ViewerFilePDF: {
+        screen: ViewerFilePDF
+    },
 }, {
     initialRouteName: 'AppStack',
     headerMode: 'none',
-    mode: 'modal',
+    mode: 'card',
 });
 
 const AppMain = createAppContainer(createSwitchNavigator(
     {
         App: decorateMainAppStart(AppMainStack),
         Auth: AuthStack,
+        CheckAuth: CheckAuth,
     },
     {
-        initialRouteName: 'App',
+        initialRouteName: 'CheckAuth',
     }
 ));
 

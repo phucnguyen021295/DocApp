@@ -47,6 +47,7 @@ class DrawerContent extends Component {
 
     logout = () => {
         AsyncStorage.removeItem('token');
+        AsyncStorage.removeItem('fcmToken');
         this.props.navigation.navigate("Auth");
     };
 

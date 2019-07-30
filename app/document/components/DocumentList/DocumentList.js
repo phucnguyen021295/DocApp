@@ -12,6 +12,8 @@ import RNPickerSelect from 'react-native-picker-select';
 
 import DocumentContainer from '../Document/DocumentContainer';
 import Text from '../../../base/components/Text';
+import Loading from './LoadingList';
+import DCMLoading from '../Document/Loading';
 
 import styles from "../../../main/components/HeaderNavigation/styles/index.css";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -34,6 +36,10 @@ const pickerSelectStyles = StyleSheet.create({
         paddingRight: 30, // to ensure the text is never behind the icon
     },
 });
+
+const loadingComp = (
+    <DCMLoading />
+);
 
 
 class DocumentList extends Component {
@@ -119,12 +125,6 @@ class DocumentList extends Component {
                             color={"#000000"}
                         />
                     </TouchableOpacity>
-                    {/*<Picker*/}
-                    {/*    selectedValue={this.state.numberPage}*/}
-                    {/*    style={{height: 50, width: 80, borderColor: '#000000', borderWidth: 1}}*/}
-                    {/*    onValueChange={this.onValueChange}>*/}
-                    {/*    {this.renderItems()}*/}
-                    {/*</Picker>*/}
                     <RNPickerSelect
                         // placeholder={placeholder}
                         items={items}
@@ -158,23 +158,30 @@ class DocumentList extends Component {
     render() {
         const {pageItems, documentIds} = this.props;
         return (
-            <View style={{flex: 1}} >
-                <VirtualizedList
-                    data={documentIds.toList()}
-                    contentContainerStyle={{paddingHorizontal: 15}}
-                    style={{flex: 1}}
-                    getItemCount={this.getItemCount}
-                    getItem={this.getItem}
-                    keyExtractor={this.keyExtractor}
-                    renderItem={this.renderItem}
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={this.state.refreshing}
-                            onRefresh={this._refreshListView}
+            <View style={{flex: 1}}>
+                {
+                    documentIds.size === 0 ? (
+                        <Loading
+                            loadingComp={loadingComp}
                         />
-                    }
-                    ListFooterComponent={pageItems && pageItems.get('totalRecord') !== 0 && pageItems.get('pageCount') !== 1 && this.renderFooter}
-                />
+                    ) : (
+                        <VirtualizedList
+                            data={documentIds.toList()}
+                            contentContainerStyle={{paddingHorizontal: 15}}
+                            getItemCount={this.getItemCount}
+                            getItem={this.getItem}
+                            keyExtractor={this.keyExtractor}
+                            renderItem={this.renderItem}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={this.state.refreshing}
+                                    onRefresh={this._refreshListView}
+                                />
+                            }
+                            ListFooterComponent={pageItems && pageItems.get('totalRecord') !== 0 && pageItems.get('pageCount') !== 1 && this.renderFooter}
+                        />
+                    )
+                }
             </View>
         );
     }

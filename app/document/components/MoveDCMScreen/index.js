@@ -14,18 +14,16 @@
 'use strict';
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
     View,
     SafeAreaView,
-    ScrollView
 } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import HeaderNavigation from '../../../main/components/HeaderNavigation';
 import DepartmentListContainer from '../../../modules/department/components/DepartmentList/DepartmentListContainer';
 
 import styles from './styles/index.css';
-import PropTypes from "prop-types";
 
 const  drawerLabel = 'Chuyển văn bản';
 class MoveDCMScreen extends Component {

@@ -57,6 +57,7 @@ const watchLoginSuccess = function* watchLoginSuccess() {
     while (true) { // eslint-disable-line
         const fetchResult = yield take(AUTH_TYPE.LOGIN.SUCCESS);
         const {payload} = fetchResult;
+        debugger;
         AsyncStorage.setItem('token', payload.getIn(['data', 'token']));
         AsyncStorage.setItem('meId', payload.getIn(['data', 'info', 'id']));
         yield put(auth.add(payload));
@@ -75,7 +76,7 @@ const watchLoginFailure = function* watchLoginFailure() {
 const watchAppStartSuccess = function* watchAppStartSuccess() {
     while (true) { // eslint-disable-line
         const fetchResult = yield take('LOGIN_SUCCESS');
-        // const {payload} = fetchResult;
+        const {payload} = fetchResult;
         const {meId, unit} = yield call(getAsyncs, 'meId', 'unit');
 
         // Cập nhật đơn vị

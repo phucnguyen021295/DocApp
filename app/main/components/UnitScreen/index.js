@@ -64,7 +64,9 @@ class UnitScreen extends React.Component {
                 const data = response.data.data.list;
                 _that.setState({data});
             },
-            (error) => ({error})
+            (error) => ({
+                console:warn(error)
+            })
         );
     }
 

@@ -57,6 +57,7 @@ class DocumentFile extends Component {
     onChangeNavigation = () => {
         const {file} = this.props;
         const {fileName, fileType, url} = convertFile(file.get('file_name'));
+        this.props.onLoadingFile(true);
         if(Platform.OS === 'android') {
             OpenFile.openDoc([{
                 url: url, // Local "file://" + filepath
@@ -67,6 +68,7 @@ class DocumentFile extends Component {
                 if (error) {
                     this.onAlert(fileType);
                 } else {
+                    this.props.onLoadingFile(true);
                     this.setState({animating: false});
                     console.log(url)
                 }
@@ -81,6 +83,7 @@ class DocumentFile extends Component {
                 if (error) {
                     this.onAlert(fileType);
                 } else {
+                    this.props.onLoadingFile(false);
                     this.setState({animating: false});
                     console.log(url)
                 }
@@ -109,6 +112,7 @@ class DocumentFile extends Component {
 
 DocumentFile.propTypes = {
     file: PropTypes.object,
+    onLoadingFile: PropTypes.func
 };
 
 export default DocumentFile;

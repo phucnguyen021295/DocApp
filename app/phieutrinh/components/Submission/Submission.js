@@ -42,6 +42,7 @@ class Submission extends Component {
 
     onChangeNavigation = () => {
         const {submission} = this.props;
+        this.props.onLoadingFile(true);
         if(submission.get('file_name') !== null) {
             const {fileName, fileType, url} = convertFile(submission.get('file_name'));
             if(Platform.OS === 'android') {
@@ -54,6 +55,7 @@ class Submission extends Component {
                     if (error) {
                         this.onAlert(fileType);
                     } else {
+                        this.props.onLoadingFile(false);
                         this.setState({animating: false});
                         console.log(url)
                     }
@@ -68,6 +70,7 @@ class Submission extends Component {
                     if (error) {
                         this.onAlert(fileType);
                     } else {
+                        this.props.onLoadingFile(false);
                         this.setState({animating: false});
                         console.log(url)
                     }
@@ -95,6 +98,7 @@ class Submission extends Component {
 Submission.propTypes = {
     submission: PropTypes.object,
     navigation: PropTypes.object,
+    onLoadingFile: PropTypes.func,
 };
 
 export default withNavigation(Submission);

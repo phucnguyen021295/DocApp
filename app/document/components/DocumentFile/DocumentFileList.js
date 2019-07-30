@@ -32,7 +32,7 @@ class DocumentFileList extends Component {
 
     getItem = (data, index) => data.get(index);
 
-    renderItem = (data) => <DocumentFileContainer fileId={data.item} />;
+    renderItem = (data) => <DocumentFileContainer fileId={data.item} onLoadingFile={this.props.onLoadingFile} />;
 
     render() {
         const {fileIds} = this.props;
@@ -40,7 +40,6 @@ class DocumentFileList extends Component {
             <VirtualizedList
                 data={fileIds.toList()}
                 contentContainerStyle={{paddingHorizontal: 15}}
-                style={{flex: 1}}
                 getItemCount={this.getItemCount}
                 getItem={this.getItem}
                 keyExtractor={this.keyExtractor}
@@ -52,6 +51,7 @@ class DocumentFileList extends Component {
 
 DocumentFileList.propTypes = {
     fileIds: PropTypes.array,
+    onLoadingFile: PropTypes.func
 };
 
 DocumentFileList.defaultProps = {

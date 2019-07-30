@@ -68,10 +68,7 @@ const watchGetDocumentDetailSuccess = function* watchGetDocumentDetailSuccess() 
         const fetchResult = yield take('GET_DOCUMENT_DETAIL');
         const {documentId} = fetchResult.payload;
         yield put(actionAssignTohis.get(`${DOMAIN}/document/assignTohis.json?id=${documentId}`));
-        yield call(delay, 200);
-        yield put(actionHandlingDCM.get(documentId, `${DOMAIN}/document/history.json?id=${documentId}`));
-        yield call(delay, 200);
-        yield put(actionFileDocument.get(documentId, `${DOMAIN}/document/attach.json?id=${documentId}`));
+
     }
 };
 
@@ -100,6 +97,7 @@ const watchGetHandlingDocumentSuccess = function* watchGetHandlingDocumentSucces
         const fetchResult = yield take(isGetHandlingDoccumentSuccess);
         const {payload, original} = fetchResult;
         const {documentId} = original;
+        yield put(actionFileDocument.get(documentId, `${DOMAIN}/document/attach.json?id=${documentId}`));
         yield put(actionHandlingDCM.add(payload, documentId));
     }
 };
@@ -128,6 +126,8 @@ const watchGetAssignToHisSuccess = function* watchGetAssignToHisSuccess() {
     while (true) { // eslint-disable-line
         const fetchResult = yield take(isGetAssignToHisSuccess);
         const {payload} = fetchResult;
+        const documentId = payload.getIn(['data', 'doc_id']);
+        yield put(actionHandlingDCM.get(documentId, `${DOMAIN}/document/history.json?id=${documentId}`));
         yield put(actionAssignTohis.add(payload));
     }
 };

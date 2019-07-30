@@ -20,19 +20,21 @@ import { OrderedSet } from 'immutable';
 import {
     VirtualizedList,
     View,
-    TextInput, TouchableOpacity,
-    Button,
+    TextInput,
+    TouchableOpacity,
     Dimensions,
-    ScrollView
+    Keyboard,
+    Animated,
 } from 'react-native';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import Icons from 'react-native-vector-icons/MaterialIcons';
 import {withNavigation} from 'react-navigation';
 
-// Component
+// Components
 import Text from '../../../../base/components/Text';
 import DepartmentChild from './DepartmentChild';
 
+// Shares
 import * as color from '../../../../shares/styles/color/index';
 
 import {DOMAIN} from '../../../../config';
@@ -50,11 +52,18 @@ class DepartmentList extends Component {
             expired_at: new Date(),
             notes: props.notes,
         };
+
+        this.keyboardHeight = new Animated.Value(0);
     }
 
     componentDidMount() {
         const {groupIds, onRendered} = this.props;
         // onRendered(groupIds.size);
+
+        // Hieu ung day ban phim
+        // https://www.freecodecamp.org/news/how-to-make-your-react-native-app-respond-gracefully-when-the-keyboard-pops-up-7442c1535580/
+        this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
+        this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -65,7 +74,27 @@ class DepartmentList extends Component {
 
     componentWillUnmount() {
         this.props.removeChecked(null);
+        this.keyboardWillShowSub.remove();
+        this.keyboardWillHideSub.remove();
     }
+
+    keyboardWillShow = (event) => {
+        Animated.parallel([
+            Animated.timing(this.keyboardHeight, {
+                duration: event.duration,
+                toValue: event.endCoordinates.height,
+            }),
+        ]).start();
+    };
+
+    keyboardWillHide = (event) => {
+        Animated.parallel([
+            Animated.timing(this.keyboardHeight, {
+                duration: event.duration,
+                toValue: 0,
+            }),
+        ]).start();
+    };
 
     _keyExtractor = (groupId) => groupId;
 
@@ -88,7 +117,7 @@ class DepartmentList extends Component {
     handleDatePicked = (date) => {
         const textDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
         this.setState({textDate: textDate, expired_at: date});
-        // this.hideDateTimePicker();
+        this.hideDateTimePicker();
     };
 
     onChangeDate = (date) => {
@@ -131,9 +160,9 @@ class DepartmentList extends Component {
     render() {
         const {departmentIds} = this.props;
         return (
-            <View style={{paddingLeft: 8, flex: 1}}>
+            <View style={{paddingLeft: 8,flex: 1}}>
                 <VirtualizedList
-                    data={departmentIds.size > 0 && departmentIds.toList()}
+                    data={departmentIds.toList()}
                     renderItem={this.renderItem}
                     getItemCount={this.getItemCount}
                     getItem={this.getItem}
@@ -141,46 +170,52 @@ class DepartmentList extends Component {
                     style={{height: height - 350}}
                     // contentContainerStyle={{height: height - 350}}
                 />
-                <View style={{flexDirection: 'row', marginLeft: 5, marginVertical: 15, alignItems: 'center'}}>
-                    <Text text={'Ngày hết hạn: '} style={{color: '#000000'}} />
-                    <TextInput
-                        style={{height: 30, borderColor: 'gray', borderWidth: 1, width: 130, color: '#000000', paddingVertical: 5}}
-                        onChangeText={this.onChangeDate}
-                        value={this.state.textDate}
+                <Animated.View style={ {paddingBottom: this.keyboardHeight }}>
+                    <View style={[{flexDirection: 'row', marginLeft: 5, marginVertical: 15, alignItems: 'center'}]}>
+                        <Text text={'Ngày hết hạn: '} style={{color: '#000000'}} />
+                        <TextInput
+                            style={{height: 30, borderColor: 'gray', borderWidth: 1, width: 130, color: '#000000', paddingVertical: 5}}
+                            onChangeText={this.onChangeDate}
+                            value={this.state.textDate}
+                        />
+                        <TouchableOpacity onPress={this.showDateTimePicker} >
+                            <Icons name={'date-range'} style={{color: color.colorBlue}} size={25} />
+                        </TouchableOpacity>
+                    </View>
+                    <DateTimePicker
+                        isVisible={this.state.isDateTimePickerVisible}
+                        onConfirm={this.handleDatePicked}ọn
+                        onCancel={this.hideDateTimePicker}
+                        confirmTextIOS={'Chọn'}
+                        cancelTextIOS={'Bỏ'}
+                        titleIOS={'Ngày'}
                     />
-                    <TouchableOpacity onPress={this.showDateTimePicker} >
-                        <Icons name={'date-range'} style={{color: color.colorBlue}} size={25} />
-                    </TouchableOpacity>
-                </View>
-                <DateTimePicker
-                    isVisible={this.state.isDateTimePickerVisible}
-                    onConfirm={this.handleDatePicked}
-                    onCancel={this.hideDateTimePicker}
-                />
-                <TextInput
-                    multiline = {true}
-                    numberOfLines = {4}
-                    textAlignVertical={'top'}
-                    onChangeText={this.onChangeText}
-                    value={this.state.notes}
-                    style={{borderWidth: 1, borderColor: 'gray', marginHorizontal: 5}}
-                />
-                <View style={{flexDirection: 'row', marginLeft: 5, marginVertical: 15}}>
-                    <TouchableOpacity onPress={this.onTransferText} style={{paddingHorizontal: 12, paddingVertical: 6, backgroundColor: color.colorBlue}}>
-                        <Text text={'Chuyển Văn Bản'} style={{color: '#FFFFFf', flexWrap:'wrap'}} />
-                    </TouchableOpacity>
-                </View>
-                <View style={{marginLeft: 5, marginBottom: 15}}>
-                    <Text text={'Ghi chú: '} style={{color: '#000000'}} />
-                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                        <Icons name={'check-box-outline-blank'} size={16} color={'#000000'} />
-                        <Text text={'  Chọn cán bộ muốn chuyển văn bản'} />
+                    <TextInput
+                        multiline = {true}
+                        numberOfLines = {4}
+                        textAlignVertical={'top'}
+                        onChangeText={this.onChangeText}
+                        value={this.state.notes}
+                        style={{borderWidth: 1, borderColor: 'gray', marginHorizontal: 5, minHeight: 48}}
+                    />
+                    <View style={{flexDirection: 'row', marginLeft: 5, marginVertical: 15}}>
+                        <TouchableOpacity onPress={this.onTransferText} style={{borderRadius: 5, paddingHorizontal: 12, paddingVertical: 6, backgroundColor: color.colorBlue}}>
+                            <Text text={'Chuyển Văn Bản'} style={{color: '#FFFFFf', flexWrap:'wrap'}} />
+                        </TouchableOpacity>
                     </View>
-                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                        <Icons name={'radio-button-unchecked'} size={16} color={'#000000'} />
-                        <Text text={'  CHọn cán bộ là người chủ trì văn bản'} />
+                    <View style={{marginLeft: 5, marginBottom: 15}}>
+                        <Text text={'Ghi chú: '} style={{color: '#000000'}} />
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <Icons name={'check-box-outline-blank'} size={16} color={'#000000'} />
+                            <Text text={'  Chọn cán bộ muốn chuyển văn bản'} />
+                        </View>
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <Icons name={'radio-button-unchecked'} size={16} color={'#000000'} />
+                            <Text text={'  Chọn cán bộ là người chủ trì văn bản'} />
+                        </View>
                     </View>
-                </View>
+                </Animated.View>
+
             </View>
         );
     }

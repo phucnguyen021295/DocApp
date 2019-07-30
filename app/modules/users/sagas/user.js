@@ -26,6 +26,7 @@ const watchGetUserSuccess = function* watchGetUserSuccess() {
     while (true) { // eslint-disable-line
         const fetchResult = yield take(isGetUserSuccess);
         const {payload, original} = fetchResult;
+        debugger;
         yield put(actionUser.add(payload));
     }
 };

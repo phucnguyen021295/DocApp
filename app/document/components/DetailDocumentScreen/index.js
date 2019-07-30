@@ -3,7 +3,7 @@ import {
     View,
     SafeAreaView,
     ScrollView,
-    BackHandler
+    ActivityIndicator
 } from 'react-native';
 import {withNavigation} from 'react-navigation';
 
@@ -18,29 +18,43 @@ import styles from './styles/index.css';
 
 // const  drawerLabel = 'Văn bản abc';
 class DetailDocumentScreen extends Component {
-    // static navigationOptions = {
-    //     drawerLabel: () => null
+    static navigationOptions = {
+        gesturesEnabled: true
+    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoadingFile: false,
+        }
+    }
+
+    // componentDidMount() {
+    //     BackHandler.addEventListener("hardwareBackPress", this.onGoBack);
+    // }
+    //
+    // componentWillUnmount() {
+    //     BackHandler.removeEventListener("hardwareBackPress", this.onGoBack);
+    // }
+    //
+    // onGoBack = () => {
+    //     this.props.navigation.goBack();
+    //     return true;
     // };
 
-    componentDidMount() {
-        BackHandler.addEventListener("hardwareBackPress", this.onGoBack);
-    }
-
-    componentWillUnmount() {
-        BackHandler.removeEventListener("hardwareBackPress", this.onGoBack);
-    }
-
-    onGoBack = () => {
-        this.props.navigation.goBack();
-        return true;
+    onLoadingFile = (isLoadingFile) => {
+        this.setState({isLoadingFile: isLoadingFile})
     };
 
     render() {
+        const {isLoadingFile} = this.state;
         const {navigation} = this.props;
         const documentId = navigation.getParam('documentId');
         const drawerLabel = navigation.getParam('drawerLabel');
         return (
             <SafeAreaView style={styles.container}>
+                {
+                    isLoadingFile ? <ActivityIndicator size="large" color="#0000ff" style={styles.loading} /> : null
+                }
                 <HeaderNavigation {...this.props} title={drawerLabel} isBtnBack={true} />
                 <View style={styles.content}>
                     <DocumentEvent documentId={documentId} navigation={navigation} />
@@ -64,7 +78,10 @@ class DetailDocumentScreen extends Component {
                         </View>
                         <View style={{marginBottom: 20}}>
                             <MediumText text={"Tệp tin đính kèm:"} style={styles.title}/>
-                            <DocumentFileListContainenr documentId={documentId} />
+                            <DocumentFileListContainenr
+                                documentId={documentId}
+                                onLoadingFile={this.onLoadingFile}
+                            />
                         </View>
 
                     </ScrollView>

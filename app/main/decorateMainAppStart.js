@@ -10,6 +10,7 @@ import {
     StatusBar,
 } from 'react-native';
 import hoistNonReactStatic from 'hoist-non-react-statics';
+import firebase from "react-native-firebase";
 
 
 /**
@@ -32,7 +33,7 @@ function decorateMainAppStart(AppStack) {
             this.recheckAuthToken();
         }
 
-        componentDidMount() {
+        async componentDidMount() {
             StatusBar.setBackgroundColor('#123668');
             // Back Handle
             this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
@@ -45,6 +46,9 @@ function decorateMainAppStart(AppStack) {
 
             // AppState
             AppState.addEventListener('change', this.handleAppStateChange);
+
+            this.checkPermission();
+            this.createNotificationListeners(); //add this line
         }
 
         componentWillUnmount() {
@@ -59,16 +63,100 @@ function decorateMainAppStart(AppStack) {
 
             // AppState
             AppState.removeEventListener('change', this.handleAppStateChange);
+
+            this.notificationListener();
+            this.notificationOpenedListener();
         }
 
-        recheckAuthToken = async() => {
-            const userToken = await AsyncStorage.getItem('token');
-            if (!userToken) {
-                this.props.navigation.navigate('Auth');
+        //1
+        async checkPermission() {
+            const enabled = await firebase.messaging().hasPermission();
+            if (enabled) {
+                this.getToken();
             } else {
-                this.props.doLoginSuccess();
-                // this.configure();
+                this.requestPermission();
             }
+        }
+
+        //2
+        async requestPermission() {
+            try {
+                await firebase.messaging().requestPermission();
+                // User has authorised
+                this.getToken();
+            } catch (error) {
+                // User has rejected permissions
+                console.log('permission rejected');
+            }
+        }
+
+        //3
+        async getToken() {
+            let fcmToken = await AsyncStorage.getItem('fcmToken');
+            if (!fcmToken) {
+                fcmToken = await firebase.messaging().getToken();
+                if (fcmToken) {
+                    // user has a device token
+                    await AsyncStorage.setItem('fcmToken', fcmToken);
+                }
+            }
+        }
+
+        // 4
+        async createNotificationListeners() {
+            /*
+            * Triggered when a particular notification has been received in foreground
+            * */
+            this.notificationListener = firebase.notifications().onNotification((notification) => {
+                const { title, body, data } = notification;
+                debugger;
+                const notification1 = new firebase.notifications.Notification()
+                    .setNotificationId(data.docId)
+                    .setTitle(title)
+                    .setBody(body)
+                    .setData(data)
+                firebase.notifications().displayNotification(notification1)
+                // this.showAlert(title, body);
+            });
+
+            /*
+            * If your app is in background, you can listen for when a notification is clicked / tapped / opened as follows:
+            * */
+            this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
+                const { title, body, data } = notificationOpen.notification;
+                debugger;
+                const notificationId = data.docId;
+                const drawerLabel = "Chi tiet van ban";
+                this.navigateDetailDoc(notificationId, drawerLabel);
+            });
+
+            /*
+            * If your app is closed, you can check if it was opened by a notification being clicked / tapped / opened as follows:
+            * */
+            const notificationOpen = await firebase.notifications().getInitialNotification();
+            if (notificationOpen) {
+                const { title, body, data } = notificationOpen.notification;
+                const notificationId = data.docId;
+                const drawerLabel = "Chi tiet van ban";
+                this.navigateDetailDoc(notificationId, drawerLabel);
+            }
+            /*
+            * Triggered for data only payload in foreground
+            * */
+            // this.messageListener = firebase.messaging().onMessage((message) => {
+            //     //process data message
+            //     debugger;
+            //     console.log(JSON.stringify(message));
+            // });
+        }
+
+        navigateDetailDoc = (documentId, drawerLabel) => {
+            this.props.getDocumentDetail(documentId);
+            this.props.navigation.navigate("DetailUnProcessScreen", {documentId, drawerLabel});
+        };
+
+        recheckAuthToken = () => {
+            this.props.doLoginSuccess();
         };
 
         handleBackPress = () => {
@@ -99,7 +187,8 @@ function decorateMainAppStart(AppStack) {
 
     function mapDispatchToProps(dispatch) {
         return {
-            doLoginSuccess: () => dispatch({type: "LOGIN_SUCCESS"})
+            doLoginSuccess: () => dispatch({type: "LOGIN_SUCCESS"}),
+            getDocumentDetail: (documentId) => dispatch({type: 'GET_DOCUMENT_DETAIL', payload: {documentId}}),
         };
     }
 
